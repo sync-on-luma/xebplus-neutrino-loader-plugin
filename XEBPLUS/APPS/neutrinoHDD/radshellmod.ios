@@ -1,0 +1,5 @@
+fontsize 0.6
+load ioman.irx
+cls
+sleep 1
+run neutrino.elf -bsd=ata "-dvd=mass:DVD/" -mt=dvd
