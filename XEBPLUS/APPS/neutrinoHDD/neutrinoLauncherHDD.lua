@@ -294,7 +294,7 @@ function NEUTRINO_GetTitleId()
 end
 
 function NEUTRINO_GetFavorites(Index)
-	if NEUTRINO_FavoritesList ~= "" then
+	if NEUTRINO_FavoritesList ~= "" and NEUTRINO_FavoritesList ~= nil then
 		for NEUTRINO_i in string.gmatch(NEUTRINO_FavoritesList, "[^,]+") do
 			NEUTRINO_i = string.gsub(NEUTRINO_i, "#c", ",")
 			if NEUTRINO_i == NEUTRINO_Games[Index].Name then
@@ -316,6 +316,7 @@ function NEUTRINO_GetFavorites(Index)
 			end
 		end
 	else
+
 		NEUTRINO_Games[Index].Favorite = false
 		NEUTRINO_Games[Index].Link = 0
 	end
@@ -549,7 +550,6 @@ if not NEUTRINO_IsThereAnError then
 	NEUTRINO_DiscFolder = System.listDirectory(xebLua_AppWorkingPath..".cache/DISC/")
 	NEUTRINO_BgFolder = System.listDirectory(xebLua_AppWorkingPath..".cache/BG/")
 	NEUTRINO_ArtTotal = #NEUTRINO_DiscFolder + #NEUTRINO_BgFolder
-	
 	if System.doesFileExist(xebLua_AppWorkingPath..".cache/lasttotal.cfg") and System.doesFileExist(xebLua_AppWorkingPath..".cache/lastgame.cfg") then
 		NEUTRINO_TempFile = io.open(xebLua_AppWorkingPath..".cache/lasttotal.cfg", "r")
 		tempTotal = tonumber(NEUTRINO_TempFile:read())
@@ -580,7 +580,6 @@ if not NEUTRINO_IsThereAnError then
 		NEUTRINO_CreateConfig(true, true)
 		NEUTRINO_PrepRecache()
 	end
-	
 	if NEUTRINO_CachedStatus == true then
 		NEUTRINO_ReadNoArt()
 	end
@@ -588,10 +587,8 @@ if not NEUTRINO_IsThereAnError then
 		NEUTRINO_GetFavorites(NEUTRINO_i)
 		NEUTRINO_CacheArt(NEUTRINO_i)
 	end
-	
 	NEUTRINO_CurrentList = NEUTRINO_Games
 	NEUTRINO_LinkedList = NEUTRINO_Favorites
-	
 	if #NEUTRINO_DiscFolder + NEUTRINO_NDiscCount > NEUTRINO_TitleIdCount then
 		for NEUTRINO_n = 1, #NEUTRINO_DiscFolder do
 			Screen.clear()
@@ -640,7 +637,6 @@ if not NEUTRINO_IsThereAnError then
 		NEUTRINO_CreateConfig(false, true)
 		NEUTRINO_LoadingText(neuLang[6])
 	end
-
 	NEUTRINO_InitList()
 end
 
@@ -658,6 +654,7 @@ for NEUTRINO_i = 1, 3 do
 		Font.ftPrint(fontBig, 152, plusYValue+222, 0, 512, 64, xebLang[35], NEUTRINO_ColorGetAnimationAlpha(NEUTRINO_i,baseColorFull,NEUTRINO_ColorFullZero))
 		Font.ftPrint(fontSmall, 153, plusYValue+243, 0, 512, 64, neuLang[35], NEUTRINO_ColorGetAnimationAlpha(NEUTRINO_i,baseColorFull,NEUTRINO_ColorFullZero))
 	else
+		--NEUTRINO_DebugLog("1")
 		NEUTRINO_ItemPosition = -5
 		for NEUTRINO_iB = NEUTRINO_SelectedItem-6, NEUTRINO_SelectedItem+5 do
 			NEUTRINO_iB_Y = NEUTRINO_ItemPosition*71
@@ -669,11 +666,13 @@ for NEUTRINO_i = 1, 3 do
 			NEUTRINO_ItemPosition=NEUTRINO_ItemPosition+1
 		end
 	end
+	NEUTRINO_DebugLog("5")
 	spinDisc()
 	thmDrawBKGOL()
 	Screen.waitVblankStart()
 	oldpad = pad;
 	Screen.flip()
+	NEUTRINO_DebugLog("6")
 end
 
 function NEUTRINO_UpdateFavorites()
