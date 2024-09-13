@@ -80,7 +80,7 @@ if System.doesFileExist("CFG/favorites.csv") then
 	NEUTRINO_FavoritesList = (NEUTRINO_TempFile:read())
 	io.close(NEUTRINO_TempFile)
 else
-	NEUTRINO_FavoritsesList = ""
+	NEUTRINO_FavoritesList = ""
 end
 
 themeInUse[-90] = Graphics.loadImage(xebLua_AppWorkingPath.."image/bgfallback.png")
@@ -666,13 +666,11 @@ for NEUTRINO_i = 1, 3 do
 			NEUTRINO_ItemPosition=NEUTRINO_ItemPosition+1
 		end
 	end
-	NEUTRINO_DebugLog("5")
 	spinDisc()
 	thmDrawBKGOL()
 	Screen.waitVblankStart()
 	oldpad = pad;
 	Screen.flip()
-	NEUTRINO_DebugLog("6")
 end
 
 function NEUTRINO_UpdateFavorites()
@@ -694,8 +692,8 @@ function NEUTRINO_UpdateFavorites()
 	end
 	if RemoveFavorite == true then 
 		NEUTRINO_LoadingText(neuLang[7])
-		if NEUTRINO_NewFavorites == "" then 
-			System.removeFile("CFG/favorites.csv")
+		if NEUTRINO_FavoritesTotal == 1 then
+			System.removeFile("mass:/XEBPLUS/CFG/favorites.csv")
 		else
 			NEUTRINO_TempFile = io.open("CFG/favorites.csv", "w")
 			io.output(NEUTRINO_TempFile)
