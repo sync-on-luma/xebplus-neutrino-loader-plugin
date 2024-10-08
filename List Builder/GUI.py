@@ -59,7 +59,7 @@ def current_folder_2():
 def build_list():
     global text
     process = subprocess.Popen(
-        sys.executable+" -u \""+os.getcwd()+"/list_builder.py\" \""+selected.get()+"\" \""+ent1.get()+"\" \""+ent2.get()+"\"",
+        "\""+sys.executable+"\" -u \""+os.getcwd()+"/list_builder.py\" \""+selected.get()+"\" \""+ent1.get()+"\" \""+ent2.get()+"\"",
         #"python -u list_builder.py "+selected.get()+" "+ent1.get()+" "+ent2.get(),
         stdout=subprocess.PIPE,
         universal_newlines=True,
