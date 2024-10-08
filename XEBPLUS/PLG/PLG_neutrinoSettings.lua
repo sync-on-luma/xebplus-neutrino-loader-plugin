@@ -1,6 +1,6 @@
 nSetLang = {};
 if XEBPlusLanguage == "en-US" then
-    nSetLang[1] = "neutrino Launcher (HDD) Settings"
+    nSetLang[1] = "neutrino Launcher Settings"
     nSetLang[2] = "Configure neutrino Launcher menu"
     nSetLang[3] = "Disable game specific artwork in menu."
     nSetLang[4] = "Disable loading and other messages\nthat appear at the bottom of the screen."
@@ -15,8 +15,22 @@ if XEBPlusLanguage == "en-US" then
     nSetLang[13] = "Rebuild Artwork Cache"
     nSetLang[14] = "Cache Rebuild Queued"
     nSetLang[15] = "Disable Icon Animation"
+    nSetLang[16] = "Enable neutrino Launcher (HDD) plugin.\nRequires XEB+ refresh."
+    nSetLang[17] = "Enable neutrino Launcher (USB) plugin.\nRequires XEB+ refresh."
+    nSetLang[18] = "Enable neutrino Launcher (MX4SIO) plugin.\nRequires XEB+ refresh."
+    nSetLang[19] = "Enable HDD"
+    nSetLang[20] = "Enable USB"
+    nSetLang[21] = "Enable MX4ISO"
+    nSetLang[22] = "Show game title IDs in the menu."
+    nSetLang[23] = "Show game version numbers in the menu."
+    nSetLang[24] = "Show game media type in the menu."
+    nSetLang[25] = "Show Title ID"
+    nSetLang[26] = "Show Version"
+    nSetLang[27] = "Show Media"
+    nSetLang[28] = "Disable Background Fading"
+    nSetLang[29] = "Disable the fade effect when loading\nbackgound artwork."
 elseif XEBPlusLanguage == "es-419" then
-    nSetLang[1] = "Configuración del lanzador neutrino (HDD)"
+    nSetLang[1] = "Configuración del lanzador neutrino"
     nSetLang[2] = "Configurar el menú del lanzador de neutrino"
     nSetLang[3] = "Desactiva el arte específico del juego en\nel menú."
     nSetLang[4] = "Deshabilitar la carga y otros mensajes que\naparecen en la parte inferior de la pantalla."
@@ -31,8 +45,22 @@ elseif XEBPlusLanguage == "es-419" then
     nSetLang[13] = "Reconstruir la caché de arte"
     nSetLang[14] = "Encolada la reconstrucción del caché"
     nSetLang[15] = "Desactivar animación de iconos"
+    nSetLang[16] = "Habilite el complemento neutrino Launcher (HDD).\nRequiere actualización XEB+."
+    nSetLang[17] = "Habilite el complemento neutrino Launcher (USN).\nRequiere actualización XEB+."
+    nSetLang[18] = "Habilite el complemento neutrino Launcher (MX4SIO).\nRequiere actualización XEB+."
+    nSetLang[19] = "Habilitar disco duro"
+    nSetLang[20] = "Habilitar USB"
+    nSetLang[21] = "Habilitar MX4SIO"
+    nSetLang[22] = "Muestra los ID de los títulos del juego en el menú."
+    nSetLang[23] = "Muestra los números de versión del juego en el menú."
+    nSetLang[24] = "Muestra el tipo de media del juego en el menú."
+    nSetLang[25] = "Mostrar ID del Título"
+    nSetLang[26] = "Mostrar Versión"
+    nSetLang[27] = "Mostrar Media"
+    nSetLang[28] = "Desactivar el desvanecimiento del fondo."
+    nSetLang[29] = "Desactiva el efecto de desvanecimiento\nal cargar ilustraciones de fondo."
 elseif XEBPlusLanguage == "pt-BR" then
-    nSetLang[1] = "Configurações do neutrino Launcher (HDD)"
+    nSetLang[1] = "Configurações do neutrino Launcher"
     nSetLang[2] = "Configurar menu do neutrino Launcher"
     nSetLang[3] = "Desative a artwork específica do jogo\nno menu."
     nSetLang[4] = "Desative o carregamento e outras\nmensagens que apareçam na parte\ninferior do ecrã."
@@ -47,6 +75,20 @@ elseif XEBPlusLanguage == "pt-BR" then
     nSetLang[13] = "Reconstruir cache de artwork"
     nSetLang[14] = "Reconstrução de cache em espera..."
     nSetLang[15] = "Desativar animação de ícones"
+    nSetLang[16] = "Ative o plugin neutrino Launcher (HDD).\nRequer atualização XEB+."
+    nSetLang[17] = "Ative o plugin neutrino Launcher (USB).\nRequer atualização XEB+."
+    nSetLang[18] = "Ative o plugin neutrino Launcher (MX4SIO).\nRequer atualização XEB+."
+    nSetLang[19] = "Habilitar HDD"
+    nSetLang[20] = "Habilitar USB"
+    nSetLang[21] = "Habilitar MX4SIO"
+    nSetLang[22] = "Mostrar IDs de títulos de jogos no menu."
+    nSetLang[23] = "Mostre os números da versão do jogo no menu."
+    nSetLang[24] = "Mostrar o tipo de Mídia do jogo no menu."
+    nSetLang[25] = "Mostrar ID do Título"
+    nSetLang[26] = "Mostrar Versão"
+    nSetLang[27] = "Mostrar Mídia"
+    nSetLang[28] = "Desativar desvanecimento de fundo."
+    nSetLang[29] = "Desative o efeito de desvanecimento\nao carregar arte de fundo."
 end
 
 PluginData = {};
@@ -55,14 +97,18 @@ PluginData.Category = 6;
 PluginData.Name = nSetLang[1];
 PluginData.Description = nSetLang[2];
 PluginData.Safe = true;
-PluginData.ValueA = "APPS/neutrinoHDD/settings.lua";
+PluginData.ValueA = "APPS/neutrinoLauncher/settings.lua";
 PluginData.ValueB = "NONE";
 PluginData.ValueC = "NONE";
 if theXEBPlusVersion == "XEBPLUS-2022-09" then -- If using the XEB+ Xmas showcase, an external icon will be loaded
 	PluginData.Icon = 70; -- Preventive, in case the game files' are missing
-	if System.doesFileExist(System.currentDirectory().."APPS/neutrinoHDD/image/ic_set_neutrino_hdl.png") then
+	if System.doesFileExist(System.currentDirectory().."THM/"..loadedTheme.."/ic_set_neutrino_cfg.png") then
+			AddIcon=#themeInUse+1
+			themeInUse[AddIcon] = Graphics.loadImage(System.currentDirectory().."THM/"..loadedTheme.."/ic_set_neutrino_cfg.png")
+			PluginData.Icon = AddIcon;
+	elseif System.doesFileExist(System.currentDirectory().."APPS/neutrinoLauncher/image/ic_set_neutrino_cfg.png") then
 		AddneutrinosethdlIcon=#themeInUse+1
-		themeInUse[AddneutrinosethdlIcon] = Graphics.loadImage(System.currentDirectory().."APPS/neutrinoHDD/image/ic_set_neutrino_hdl.png")
+		themeInUse[AddneutrinosethdlIcon] = Graphics.loadImage(System.currentDirectory().."APPS/neutrinoLauncher/image/ic_set_neutrino_cfg.png")
 		PluginData.Icon = AddneutrinosethdlIcon;
 	end
 else -- Else, the icon will be loaded from XEB+'s theme
