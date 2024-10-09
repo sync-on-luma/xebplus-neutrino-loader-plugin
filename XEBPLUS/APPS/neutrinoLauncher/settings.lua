@@ -45,15 +45,15 @@ else
 	ContextMenu_EnableHDD = ""
 	ContextMenu[1].Name = "\194\172  "..nSetLang[19]
 end
-if string.match(Settings, "(.*)M(.*)") then
-	ContextMenu_EnableUSB = "M"
+if string.match(Settings, "(.*)U(.*)") then
+	ContextMenu_EnableUSB = "U"
 	ContextMenu[2].Name = "     "..nSetLang[21]
 else
 	ContextMenu_EnableUSB = ""
 	ContextMenu[2].Name = "\194\172  "..nSetLang[21]
 end
-if string.match(Settings, "(.*)U(.*)") then
-	ContextMenu_EnableMX4 = "U"
+if string.match(Settings, "(.*)M(.*)") then
+	ContextMenu_EnableMX4 = "M"
 	ContextMenu[3].Name = "     "..nSetLang[20]
 else
 	ContextMenu_EnableMX4 = ""
@@ -191,7 +191,7 @@ while XEBKeepInContextMenu do
             end
         elseif ContextMenu_SelectedItem == 2 then
             if ContextMenu_EnableUSB == "" then
-                ContextMenu_EnableUSB = "M"
+                ContextMenu_EnableUSB = "U"
                 ContextMenu[2].Name = "     "..nSetLang[21]
             else
             	ContextMenu_EnableUSB = ""
@@ -199,7 +199,7 @@ while XEBKeepInContextMenu do
             end
         elseif ContextMenu_SelectedItem == 3 then
             if ContextMenu_EnableMX4 == "" then
-                ContextMenu_EnableMX4 = "U"
+                ContextMenu_EnableMX4 = "M"
                 ContextMenu[3].Name = "     "..nSetLang[20]
             else
             	ContextMenu_EnableMX4 = ""
