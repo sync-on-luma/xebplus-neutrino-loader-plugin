@@ -301,7 +301,7 @@ NEUTRINO_LoadingText(false, neuLang[1])
 if not System.doesDirectoryExist("mass:/XEBPLUS/CFG/neutrinoLauncher") then
 	System.createDirectory("mass:/XEBPLUS/CFG/neutrinoLauncher")
 end
-if System.doesDirectoryExist("mass:/XEBPLUS/CFG/neutrinoLauncher/cache") then
+if System.doesDirectoryExist("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache") then
 	if not System.doesDirectoryExist("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/DISC") then
 		System.createDirectory("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/DISC")
 		NEUTRINO_PrepRecache()
