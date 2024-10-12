@@ -295,6 +295,9 @@ ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_DisableFade
 ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_DisableAnim
 ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_ShowTitleId
 ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_ShowMedia
+if not System.doesDirectoryExist("mass:/XEBPLUS/CFG/neutrinoLauncher") then
+	System.createDirectory("mass:/XEBPLUS/CFG/neutrinoLauncher")
+end
 if ContextMenu_NewSettings == "" then
     System.removeFile(System.currentDirectory().."CFG/neutrinoLauncher/menu.cfg")
 else
