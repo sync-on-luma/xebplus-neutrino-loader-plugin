@@ -45,18 +45,18 @@ else
 	ContextMenu_EnableHDD = ""
 	ContextMenu[1].Name = "\194\172  "..nSetLang[19]
 end
-if string.match(Settings, "(.*)U(.*)") then
-	ContextMenu_EnableUSB = "U"
-	ContextMenu[2].Name = "     "..nSetLang[21]
-else
-	ContextMenu_EnableUSB = ""
-	ContextMenu[2].Name = "\194\172  "..nSetLang[21]
-end
 if string.match(Settings, "(.*)M(.*)") then
 	ContextMenu_EnableMX4 = "M"
-	ContextMenu[3].Name = "     "..nSetLang[20]
+	ContextMenu[2].Name = "     "..nSetLang[21]
 else
 	ContextMenu_EnableMX4 = ""
+	ContextMenu[2].Name = "\194\172  "..nSetLang[21]
+end
+if string.match(Settings, "(.*)U(.*)") then
+	ContextMenu_EnableUSB = "U"
+	ContextMenu[3].Name = "     "..nSetLang[20]
+else
+	ContextMenu_EnableUSB = ""
 	ContextMenu[3].Name = "\194\172  "..nSetLang[20]
 end
 if string.match(Settings, "(.*)1(.*)") then

@@ -67,10 +67,10 @@ def process_iso(folder):
 
             if  len(string) == 11:
                 print('Found title ID '+string)
-
                 output = open(xeb_path+game_list, "a")
                 output.write(string+" "+folder+"/"+image+"\n")
                 output.close()
+
     done = "Done!"
 
 def main(arg1, arg2, arg3):

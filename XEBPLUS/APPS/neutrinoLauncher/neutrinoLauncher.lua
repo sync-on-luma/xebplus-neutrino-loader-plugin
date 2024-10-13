@@ -332,6 +332,13 @@ if System.doesFileExist("CFG/neutrinoLauncher/favorites.csv") then
 else
 	NEUTRINO_FavoritesList = ""
 end
+if System.doesDirectoryExist("mass:/ART/") then
+	NEUTRINO_ArtFolder = "mass:/ART/"
+elseif System.doesDirectoryExist("mass:/XEBPLUS/GME/ART/") then
+	NEUTRINO_ArtFolder = "mass:/XEBPLUS/GME/ART/"
+else
+	NEUTRINO_DisableArt = true
+end
 
 --themeInUse[-90] = Graphics.loadImage(xebLua_AppWorkingPath.."image/bgfallback.png")
 themeInUse[-91] = Graphics.loadImage(xebLua_AppWorkingPath.."image/dropshadow.png")
@@ -479,17 +486,28 @@ end
 function NEUTRINO_CacheArt(Index)
 	if System.doesDirectoryExist("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache") and NEUTRINO_DisableArt == false then
 		if NEUTRINO_CachedStatus == false then
+			if not NEUTRINO_ArtList then
+				NEUTRINO_LoadingText(false, neuLang[13])
+				NEUTRINO_ArtList = System.listDirectory(NEUTRINO_ArtFolder)
+			end
+
 			DrawCount = 0
 			if NEUTRINO_Games[Index].TitleId ~= "" then
 				new_disc = "mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/DISC/"..NEUTRINO_Games[Index].TitleId..".png"
 				NEUTRINO_DrawCacheStatus(Index)
 				if not System.doesFileExist(new_disc) then
 					NEUTRINO_DrawCacheStatus(Index)
-					if System.doesFileExist("mass:/XEBPLUS/GME/ART/"..NEUTRINO_Games[Index].TitleId.."_ICO.png") then
-						NEUTRINO_DrawCacheStatus(Index)
-						old_disc = "mass:/XEBPLUS/GME/ART/"..NEUTRINO_Games[Index].TitleId.."_ICO.png"
-						System.copyFile(old_disc, new_disc)
-					else
+					for i = 1, #NEUTRINO_ArtList do
+						if NEUTRINO_ArtList[i].name == NEUTRINO_Games[Index].TitleId.."_ICO.png" then
+							NEUTRINO_DrawCacheStatus(Index)
+							old_disc = NEUTRINO_ArtFolder..NEUTRINO_Games[Index].TitleId.."_ICO.png"
+							System.copyFile(old_disc, new_disc)
+							break
+						else
+							old_disc = nil
+						end
+					end
+					if old_disc == nil then
 						NEUTRINO_DrawCacheStatus(Index)
 						NEUTRINO_TempFile = io.open("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/nodisc.csv", "a")
 						io.output(NEUTRINO_TempFile)
@@ -499,15 +517,22 @@ function NEUTRINO_CacheArt(Index)
 					end
 				end
 				NEUTRINO_DrawCacheStatus(Index)
+
 				new_bg = "mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/BG/"..NEUTRINO_Games[Index].TitleId..".png"
 				NEUTRINO_DrawCacheStatus(Index)
 				if not System.doesFileExist(new_bg) then
 					NEUTRINO_DrawCacheStatus(Index)
-					if System.doesFileExist("mass:/XEBPLUS/GME/ART/"..NEUTRINO_Games[Index].TitleId.."_BG.png") then
-						NEUTRINO_DrawCacheStatus(Index)
-						old_bg = "mass:/XEBPLUS/GME/ART/"..NEUTRINO_Games[Index].TitleId.."_BG.png"
-						System.copyFile(old_bg, new_bg)
-					else
+					for i = 1, #NEUTRINO_ArtList do
+						if NEUTRINO_ArtList[i].name == NEUTRINO_Games[Index].TitleId.."_BG.png" then
+							NEUTRINO_DrawCacheStatus(Index)
+							old_bg = NEUTRINO_ArtFolder..NEUTRINO_Games[Index].TitleId.."_BG.png"
+							System.copyFile(old_bg, new_bg)
+							break
+						else
+							old_bg = nil
+						end
+					end
+					if old_bg == nil then
 						NEUTRINO_DrawCacheStatus(Index)
 						NEUTRINO_TempFile = io.open("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/nobg.csv", "a")
 						io.output(NEUTRINO_TempFile)
@@ -517,6 +542,7 @@ function NEUTRINO_CacheArt(Index)
 					end
 				end
 				NEUTRINO_DrawCacheStatus(Index)
+
 			end
 			NEUTRINO_CachedCount = NEUTRINO_CachedCount + 1
 			if NEUTRINO_CachedCount == NEUTRINO_GamesTotal then
@@ -743,6 +769,7 @@ if not NEUTRINO_IsThereAnError then
 	if NEUTRINO_CachedStatus == true then
 		NEUTRINO_ReadNoArt()
 	end
+
 	NEUTRINO_LoadingText(false, neuLang[62])
 	for	NEUTRINO_i = 1, NEUTRINO_GamesTotal do
 		NEUTRINO_GetFavorites(NEUTRINO_i)
@@ -1572,10 +1599,10 @@ while XEBKeepInSubMenu do
 					NEUTRINO_LoadIcon(0, 5)
 				end
 				NEUTRINO_Scrolling = false
-			elseif (NEUTRINO_SelectedItem - 10) < 1 then
+			elseif (NEUTRINO_SelectedItem - 5) < 1 then
 				AnimateCount = math.abs(1 - NEUTRINO_SelectedItem)
 			else
-				AnimateCount = 10
+				AnimateCount = 5
 			end
 			if AnimateCount > 0 then
 				for i = AnimateCount,1,-1 do
@@ -1609,10 +1636,10 @@ while XEBKeepInSubMenu do
 					NEUTRINO_LoadIcon(-6, 0)
 				end
 				NEUTRINO_Scrolling = false
-			elseif (NEUTRINO_SelectedItem + 10) > NEUTRINO_CurrentTotal() then
+			elseif (NEUTRINO_SelectedItem + 5) > NEUTRINO_CurrentTotal() then
 				AnimateCount = NEUTRINO_CurrentTotal() - NEUTRINO_SelectedItem
 			else
-				AnimateCount = 10
+				AnimateCount = 5
 			end
 			if AnimateCount > 0 then
 				for i = AnimateCount,1,-1 do
