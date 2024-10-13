@@ -17,7 +17,7 @@ This is a plugin for the Xtreme Elite Boot Plus dashboard for the PlayStation 2.
 
 <h2>Requirements</h2>
 
-  * A PlayStation 2 console configured to run unsigned code via a custom boot loader.<br>[PS2BBL](https://israpps.github.io/PlayStation2-Basic-BootLoader/) is the recommended option, and is required for USB loading.
+  * A PlayStation 2 console configured to run unsigned code via a custom boot loader.<br>[PS2BBL](https://israpps.github.io/PlayStation2-Basic-BootLoader/) is the recommended option.
   * A computer with a recent version of [Python](https://www.python.org/) installed.
   * All of the requirements specific to the device you want to load games from.
  
@@ -39,6 +39,7 @@ This is a plugin for the Xtreme Elite Boot Plus dashboard for the PlayStation 2.
 <h3>USB</h3>
 
   * An exFAT formatted USB drive no less than 4GB in size.<br>32GB or larger is recommended.
+  * A PS2 boot loader that can read exFAT drives.<br>PS2BBL supports this by default. ExFAT support can be added to FreeMcBoot with [BDM Assault](https://github.com/israpps/BDMAssault).
 
 <h2>Setup</h2>
 
@@ -48,7 +49,7 @@ This is a plugin for the Xtreme Elite Boot Plus dashboard for the PlayStation 2.
 2. Extract the `XEBPLUS` folder to the root of your USB drive, and ensure that you can load into the XEB+ dashboard on your PlayStation 2.<br>Note that if you are using an exFAT formatted USB drive, you will need to use PS2BBL and [this version](https://github.com/israpps/wLaunchELF_ISR) of wLaunchELF. 
 3. (optional) Configure your PS2 exploit of choice to autorun XEB+ on startup.
 4. Download the latest version of this plugin from the Releases section.<br>Extract the`XEBPLUS`folder to the root of your USB drive, merging all folders if prompted.
-5. Extract the version of the neutrino List Builder application that corresponds to your operating system to a known location on your computer.
+5. Extract the List Builder directory to a known location on your computer.
 6. Complete setup by following the steps specific to the device you want to load games from.
 
 
@@ -58,9 +59,9 @@ This is a plugin for the Xtreme Elite Boot Plus dashboard for the PlayStation 2.
 <li>Connect your hard drive or SSD to a computer, and format it as an exFAT partition.</li>
 <li>Create folders named <code>CD</code> and <code>DVD</code> on the root of the hard drive.</li>
 <li>Rip/copy any PlayStation 2 disc images you wish to load into the folder that corresponds with their original source media.<br>All disc images must be in <i>.iso</i> format.</li>
-<li>Run <code>GUI.py</code> from the included <code>List Builder</code> folder, and select <i>PS2 HDD</i> under <i>Drive Type</i>.</li>
-<li>Click the <i>Browse</i> button under <i>XEBPLUS Location</i> and navigate to the root of the USB drive containing your XEB+ install.</li>
-<li>Click the <i>Browse</i> button under <i>Games Location</i> and navigate to the root of your hard drive.</li>
+<li>Run <code>GUI.py<> from the included <code>List Builder</code> folder, and select <i>PS2 HDD</i> under <i>Drive Type</i>.</li>
+<li>Click the <i>Choose Directory</i> button under <i>XEBPLUS Location</i> and navigate to the root of the USB drive containing your XEB+ install.</li>
+<li>Click the <i>Choose Directory</i> button under <i>Games Location</i> and navigate to the root of your hard drive.</li>
 <li>Click <i>Build List</i> and wait for the process to complete.</li>
 <li>Eject both drives from the computer. Connect the hard drive / SSD to the PlayStation 2 via the network adapter, and plug the USB drive into either of the front USB ports.</li>
 <li>Launch XEB+ on the PS2, and use <i>neutrino Launcher (HDD)</i> to load games from the hard drive.</li>
@@ -74,8 +75,8 @@ Repeat steps 9-13 to add or remove games on the hard drive.
 <li>Create folders named <code>CD</code> and <code>DVD</code> on the root of the SD card.</li>
 <li>Rip/copy any PlayStation 2 disc images you wish to load into the folder that corresponds with their original source media.<br>All disc images must be in <i>.iso</i> format.</li>
 <li>Run <code>GUI.py</code> from the included <code>List Builder</code> folder, and select <i>MX4SIO</i> under <i>Drive Type</i>.</li>
-<li>Click the <i>Browse</i> button under <i>XEBPLUS Location</i> and navigate to the root of the USB drive containing your XEB+ install.</li>
-<li>Click the <i>Browse</i> button under <i>Games Location</i> and navigate to the root of your SD card.</li>
+<li>Click the <i>Choose Directory</i> button under <i>XEBPLUS Location</i> and navigate to the root of the USB drive containing your XEB+ install.</li>
+<li>Click the <i>Choose Directory</i> button under <i>Games Location</i> and navigate to the root of your SD card.</li>
 <li>Click <i>Build List</i> and wait for the process to complete.</li>
 <li>Eject both drives from the computer. Insert the SD card into an MX4SIO adapter and connect it to memory card slot 2 on the PlayStation 2. Plug the USB drive into either of the front USB ports.</li>
 <li>Launch XEB+ on the PS2, and use <i>neutrino Launcher (MX4SIO)</i> to load games from the SD card.</li>
@@ -89,7 +90,7 @@ Repeat steps 9-13 to add or remove games on the SD card.
 <li>Create folders named <code>CD</code> and <code>DVD</code> on the root of the USB drive.</li>
 <li>Rip/copy any PlayStation 2 disc images you wish to load into the folder that corresponds with their original source media.<br>All disc images must be in <i>.iso</i> format.</li>
 <li>Run <code>GUI.py</code> from the included <code>List Builder</code> folder, and select <i>USB</i> under <i>Drive Type</i>.</li>
-<li>Click the <i>Browse</i> button under <i>XEBPLUS Location</i> and navigate to the root of your USB drive.<br>The <i>Games Location</i> will automatically be set to the same folder.</li>
+<li>Click the <i>Choose Directory</i> button under <i>XEBPLUS Location</i> and navigate to the root of your USB drive.<br>The <i>Games Location</i> will automatically be set to the same folder.</li>
 <li>Click <i>Build List</i> and wait for the process to complete.</li>
 <li>Eject the USB drive and plug it into either of the front USB ports on the PlayStation 2.</li>
 <li>Launch XEB+ on the PS2, and use <i>neutrino Launcher (USB)</i> to load games from the USB drive.</li>
@@ -104,10 +105,12 @@ The neutrino Launcher plugin can display game-specific artwork in the selection 
 1. Prepare or acquire artwork files with the same file format and naming conventions as those used by OPL.
     * Only background art (*_BG*) and disc icon (*_ICO*) files are used by this plugin.
     * Some recent versions of OPL have added support for 128x128 disc icons. It is strongly recommended to only use the older 64x64 icons.
-2. Copy the artwork files you wish to use to `/XEBPLUS/GME/ART` on your USB drive. It is recommended that you copy as few files as possible to this directory.
-3. Launch XEB+ and select and of the neutrino Launcher plugins. If the plugin detects files at `/XEBPLUS/GME/ART`, it will automatically create an artwork cache in the `CFG/neutrinoLauncher` folder.<br>This is necessary to maintain a usable level of performance while displaying artwork in the menu.
+2. Copy the artwork files you wish to use to `/ART` or `/XEBPLUS/GME/ART` on your USB drive.
+    * If it exisits, the `ART` directory on the USB root will always take priority over `/XEBPLUS/GME/ART`.
+3. Launch XEB+ and select one of the neutrino Launcher plugins. If the plugin detects files in one of the artwork directories, it will automatically create an artwork cache in the `CFG/neutrinoLauncher` folder.
+4.  * This is necessary to maintain a usable level of performance while displaying artwork in the menu.
 
-The caching process can take a long time to complete the first time it runs, potentially up to several hours if you have a very large game library. Reducing the number for files in the `ART` folder can speed up this process somewhat.<br>
+The caching process can take a long time to complete the first time it runs, potentially up to an hour if you have a very large game library.<br>
 Making any changes to the *.list* files in the 'CFG/neutrinoLauncher`, or modifying the cache folder, will trigger a refresh of the artwork cache the next time the plugin is launched. A refresh can also be triggered manually from the plugin settings.<br>Cache refreshes take much less time than initial creation, so long as the cache folder has not been moved or deleted.
 
 <h2>Usage</h2>
@@ -120,8 +123,8 @@ SQUARE -        **open context menu**<br>
 TRIANGLE -      **show favorites / show all**<br>
 DOWN -          **scroll down**<br>
 UP -            **scroll up**<br>
-R1 -            **scroll down 10 items**<br>
-L1 -            **scroll up 10 items**<br>
+R1 -            **scroll down 5 items**<br>
+L1 -            **scroll up 5 items**<br>
 R2 -            **jump to next letter**<br>
 L2 -            **jump to previous letter**<br>
 R3 -            **jump to bottom of list**<br>
@@ -174,7 +177,7 @@ Returning to the dashboard will automatically save the currently selected option
 
 <h2>Integrating With Custom Themes</h2>
 
-The three neutrino Launcher plugins and the settings plugin each use their own custom dashboard icon that is not normally present in XEB+. Versions of these icons that are visually consistent with the default XEB+ theme are included and will be loaded with each plugin by default. Alternate icons will be used instead, if icon files with the correct names are present in the current XEB+ theme folder.<br>
+The three neutrino Launcher plugins and the settings plugin each use their own custom dashboard icon that is not normally present in XEB+. Versions of these icons that are visually consistent with the default XEB+ theme are included and will be loaded by default. Alternate icons will be used instead, if icon files with the correct names are present in the current XEB+ theme folder.<br>
 The filenames each plugin looks for are as follows:
 
   * *ic_tool_neutrino_hdl.png* - neutrino Luancher (HDD)
