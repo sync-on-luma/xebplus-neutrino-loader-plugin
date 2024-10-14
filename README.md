@@ -59,7 +59,7 @@ This is a plugin for the Xtreme Elite Boot Plus dashboard for the PlayStation 2.
 <li>Connect your hard drive or SSD to a computer, and format it as an exFAT partition.</li>
 <li>Create folders named <code>CD</code> and <code>DVD</code> on the root of the hard drive.</li>
 <li>Rip/copy any PlayStation 2 disc images you wish to load into the folder that corresponds with their original source media.<br>All disc images must be in <i>.iso</i> format.</li>
-<li>Run <code>GUI.py<> from the included <code>List Builder</code> folder, and select <i>PS2 HDD</i> under <i>Drive Type</i>.</li>
+<li>Run <code>GUI.py</code> from the included <code>List Builder</code> folder, and select <i>PS2 HDD</i> under <i>Drive Type</i>.</li>
 <li>Click the <i>Choose Directory</i> button under <i>XEBPLUS Location</i> and navigate to the root of the USB drive containing your XEB+ install.</li>
 <li>Click the <i>Choose Directory</i> button under <i>Games Location</i> and navigate to the root of your hard drive.</li>
 <li>Click <i>Build List</i> and wait for the process to complete.</li>
@@ -74,7 +74,7 @@ Repeat steps 9-13 to add or remove games on the hard drive.
 <li>Connect your SD card to the computer, and format it as an exFAT partition.</li>
 <li>Create folders named <code>CD</code> and <code>DVD</code> on the root of the SD card.</li>
 <li>Rip/copy any PlayStation 2 disc images you wish to load into the folder that corresponds with their original source media.<br>All disc images must be in <i>.iso</i> format.</li>
-<li>Run <code>GUI.py</code> from the included <code>List Builder</code> folder, and select <i>MX4SIO</i> under <i>Drive Type</i>.</li>
+<li>Run <code>GUI.py</code>code> from the included <code>List Builder</code> folder, and select <i>MX4SIO</i> under <i>Drive Type</i>.</li>
 <li>Click the <i>Choose Directory</i> button under <i>XEBPLUS Location</i> and navigate to the root of the USB drive containing your XEB+ install.</li>
 <li>Click the <i>Choose Directory</i> button under <i>Games Location</i> and navigate to the root of your SD card.</li>
 <li>Click <i>Build List</i> and wait for the process to complete.</li>
