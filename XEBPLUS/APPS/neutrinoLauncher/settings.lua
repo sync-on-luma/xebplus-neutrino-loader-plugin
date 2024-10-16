@@ -89,7 +89,6 @@ else
 	ContextMenu_DisableFade = ""
 	ContextMenu[7].Name = "     "..nSetLang[28]
 end
-
 if string.match(Settings, "(.*)3(.*)") then
 	ContextMenu_DisableAnim = "3"
 	ContextMenu[8].Name = "\194\172  "..nSetLang[15]
@@ -199,19 +198,20 @@ while XEBKeepInContextMenu do
                 ContextMenu[1].Name = "\194\172  "..nSetLang[19]
             end
         elseif ContextMenu_SelectedItem == 2 then
-            if ContextMenu_EnableUSB == "" then
-                ContextMenu_EnableUSB = "U"
+            if ContextMenu_EnableMX4 == "" then
+                ContextMenu_EnableMX4 = "M"
+
                 ContextMenu[2].Name = "     "..nSetLang[21]
             else
-            	ContextMenu_EnableUSB = ""
+            	ContextMenu_EnableMX4 = ""
                 ContextMenu[2].Name = "\194\172  "..nSetLang[21]
             end
         elseif ContextMenu_SelectedItem == 3 then
-            if ContextMenu_EnableMX4 == "" then
-                ContextMenu_EnableMX4 = "M"
+            if ContextMenu_EnableUSB == "" then
+                ContextMenu_EnableUSB = "U"
                 ContextMenu[3].Name = "     "..nSetLang[20]
             else
-            	ContextMenu_EnableMX4 = ""
+            	ContextMenu_EnableUSB = ""
                 ContextMenu[3].Name = "\194\172  "..nSetLang[20]
             end
         elseif ContextMenu_SelectedItem == 4 then
