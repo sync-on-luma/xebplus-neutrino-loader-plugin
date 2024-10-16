@@ -62,6 +62,8 @@ if XEBPlusLanguage == "en-US" then
     neuLang[60] = "% complete."
     neuLang[61] = "\n100% complete."
     neuLang[62] = "Initalizing Menu"
+    neuLang[63] = "neutrino Launcher (UDPBD)"
+    neuLang[64] = "Launch games from a UDPBD server with neutrino"
 
     NEUTRINO_Control1 = "image/controlmap1.png"
     NEUTRINO_Control2 = "image/controlmap2.png"
@@ -130,6 +132,8 @@ elseif XEBPlusLanguage == "es-419" then
     neuLang[60] = "% completo."
     neuLang[61] = "\n100% completo."
     neuLang[62] = "Inicializando el Menú"
+    neuLang[63] = "Lanzador neutrino (UDPBD)"
+    neuLang[64] = "Ejecutar juegos desde un servidor UDPBD con neutrino"
 
     NEUTRINO_Control1 = "image/controlmap1_es.png"
     NEUTRINO_Control2 = "image/controlmap2_es.png"
@@ -198,6 +202,8 @@ elseif XEBPlusLanguage == "pt-BR" then
     neuLang[60] = "% concluído."
     neuLang[61] = "\n100% concluído."
     neuLang[62] = "Inicializando o Menú"
+    neuLang[63] = "neutrino Launcher (UDPBD)"
+    neuLang[64] = "Inicie jogos de um servidor UDPBD com neutrino"
 
     NEUTRINO_Control1 = "image/controlmap1_pt.png"
     NEUTRINO_Control2 = "image/controlmap2_pt.png"
@@ -233,4 +239,9 @@ if string.match(Settings, "(.*)M(.*)") then
 	NEUTRINO_EnableMX4 = false
 else
     NEUTRINO_EnableMX4 = true
+end
+if string.match(Settings, "(.*)D(.*)") then
+    NEUTRINO_EnableUDPBD = false
+else
+    NEUTRINO_EnableUDPBD = true
 end
