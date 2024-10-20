@@ -3,7 +3,7 @@ TransparencyAlpha=0
 TempX=840
 TempY=32
 
-ContextMenu_AllItems = 11
+ContextMenu_AllItems = 12
 ContextMenu_SelectedItem = 1
 ContextMenu={};
 ContextMenu[1] = {};
@@ -29,7 +29,7 @@ ContextMenu[8].Description = nSetLang[5]
 ContextMenu[9].Description = nSetLang[22]
 ContextMenu[10].Description = nSetLang[24]
 ContextMenu[11].Description = nSetLang[6]
-ContextMenu[12].Description = nSetLang[7]
+ContextMenu[12].Description = nSetLang[33]
 
 if System.doesFileExist("CFG/neutrinoLauncher/menu.cfg") then
     ContextMenu_TempFile = io.open("CFG/neutrinoLauncher/menu.cfg", "r")
@@ -115,11 +115,78 @@ if System.doesFileExist("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/lastart.cfg")
 else
     ContextMenu[11].Name = nSetLang[12]
 end
-if System.doesDirectoryExist("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/") then
-    ContextMenu[12].Name = nSetLang[13]
-else
-    ContextMenu[11].Name = nSetLang[12]
-    ContextMenu[12].Name = nSetLang[14]
+ContextMenu[12].Name = nSetLang[32]
+
+function ContextMenu_ReadList(ListFile)
+    ContextMenu_TempFile = nil
+    ContextMenu_TempFile = io.open(ListFile, "r")
+    if ContextMenu_TempFile then
+        for line in ContextMenu_TempFile:lines() do
+            if line ~= "" and string.match(line, "(.*) (.*)")then
+                line = string.gsub(line, "\x0D", "")
+                ContextMenu_GamesTotal = ContextMenu_GamesTotal+1
+                ContextMenu_Games[ContextMenu_GamesTotal] = {};
+                ContextMenu_Games[ContextMenu_GamesTotal].TitleId = string.sub(line, 1, 11)
+            end
+        end
+    end
+end
+
+function ContextMenu_CleanCache()
+    ContextMenu_Games = {}
+    ContextMenu_GamesTotal = 0
+    if System.doesFileExist("mass:XEBPLUS/CFG/neutrinoLauncher/neutrinoUSB.list") then
+        ContextMenu_ReadList("mass:XEBPLUS/CFG/neutrinoLauncher/neutrinoUSB.list")
+    end
+    if System.doesFileExist("mass:XEBPLUS/CFG/neutrinoLauncher/neutrinoHDD.list") then
+        ContextMenu_ReadList("mass:XEBPLUS/CFG/neutrinoLauncher/neutrinoHDD.list")
+    end
+    if System.doesFileExist("mass:XEBPLUS/CFG/neutrinoLauncher/neutrinoMX4.list") then
+        ContextMenu_ReadList("mass:XEBPLUS/CFG/neutrinoLauncher/neutrinoMX4.list")
+    end
+    if System.doesFileExist("mass:XEBPLUS/CFG/neutrinoLauncher/neutrinoUDPBD.list") then
+        ContextMenu_ReadList("mass:XEBPLUS/CFG/neutrinoLauncher/neutrinoUDPBD.list")
+    end
+
+    ContextMenu_Removed = 0
+    ContextMenu_DiscFolder = System.listDirectory("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/DISC/")
+	ContextMenu_BgFolder = System.listDirectory("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/BG/")
+	for ContextMenu_i = 1, #ContextMenu_DiscFolder do
+        ContextMenu_FileName = string.gsub(ContextMenu_DiscFolder[ContextMenu_i].name, ".png", "")
+        Screen.clear()
+		thmDrawBKG()
+		Font.ftPrint(fontBig, 420, plusYValue+256, 11, 512, 64, neuLang[5].."\n"..ContextMenu_Removed.." files removed.", Color.new(255,255,255,128))
+		thmDrawBKGOL()
+		Screen.waitVblankStart()
+		Screen.flip()
+
+        for ContextMenu_j = 1, ContextMenu_GamesTotal + 1 do
+            if ContextMenu_j == ContextMenu_GamesTotal + 1 then
+                System.removeFile("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/DISC/"..ContextMenu_DiscFolder[ContextMenu_i].name)
+                ContextMenu_Removed = ContextMenu_Removed + 1
+            elseif ContextMenu_FileName == ContextMenu_Games[ContextMenu_j].TitleId then
+                break
+            end
+        end
+	end
+    for ContextMenu_i = 1, #ContextMenu_BgFolder do
+        ContextMenu_FileName = string.gsub(ContextMenu_BgFolder[ContextMenu_i].name, ".png", "")
+        Screen.clear()
+		thmDrawBKG()
+		Font.ftPrint(fontBig, 420, plusYValue+256, 11, 512, 64, neuLang[45].."\n"..ContextMenu_Removed.." files removed.", Color.new(255,255,255,128))
+		thmDrawBKGOL()
+		Screen.waitVblankStart()
+		Screen.flip()
+
+        for ContextMenu_j = 1, ContextMenu_GamesTotal + 1 do
+            if ContextMenu_j == ContextMenu_GamesTotal + 1 then
+                System.removeFile("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/BG/"..ContextMenu_BgFolder[ContextMenu_i].name)
+                ContextMenu_Removed = ContextMenu_Removed + 1
+            elseif ContextMenu_FileName == ContextMenu_Games[ContextMenu_j].TitleId then
+                break
+            end
+        end
+	end
 end
 
 for move = 1, 10 do
@@ -277,11 +344,7 @@ while XEBKeepInContextMenu do
                 ContextMenu[11].Name = nSetLang[12]
             end
         elseif ContextMenu_SelectedItem == 12 then
-            if System.doesDirectoryExist("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/") then
-                --System.removeDirectory("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/")
-                --ContextMenu[7].Name = nSetLang[12]
-                --ContextMenu[8].Name = nSetLang[14]
-            end
+            ContextMenu_CleanCache()
         end
     end
     if Pads.check(pad, PAD_UP) and not Pads.check(oldpad, PAD_UP) then
