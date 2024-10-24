@@ -37,7 +37,7 @@ if XEBPlusLanguage == "en-US" then
     neuLang[35] = "Could not read "
     neuLang[36] = "size doesn't matter"
     neuLang[37] = "programmed by Maximus32"
-    neuLang[38] = "launcher by sync-on-Luma(Y) Howling Wolf & Chelsea"
+    neuLang[38] = "launcher by sync-on-Luma(Y), MegaBitmap, Howling Wolf & Chelsea"
     neuLang[39] = "special thanks to nuno6573, and xGamer"
     neuLang[40] = "Warning: Settings file not found.\nOptional launch parameters disabled."
     neuLang[41] = "Loading Favorites List"
@@ -62,6 +62,10 @@ if XEBPlusLanguage == "en-US" then
     neuLang[60] = "% complete."
     neuLang[61] = "\n100% complete."
     neuLang[62] = "Initalizing Menu"
+    neuLang[63] = "neutrino Launcher (UDPBD)"
+    neuLang[64] = "Launch games from a UDPBD server with neutrino"
+    neuLang[65] = "Enable Cheat Device"
+    neuLang[66] = "Select cheats with Cheat Device before launching the game."
 
     NEUTRINO_Control1 = "image/controlmap1.png"
     NEUTRINO_Control2 = "image/controlmap2.png"
@@ -105,7 +109,7 @@ elseif XEBPlusLanguage == "es-419" then
     neuLang[35] = "No se pudo leer "
     neuLang[36] = "El tamaño no importa"
     neuLang[37] = "programado por Maximus32"
-    neuLang[38] = "lanzador por sync-on-Luma(Y), Howling Wolf y Chelsea"
+    neuLang[38] = "lanzador por sync-on-Luma(Y), MegaBitmap, Howling Wolf y Chelsea"
     neuLang[39] = "Un agradecimiento especial a nuno6573, y xGamer"
     neuLang[40] = "Advertencia: No se encontró el archivo de configuración.\nLos parámetros de inicio opcionales están deshabilitados."
     neuLang[41] = "Cargando lista de favoritos"
@@ -130,6 +134,10 @@ elseif XEBPlusLanguage == "es-419" then
     neuLang[60] = "% completo."
     neuLang[61] = "\n100% completo."
     neuLang[62] = "Inicializando el Menú"
+    neuLang[63] = "Lanzador neutrino (UDPBD)"
+    neuLang[64] = "Ejecutar juegos desde un servidor UDPBD con neutrino"
+    neuLang[65] = "Habilitar dispositivo de trampa"
+    neuLang[66] = "Selecciona trucos con Cheat Device antes de iniciar el juego."
 
     NEUTRINO_Control1 = "image/controlmap1_es.png"
     NEUTRINO_Control2 = "image/controlmap2_es.png"
@@ -173,7 +181,7 @@ elseif XEBPlusLanguage == "pt-BR" then
     neuLang[35] = "Não consegui ler "
     neuLang[36] = "tamanho não importa"
     neuLang[37] = "programado por Maximus32"
-    neuLang[38] = "launcher por sync-on-Luma(Y), Howling Wolf & Chelsea"
+    neuLang[38] = "launcher por sync-on-Luma(Y), MegaBitmap, Howling Wolf & Chelsea"
     neuLang[39] = "agradecimentos especiais ao nuno6573, xGamer"
     neuLang[40] = "Aviso: ficheiro de definições não encontrado.\nParâmetros de arranque opcionais desativados."
     neuLang[41] = "Carregando lista de favoritos"
@@ -198,6 +206,10 @@ elseif XEBPlusLanguage == "pt-BR" then
     neuLang[60] = "% concluído."
     neuLang[61] = "\n100% concluído."
     neuLang[62] = "Inicializando o Menú"
+    neuLang[63] = "neutrino Launcher (UDPBD)"
+    neuLang[64] = "Inicie jogos de um servidor UDPBD com neutrino"
+    neuLang[65] = "Habilitar Cheat Device"
+    neuLang[66] = "Selecione cheats com Cheat Device antes de iniciar o jogo."
 
     NEUTRINO_Control1 = "image/controlmap1_pt.png"
     NEUTRINO_Control2 = "image/controlmap2_pt.png"
@@ -233,4 +245,9 @@ if string.match(Settings, "(.*)M(.*)") then
 	NEUTRINO_EnableMX4 = false
 else
     NEUTRINO_EnableMX4 = true
+end
+if string.match(Settings, "(.*)D(.*)") then
+    NEUTRINO_EnableUDPBD = false
+else
+    NEUTRINO_EnableUDPBD = true
 end

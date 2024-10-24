@@ -3,7 +3,7 @@ TransparencyAlpha=0
 TempX=840
 TempY=32
 
-ContextMenu_AllItems = 10
+ContextMenu_AllItems = 12
 ContextMenu_SelectedItem = 1
 ContextMenu={};
 ContextMenu[1] = {};
@@ -17,17 +17,19 @@ ContextMenu[8] = {};
 ContextMenu[9] = {};
 ContextMenu[10] = {};
 ContextMenu[11] = {};
+ContextMenu[12] = {};
 ContextMenu[1].Description = nSetLang[16]
 ContextMenu[2].Description = nSetLang[18]
 ContextMenu[3].Description = nSetLang[17]
-ContextMenu[4].Description = nSetLang[3]
-ContextMenu[5].Description = nSetLang[4]
-ContextMenu[6].Description = nSetLang[29]
-ContextMenu[7].Description = nSetLang[5]
-ContextMenu[8].Description = nSetLang[22]
-ContextMenu[9].Description = nSetLang[24]
-ContextMenu[10].Description = nSetLang[6]
-ContextMenu[11].Description = nSetLang[7]
+ContextMenu[4].Description = nSetLang[30]
+ContextMenu[5].Description = nSetLang[3]
+ContextMenu[6].Description = nSetLang[4]
+ContextMenu[7].Description = nSetLang[29]
+ContextMenu[8].Description = nSetLang[5]
+ContextMenu[9].Description = nSetLang[22]
+ContextMenu[10].Description = nSetLang[24]
+ContextMenu[11].Description = nSetLang[6]
+ContextMenu[12].Description = nSetLang[33]
 
 if System.doesFileExist("CFG/neutrinoLauncher/menu.cfg") then
     ContextMenu_TempFile = io.open("CFG/neutrinoLauncher/menu.cfg", "r")
@@ -59,59 +61,132 @@ else
 	ContextMenu_EnableUSB = ""
 	ContextMenu[3].Name = "\194\172  "..nSetLang[20]
 end
+if string.match(Settings, "(.*)D(.*)") then
+	ContextMenu_EnableUDPBD = "D"
+	ContextMenu[4].Name = "     "..nSetLang[31]
+else
+	ContextMenu_EnableUDPBD = ""
+	ContextMenu[4].Name = "\194\172  "..nSetLang[31]
+end
 if string.match(Settings, "(.*)1(.*)") then
 	ContextMenu_DisableArt = "1"
-	ContextMenu[4].Name = "\194\172  "..nSetLang[8]
+	ContextMenu[5].Name = "\194\172  "..nSetLang[8]
 else
 	ContextMenu_DisableArt = ""
-	ContextMenu[4].Name = "     "..nSetLang[8]
+	ContextMenu[5].Name = "     "..nSetLang[8]
 end
 if string.match(Settings, "(.*)2(.*)") then
 	ContextMenu_DisableStatus = "2"
-	ContextMenu[5].Name = "\194\172  "..nSetLang[9]
+	ContextMenu[6].Name = "\194\172  "..nSetLang[9]
 else
 	ContextMenu_DisableStatus = ""
-	ContextMenu[5].Name = "     "..nSetLang[9]
+	ContextMenu[6].Name = "     "..nSetLang[9]
 end
 if string.match(Settings, "(.*)7(.*)") then
 	ContextMenu_DisableFade = "7"
-	ContextMenu[6].Name = "\194\172  "..nSetLang[28]
+	ContextMenu[7].Name = "\194\172  "..nSetLang[28]
 else
 	ContextMenu_DisableFade = ""
-	ContextMenu[6].Name = "     "..nSetLang[28]
+	ContextMenu[7].Name = "     "..nSetLang[28]
 end
-
 if string.match(Settings, "(.*)3(.*)") then
 	ContextMenu_DisableAnim = "3"
-	ContextMenu[7].Name = "\194\172  "..nSetLang[15]
+	ContextMenu[8].Name = "\194\172  "..nSetLang[15]
 else
 	ContextMenu_DisableAnim = ""
-	ContextMenu[7].Name = "     "..nSetLang[15]
+	ContextMenu[8].Name = "     "..nSetLang[15]
 end
 if string.match(Settings, "(.*)4(.*)") then
 	ContextMenu_ShowTitleId = "4"
-	ContextMenu[8].Name = "     "..nSetLang[25]
+	ContextMenu[9].Name = "     "..nSetLang[25]
 else
 	ContextMenu_ShowTitleId = ""
-	ContextMenu[8].Name = "\194\172  "..nSetLang[25]
+	ContextMenu[9].Name = "\194\172  "..nSetLang[25]
 end
 if string.match(Settings, "(.*)6(.*)") then
 	ContextMenu_ShowMedia = "6"
-	ContextMenu[9].Name = "     "..nSetLang[27]
+	ContextMenu[10].Name = "     "..nSetLang[27]
 else
 	ContextMenu_ShowMedia = ""
-	ContextMenu[9].Name = "\194\172  "..nSetLang[27]
+	ContextMenu[10].Name = "\194\172  "..nSetLang[27]
 end
 if System.doesFileExist("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/lastart.cfg") then
-    ContextMenu[10].Name = nSetLang[11]
+    ContextMenu[11].Name = nSetLang[11]
 else
-    ContextMenu[10].Name = nSetLang[12]
+    ContextMenu[11].Name = nSetLang[12]
 end
-if System.doesDirectoryExist("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/") then
-    ContextMenu[11].Name = nSetLang[13]
-else
-    ContextMenu[10].Name = nSetLang[12]
-    ContextMenu[11].Name = nSetLang[14]
+ContextMenu[12].Name = nSetLang[32]
+
+function ContextMenu_ReadList(ListFile)
+    ContextMenu_TempFile = nil
+    ContextMenu_TempFile = io.open(ListFile, "r")
+    if ContextMenu_TempFile then
+        for line in ContextMenu_TempFile:lines() do
+            if line ~= "" and string.match(line, "(.*) (.*)")then
+                line = string.gsub(line, "\x0D", "")
+                ContextMenu_GamesTotal = ContextMenu_GamesTotal+1
+                ContextMenu_Games[ContextMenu_GamesTotal] = {};
+                ContextMenu_Games[ContextMenu_GamesTotal].TitleId = string.sub(line, 1, 11)
+            end
+        end
+    end
+end
+
+function ContextMenu_CleanCache()
+    ContextMenu_Games = {}
+    ContextMenu_GamesTotal = 0
+    if System.doesFileExist("mass:XEBPLUS/CFG/neutrinoLauncher/neutrinoUSB.list") then
+        ContextMenu_ReadList("mass:XEBPLUS/CFG/neutrinoLauncher/neutrinoUSB.list")
+    end
+    if System.doesFileExist("mass:XEBPLUS/CFG/neutrinoLauncher/neutrinoHDD.list") then
+        ContextMenu_ReadList("mass:XEBPLUS/CFG/neutrinoLauncher/neutrinoHDD.list")
+    end
+    if System.doesFileExist("mass:XEBPLUS/CFG/neutrinoLauncher/neutrinoMX4.list") then
+        ContextMenu_ReadList("mass:XEBPLUS/CFG/neutrinoLauncher/neutrinoMX4.list")
+    end
+    if System.doesFileExist("mass:XEBPLUS/CFG/neutrinoLauncher/neutrinoUDPBD.list") then
+        ContextMenu_ReadList("mass:XEBPLUS/CFG/neutrinoLauncher/neutrinoUDPBD.list")
+    end
+
+    ContextMenu_Removed = 0
+    ContextMenu_DiscFolder = System.listDirectory("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/DISC/")
+	ContextMenu_BgFolder = System.listDirectory("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/BG/")
+	for ContextMenu_i = 1, #ContextMenu_DiscFolder do
+        ContextMenu_FileName = string.gsub(ContextMenu_DiscFolder[ContextMenu_i].name, ".png", "")
+        Screen.clear()
+		thmDrawBKG()
+		Font.ftPrint(fontBig, 420, plusYValue+256, 11, 512, 64, neuLang[5].."\n"..ContextMenu_Removed.." files removed.", Color.new(255,255,255,128))
+		thmDrawBKGOL()
+		Screen.waitVblankStart()
+		Screen.flip()
+
+        for ContextMenu_j = 1, ContextMenu_GamesTotal + 1 do
+            if ContextMenu_j == ContextMenu_GamesTotal + 1 then
+                System.removeFile("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/DISC/"..ContextMenu_DiscFolder[ContextMenu_i].name)
+                ContextMenu_Removed = ContextMenu_Removed + 1
+            elseif ContextMenu_FileName == ContextMenu_Games[ContextMenu_j].TitleId then
+                break
+            end
+        end
+	end
+    for ContextMenu_i = 1, #ContextMenu_BgFolder do
+        ContextMenu_FileName = string.gsub(ContextMenu_BgFolder[ContextMenu_i].name, ".png", "")
+        Screen.clear()
+		thmDrawBKG()
+		Font.ftPrint(fontBig, 420, plusYValue+256, 11, 512, 64, neuLang[45].."\n"..ContextMenu_Removed.." files removed.", Color.new(255,255,255,128))
+		thmDrawBKGOL()
+		Screen.waitVblankStart()
+		Screen.flip()
+
+        for ContextMenu_j = 1, ContextMenu_GamesTotal + 1 do
+            if ContextMenu_j == ContextMenu_GamesTotal + 1 then
+                System.removeFile("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/BG/"..ContextMenu_BgFolder[ContextMenu_i].name)
+                ContextMenu_Removed = ContextMenu_Removed + 1
+            elseif ContextMenu_FileName == ContextMenu_Games[ContextMenu_j].TitleId then
+                break
+            end
+        end
+	end
 end
 
 for move = 1, 10 do
@@ -190,81 +265,86 @@ while XEBKeepInContextMenu do
                 ContextMenu[1].Name = "\194\172  "..nSetLang[19]
             end
         elseif ContextMenu_SelectedItem == 2 then
-            if ContextMenu_EnableUSB == "" then
-                ContextMenu_EnableUSB = "U"
+            if ContextMenu_EnableMX4 == "" then
+                ContextMenu_EnableMX4 = "M"
+
                 ContextMenu[2].Name = "     "..nSetLang[21]
             else
-            	ContextMenu_EnableUSB = ""
+            	ContextMenu_EnableMX4 = ""
                 ContextMenu[2].Name = "\194\172  "..nSetLang[21]
             end
         elseif ContextMenu_SelectedItem == 3 then
-            if ContextMenu_EnableMX4 == "" then
-                ContextMenu_EnableMX4 = "M"
+            if ContextMenu_EnableUSB == "" then
+                ContextMenu_EnableUSB = "U"
                 ContextMenu[3].Name = "     "..nSetLang[20]
             else
-            	ContextMenu_EnableMX4 = ""
+            	ContextMenu_EnableUSB = ""
                 ContextMenu[3].Name = "\194\172  "..nSetLang[20]
             end
         elseif ContextMenu_SelectedItem == 4 then
-            if ContextMenu_DisableArt == "" then
-                ContextMenu_DisableArt = "1"
-                ContextMenu[4].Name = "\194\172  "..nSetLang[8]
+            if ContextMenu_EnableUDPBD == "" then
+                ContextMenu_EnableUDPBD = "D"
+                ContextMenu[4].Name = "     "..nSetLang[31]
             else
-                ContextMenu_DisableArt = ""
-                ContextMenu[4].Name = "     "..nSetLang[8]
+            	ContextMenu_EnableUDPBD = ""
+                ContextMenu[4].Name = "\194\172  "..nSetLang[31]
             end
         elseif ContextMenu_SelectedItem == 5 then
-            if ContextMenu_DisableStatus == "" then
-                ContextMenu_DisableStatus = "2"
-                ContextMenu[5].Name = "\194\172  "..nSetLang[9]
+            if ContextMenu_DisableArt == "" then
+                ContextMenu_DisableArt = "1"
+                ContextMenu[5].Name = "\194\172  "..nSetLang[8]
             else
-                ContextMenu_DisableStatus = ""
-                ContextMenu[5].Name = "     "..nSetLang[9]
+                ContextMenu_DisableArt = ""
+                ContextMenu[5].Name = "     "..nSetLang[8]
             end
         elseif ContextMenu_SelectedItem == 6 then
+            if ContextMenu_DisableStatus == "" then
+                ContextMenu_DisableStatus = "2"
+                ContextMenu[6].Name = "\194\172  "..nSetLang[9]
+            else
+                ContextMenu_DisableStatus = ""
+                ContextMenu[6].Name = "     "..nSetLang[9]
+            end
+        elseif ContextMenu_SelectedItem == 7 then
             if ContextMenu_DisableFade == "" then
                 ContextMenu_DisableFade = "7"
-                ContextMenu[6].Name = "\194\172  "..nSetLang[28]
+                ContextMenu[7].Name = "\194\172  "..nSetLang[28]
             else
                 ContextMenu_DisableFade = ""
-                ContextMenu[6].Name = "     "..nSetLang[28]
+                ContextMenu[7].Name = "     "..nSetLang[28]
             end
 
-        elseif ContextMenu_SelectedItem == 7 then
+        elseif ContextMenu_SelectedItem == 8 then
             if ContextMenu_DisableAnim == "" then
                 ContextMenu_DisableAnim = "3"
-                ContextMenu[7].Name = "\194\172  "..nSetLang[15]
+                ContextMenu[8].Name = "\194\172  "..nSetLang[15]
             else
                 ContextMenu_DisableAnim = ""
-                ContextMenu[7].Name = "     "..nSetLang[15]
-            end
-        elseif ContextMenu_SelectedItem == 8 then
-            if ContextMenu_ShowTitleId == "" then
-                ContextMenu_ShowTitleId = "4"
-                ContextMenu[8].Name = "     "..nSetLang[25]
-            else
-                ContextMenu_ShowTitleId = ""
-                ContextMenu[8].Name = "\194\172  "..nSetLang[25]
+                ContextMenu[8].Name = "     "..nSetLang[15]
             end
         elseif ContextMenu_SelectedItem == 9 then
-            if ContextMenu_ShowMedia == "" then
-                ContextMenu_ShowMedia = "6"
-                ContextMenu[9].Name = "     "..nSetLang[27]
+            if ContextMenu_ShowTitleId == "" then
+                ContextMenu_ShowTitleId = "4"
+                ContextMenu[9].Name = "     "..nSetLang[25]
             else
-                ContextMenu_ShowMedia = ""
-                ContextMenu[9].Name = "\194\172  "..nSetLang[27]
+                ContextMenu_ShowTitleId = ""
+                ContextMenu[9].Name = "\194\172  "..nSetLang[25]
             end
         elseif ContextMenu_SelectedItem == 10 then
-            if System.doesFileExist("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/lastart.cfg") then
-                System.removeFile("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/lastart.cfg")
-                ContextMenu[10].Name = nSetLang[12]
+            if ContextMenu_ShowMedia == "" then
+                ContextMenu_ShowMedia = "6"
+                ContextMenu[10].Name = "     "..nSetLang[27]
+            else
+                ContextMenu_ShowMedia = ""
+                ContextMenu[10].Name = "\194\172  "..nSetLang[27]
             end
         elseif ContextMenu_SelectedItem == 11 then
-            if System.doesDirectoryExist("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/") then
-                --System.removeDirectory("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/")
-                --ContextMenu[7].Name = nSetLang[12]
-                --ContextMenu[8].Name = nSetLang[14]
+            if System.doesFileExist("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/lastart.cfg") then
+                System.removeFile("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/lastart.cfg")
+                ContextMenu[11].Name = nSetLang[12]
             end
+        elseif ContextMenu_SelectedItem == 12 then
+            ContextMenu_CleanCache()
         end
     end
     if Pads.check(pad, PAD_UP) and not Pads.check(oldpad, PAD_UP) then
@@ -289,6 +369,7 @@ ContextMenu_NewSettings = ""
 ContextMenu_NewSettings = ContextMenu_EnableHDD
 ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_EnableUSB
 ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_EnableMX4
+ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_EnableUDPBD
 ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_DisableArt
 ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_DisableStatus
 ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_DisableFade
