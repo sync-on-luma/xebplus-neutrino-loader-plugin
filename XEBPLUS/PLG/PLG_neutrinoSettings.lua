@@ -65,8 +65,8 @@ elseif XEBPlusLanguage == "es-419" then
     nSetLang[29] = "Desactiva el efecto de desvanecimiento\nal cargar ilustraciones de fondo."
     nSetLang[30] = "Habilite el complemento neutrino Launcher (UDPBD).\nRequiere actualización XEB+."
     nSetLang[31] = "Habilitar UDPBD"
-    nSetLang[32] = ""
-    nSetLang[33] = ""
+    nSetLang[32] = "Limpiar caché de ilustraciones"
+    nSetLang[33] = "Elimine los archivos no utilizados en el caché de ilustraciones."
 elseif XEBPlusLanguage == "pt-BR" then
     nSetLang[1] = "Configurações do neutrino Launcher"
     nSetLang[2] = "Configurar menu do neutrino Launcher"
@@ -99,8 +99,8 @@ elseif XEBPlusLanguage == "pt-BR" then
     nSetLang[29] = "Desative o efeito de desvanecimento\nao carregar arte de fundo."
     nSetLang[30] = "Ative o plugin neutrino Launcher (UDPBD).\nRequer atualização XEB+."
     nSetLang[31] = "Habilitar UDPBD"
-    nSetLang[32] = ""
-    nSetLang[33] = ""
+    nSetLang[32] = "Limpar cache de arte"
+    nSetLang[33] = "Apague os ficheiros não utilizados do cache de arte."
 end
 
 PluginData = {};
