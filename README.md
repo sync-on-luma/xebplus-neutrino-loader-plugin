@@ -121,61 +121,44 @@ Repeat steps 9-12 to add or remove games on the USB drive.
 
 ### UDPBD
 
-####Windows
+#### Windows
 
 7. Somewhere on your PC, for example `Documents`, create a new folder `PS2`.
-
 8. Inside the `PS2` folder, create `CD` and `DVD` folders.
-
 9. Rip/copy any PlayStation 2 ISOs you wish to load into the folder that corresponds with their original source media.
-
 10. All `.bin` + `.cue` CD games must be converted to `.iso` format.  
 The sync app will convert them automatically if placed in the CD folder and check the `Convert CD Bin to ISO` box before synchronizing.
-
-11. From the [latest release on this page](https://github.com/MegaBitmap/UDPBD-for-XEBP/releases), extract the `UDPBD-for-XEB+ Sync App` folder.
-
+11. Extract the `UDPBD-for-XEB+ Sync App` folder from the plugin package to a known location on your computer.
 12. Plug in the ethernet cable as shown:  
 ![ps2-slim-connected-to-laptop](readme-images/ps2-slim-connected-to-laptop.jpg)
-
 13. For a direct connection, as seen in the previous step, set a manual IPv4 address and subnet mask.  
 ![pc-ip-settings](readme-images/pc-ip-settings.jpg)  
 For using a router instead of a direct connection, set the PC's IP assignment to *Automatic (DHCP)*.  
 Then [follow this guide](http://ps2ulaunchelf.pbworks.com/w/page/19520139/ps2ftp) for assigning a proper IP address on the PS2.  
 LaunchELF defaults to *192.168.0.10* and needs to be changed manually to work on your network.
-
-14. Hold *R1* on the controller during FreeMCBoot/PS2BBL startup to open LaunchELF.  
-Open MISC -> PS2Net  
+14 Run LaunchELF on the PS2 and naviage to MISC -> PS2Net  
 ![launchelf-ps2net](readme-images/launchelf-ps2net.jpg)  
-
 15. Let the PS2 idle on this screen for the next steps on the PC.  
 ![launchelf-ftp-enabled](readme-images/launchelf-ftp-enabled.jpg)
-
 16. Run `UDPBD-for-XEB+-GUI.exe` and click connect.  
 ![udpbd-xeb-1](readme-images/udpbd-xeb-sync-1.jpg)
-
 17. Click `Select Game Path` then choose an ISO from the `DVD` folder from step 8.
-
 18. Click `Sync with PS2`, upon success this message will be displayed:  
 ![udpbd-xeb-synced](readme-images/udpbd-xeb-sync-2.jpg)
-
 19. Click `Start Server` and make sure to allow.  
 ![udpbd-vexfat-firewall](readme-images/udpbd-vexfat-firewall.jpg)  
 If you miss clicked, either move the `UDPBD-for-XEB+` folder inside a new folder or manually delete the inbound rules for `udpbd-vexfat` in `Windows Defender Firewall with Advanced Security`.  
 udpbd-vexfat will open minimized.  
 The server needs to be open and running for the entire play session. (Disable sleep on the PC.)
-
 20. The PC setup is now complete, back on the PS2 run XEB+.  
 ![launchelf-xeb](readme-images/launchelf-xeb.jpg)
 It's recommended to set FreeMCBoot or PS2BBL to autorun the `.ELF` file.
-
-21. Play!  
-![xeb-game-list](readme-images/xeb-game-list.jpg)  
-
+21. Launch XEB+ on the PS2, and use *neutrino Launcher (UDPBD)* to load games from the network share.  
 Repeat steps 14-21 of the setup process after adding or removing games.
 
 #### Linux
 
-I will be using Ubuntu, if you are using a different distribution these steps may vary.  
+This setup is for Ubuntu, if you are using a different distribution these steps may vary.
 
 7. Compile the udpbd-server
 ```
@@ -201,25 +184,19 @@ sudo mount /dev/nvme0n1p6 /mnt/ps2/ -o uid=$USER
 11. Create folders named `CD` and `DVD` in the exFAT partition.  
 Rip/copy any PlayStation 2 disc images you wish to load into the folder that corresponds with their original source media.  
 Example:  `/mnt/ps2/DVD/Grand Theft Auto III.iso`
-
 12. From the [latest release on this page](https://github.com/MegaBitmap/UDPBD-for-XEBP/releases), extract the `UDPBD-for-XEB+ Sync App` folder.
-
 13. Plug in the ethernet cable as shown:  
 ![ps2-slim-connected-to-laptop](readme-images/ps2-slim-connected-to-laptop.jpg)
-
 14. For a direct connection, as seen in the previous step, set a manual IPv4 address and subnet mask.  
 ![ubuntu-ip-settings](readme-images/ubuntu-ip-settings.jpg)  
 For using a router instead of a direct connection, set the PC's IP assignment to *Automatic (DHCP)*.  
 Then [follow this guide](http://ps2ulaunchelf.pbworks.com/w/page/19520139/ps2ftp) for assigning a proper IP address on the PS2.  
 LaunchELF defaults to *192.168.0.10* and needs to be changed manually to work on your network.
-
 15. Hold *R1* on the controller during FreeMCBoot/PS2BBL startup to open LaunchELF.  
 Open MISC -> PS2Net  
 ![launchelf-ps2net](readme-images/launchelf-ps2net.jpg)  
-
 16. Let the PS2 idle on this screen for the next steps on the PC.  
 ![launchelf-ftp-enabled](readme-images/launchelf-ftp-enabled.jpg)
-
 17. Run the sync app, please note that these are example parameters.
 ```
 dotnet UDPBD-for-XEB+-CLI.dll -path /mnt/ps2 -ps2ip 192.168.0.10 -bin2iso
@@ -230,9 +207,7 @@ sudo umount /mnt/ps2
 sudo ./udpbd-server /dev/nvme0n1p6
 ```
 The server needs to be open and running for the entire play session.
-
-19. Launch XEB+ then Play!
-
+19. Launch XEB+ on the PS2, and use *neutrino Launcher (UDPBD)* to load games from the network share.
 To add or remove games, stop the server then mount the exFAT storage device to `/mnt/ps2`   
 ```
 sudo mount /dev/nvme0n1p6 /mnt/ps2/ -o uid=$USER
