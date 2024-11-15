@@ -1,5 +1,0 @@
-fontsize 0.6
-load ioman.irx
-sleep 1
-run neutrino.elf -bsd=usb -bsdfs=exfat "-dvd=mass:DVD/Jet Li - Rise to Honor - [SCUS_972.79].iso" -mt=dvd -gc=0 -dbc
-                                                                                                                                                                                                                                                                                         

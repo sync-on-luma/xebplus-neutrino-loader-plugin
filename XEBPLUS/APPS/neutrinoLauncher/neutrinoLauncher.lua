@@ -1510,7 +1510,7 @@ while XEBKeepInSubMenu do
 				NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder = ""
 			end
 
-			NEUTRINO_RadShellText = "fontsize 0.6\r\nload ioman.irx\r\nsleep 1\r\nrun neutrino.elf -bsd="..NEUTRINO_Bsd.." -bsdfs="..NEUTRINO_Fs.." \"-dvd="..NEUTRINO_PathPrefix..":"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name.."."..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension.."\" -mt="..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media.." "..NEUTRINO_LaunchOptions.."\r\n"
+			NEUTRINO_RadShellText = "fontsize 0.6\r\necho \"Starting "..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".iso\"\r\nsleep 1\r\nrun neutrino.elf -bsd="..NEUTRINO_Bsd.." -bsdfs="..NEUTRINO_Fs.." \"-dvd="..NEUTRINO_PathPrefix..":"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name.."."..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension.."\" -mt="..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media.." "..NEUTRINO_LaunchOptions.."\r\n"
 
 			NEUTRINO_RadShellFile = System.openFile(xebLua_AppWorkingPath.."radshellmod.ios", FRDWR)
 			System.removeFile(NEUTRINO_RadShellFile)
@@ -1520,7 +1520,7 @@ while XEBKeepInSubMenu do
 			System.closeFile(NEUTRINO_RadShellFile)
 
 			NEUTRINO_SaveLast()
-			LaunchELF(xebLua_AppWorkingPath.."radshellmod.elf", 0, "Default", false, 1)
+			System.loadELF(xebLua_AppWorkingPath.."radshellmod.elf")
 		elseif Pads.check(pad, PAD_UP) then
 			if not Pads.check(oldpad, PAD_UP) then
 				if NEUTRINO_SelectedItem ~= 1 then
