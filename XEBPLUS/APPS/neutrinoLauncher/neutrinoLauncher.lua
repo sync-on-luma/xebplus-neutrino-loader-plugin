@@ -1533,27 +1533,28 @@ while XEBKeepInSubMenu do
 				NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder = ""
 			end
 
-			NEUTRINO_RadShellText = "fontsize 0.6\r\nsleep 1\r\nrun neutrino.elf -bsd="..NEUTRINO_Bsd.." -bsdfs="..NEUTRINO_Fs.." \"-dvd="..NEUTRINO_PathPrefix..":"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name.."."..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension.."\" -mt="..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media.." "..NEUTRINO_LaunchOptions.."\r\n"
+			NEUTRINO_RadShellText = "fontsize 0.6\r\necho \"Starting "..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".iso\"\r\nsleep 1\r\nrun neutrino.elf -bsd="..NEUTRINO_Bsd.." -bsdfs="..NEUTRINO_Fs.." \"-dvd="..NEUTRINO_PathPrefix..":"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name.."."..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension.."\" -mt="..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media.." "..NEUTRINO_LaunchOptions.."\r\n"
 
-			NEUTRINO_RadShellFile = System.openFile(xebLua_AppWorkingPath.."radshellmod.ios", FRDWR)
-			System.removeFile(NEUTRINO_RadShellFile)
-			System.closeFile(NEUTRINO_RadShellFile)
+			--NEUTRINO_RadShellFile = System.openFile(xebLua_AppWorkingPath.."radshellmod.ios", FRDWR)
+			System.removeFile(xebLua_AppWorkingPath.."radshellmod.ios")
+			--System.closeFile(NEUTRINO_RadShellFile)
 			NEUTRINO_RadShellFile = System.openFile(xebLua_AppWorkingPath.."radshellmod.ios", FCREATE)
 			System.writeFile(NEUTRINO_RadShellFile, NEUTRINO_RadShellText, string.len(NEUTRINO_RadShellText))
 			System.closeFile(NEUTRINO_RadShellFile)
-
 			NEUTRINO_SaveLast()
 			if NEUTRINO_Cheats == true then
-				NEUTRINO_CheatDeviceText = "[CheatDevicePS2]\ndatabaseReadOnly = cheats/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId..".CHT\ndatabaseReadWrite =\nboot1 = mass:XEBPLUS/APPS/neutrinoLauncher/radshellmod.elf\nboot2 = \xE2\x81\xA0\nboot3 = \xE2\x81\xA0\nboot4 = \xE2\x81\xA0\nboot5 = \xE2\x81\xA0"
+				NEUTRINO_CheatFile = "mass:CHT/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId..".cht"
+
+				NEUTRINO_CheatDeviceText = "[CheatDevicePS2]\ndatabaseReadOnly = "..NEUTRINO_CheatFile.."\ndatabaseReadWrite =\nboot1 = mass:XEBPLUS/APPS/neutrinoLauncher/radshellmod.elf\nboot2 = \xE2\x81\xA0\nboot3 = \xE2\x81\xA0\nboot4 = \xE2\x81\xA0\nboot5 = \xE2\x81\xA0"
 
 				System.removeFile(xebLua_AppWorkingPath.."/CheatDevice/CheatDevicePS2.ini")
 				NEUTRINO_CheatDeviceFile = System.openFile(xebLua_AppWorkingPath.."/CheatDevice/CheatDevicePS2.ini", FCREATE)
 				System.writeFile(NEUTRINO_CheatDeviceFile, NEUTRINO_CheatDeviceText, string.len(NEUTRINO_CheatDeviceText))
 				System.closeFile(NEUTRINO_CheatDeviceFile)
 
-				LaunchELF(xebLua_AppWorkingPath.."CheatDevice/CheatDevice-EXFAT.ELF", 0, "Default", false, 1)
+				System.loadELF(xebLua_AppWorkingPath.."CheatDevice/CheatDevice-EXFAT.ELF")
 			else
-				LaunchELF(xebLua_AppWorkingPath.."radshellmod.elf", 0, "Default", false, 1)
+				System.loadELF(xebLua_AppWorkingPath.."radshellmod.elf")
 			end
 		elseif Pads.check(pad, PAD_UP) then
 			if not Pads.check(oldpad, PAD_UP) then
@@ -1652,7 +1653,7 @@ while XEBKeepInSubMenu do
 				end
 			end
 			::L1End::
-		elseif Pads.check(pad, PAD_R1) and not Pads.check(pad, PAD_L1) and not Pads.check(oldpad, PAD_L1 )then
+		elseif Pads.check(pad, PAD_R1) and not Pads.check(pad, PAD_L1) and not Pads.check(oldpad, PAD_L1)then
 			NEUTRINO_Scrolling = true
 			AnimateCount = 0
 			if NEUTRINO_SelectedItem == NEUTRINO_CurrentTotal() then
@@ -1689,7 +1690,80 @@ while XEBKeepInSubMenu do
 				end
 			end
 			::R1End::
-		elseif Pads.check(pad, PAD_L2) and NEUTRINO_newLetter ~= NEUTRINO_currentLetter and not Pads.check(oldpad, PAD_L2) then
+		elseif Pads.check(pad, PAD_L2) and not Pads.check(pad, PAD_R2) and not Pads.check(oldpad, PAD_R2) then
+			NEUTRINO_Scrolling = true
+			AnimateCount = 0
+			if NEUTRINO_SelectedItem == 1 then
+				if not Pads.check(oldpad, PAD_L2) then
+					NEUTRINO_SelectedItem = NEUTRINO_CurrentTotal()
+					NEUTRINO_LoadIcon(-6, 0)
+					NEUTRINO_Scrolling = false
+					NEUTRINO_AnimateUp(1)
+					goto L2End
+				end
+				NEUTRINO_SelectedItem = 1
+				if NEUTRINO_SelectedItem ~= NEUTRINO_OldItem then
+					NEUTRINO_LoadingText(false, neuLang[6])
+					NEUTRINO_LoadIcon(0, 15)
+				end
+				NEUTRINO_Scrolling = false
+			elseif (NEUTRINO_SelectedItem - 15) < 1 then
+				AnimateCount = math.abs(1 - NEUTRINO_SelectedItem)
+			else
+				AnimateCount = 15
+			end
+			if AnimateCount > 0 then
+				for i = AnimateCount,1,-1 do
+					NEUTRINO_SelectedItem = NEUTRINO_SelectedItem - 1
+					if i % 2 == 0 then
+						NEUTRINO_AnimateUp(2)
+					end
+					if i == 1 and not Pads.check(pad, PAD_L2) then
+						NEUTRINO_LoadingText(false, neuLang[6])
+						NEUTRINO_LoadIcon(-6, 5)
+						NEUTRINO_Scrolling = false
+					end
+				end
+			end
+			::L2End::
+		elseif Pads.check(pad, PAD_R2) and not Pads.check(pad, PAD_L2) and not Pads.check(oldpad, PAD_L2)then
+			NEUTRINO_Scrolling = true
+			AnimateCount = 0
+			if NEUTRINO_SelectedItem == NEUTRINO_CurrentTotal() then
+				if not Pads.check(oldpad, PAD_R2) then
+					NEUTRINO_SelectedItem = 1
+					NEUTRINO_LoadingText(false, neuLang[6])
+					NEUTRINO_LoadIcon(0, 15)
+					NEUTRINO_Scrolling = false
+					NEUTRINO_AnimateDown(1)
+					goto R2End
+				end
+				NEUTRINO_SelectedItem = NEUTRINO_CurrentTotal()
+				if NEUTRINO_SelectedItem ~= NEUTRINO_OldItem then
+					NEUTRINO_LoadingText(false, neuLang[6])
+					NEUTRINO_LoadIcon(-6, 0)
+				end
+				NEUTRINO_Scrolling = false
+			elseif (NEUTRINO_SelectedItem + 15) > NEUTRINO_CurrentTotal() then
+				AnimateCount = NEUTRINO_CurrentTotal() - NEUTRINO_SelectedItem
+			else
+				AnimateCount = 15
+			end
+			if AnimateCount > 0 then
+				for i = AnimateCount,1,-1 do
+					NEUTRINO_SelectedItem = NEUTRINO_SelectedItem + 1
+					if i % 2 == 0 then
+						NEUTRINO_AnimateDown(2)
+					end
+					if i == 1 and not Pads.check(pad, PAD_R2) then
+						NEUTRINO_LoadingText(false, neuLang[6])
+						NEUTRINO_LoadIcon(-6, 5)
+						NEUTRINO_Scrolling = false
+					end
+				end
+			end
+			::R2End::
+		elseif Pads.check(pad, PAD_L3) and NEUTRINO_newLetter ~= NEUTRINO_currentLetter and not Pads.check(oldpad, PAD_L3) then
 			NEUTRINO_currentLetter = string.sub(NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name, 1, 1)
 			NEUTRINO_newLetter = NEUTRINO_currentLetter
 			i = NEUTRINO_SelectedItem
@@ -1705,7 +1779,7 @@ while XEBKeepInSubMenu do
 			NEUTRINO_LoadingText(false, neuLang[6])
 			NEUTRINO_SelectedItem = i + 1
 			NEUTRINO_LoadIcon(-6, 5)
-		elseif Pads.check(pad, PAD_R2) and NEUTRINO_newLetter ~= NEUTRINO_currentLetter and not Pads.check(oldpad, PAD_R2) then
+		elseif Pads.check(pad, PAD_R3) and NEUTRINO_newLetter ~= NEUTRINO_currentLetter and not Pads.check(oldpad, PAD_R3) then
 			NEUTRINO_currentLetter = string.sub(NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name, 1, 1)
 			NEUTRINO_newLetter = NEUTRINO_currentLetter
 			i = NEUTRINO_SelectedItem
@@ -1716,18 +1790,6 @@ while XEBKeepInSubMenu do
 			NEUTRINO_LoadingText(false, neuLang[6])
 			NEUTRINO_SelectedItem = i
 			NEUTRINO_LoadIcon(-6, 5)
-		elseif Pads.check(pad, PAD_L3) and not Pads.check(oldpad, PAD_L3) then
-			if NEUTRINO_SelectedItem ~= 1 then
-				NEUTRINO_SelectedItem = 1
-				NEUTRINO_LoadingText(true, neuLang[6])
-				NEUTRINO_LoadIcon(-6, 5)
-			end
-		elseif Pads.check(pad, PAD_R3) and not Pads.check(oldpad, PAD_R3) then
-			if NEUTRINO_SelectedItem ~= NEUTRINO_CurrentTotal() then
-				NEUTRINO_SelectedItem = NEUTRINO_CurrentTotal()
-				NEUTRINO_LoadingText(true, neuLang[6])
-				NEUTRINO_LoadIcon(-6, 5)
-			end
 		elseif  Pads.check(pad, PAD_SQUARE) and not Pads.check(oldpad, PAD_SQUARE)then
 			XEBKeepInContextMenu = true
 			ContextMenu_HasMoved = 0
