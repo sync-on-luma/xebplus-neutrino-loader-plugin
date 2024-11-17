@@ -231,9 +231,9 @@ This feature uses the same file type and naming conventions as Open PS2 Loader, 
     * Some recent versions of OPL have added support for 128x128 disc icons. These are not supported, and it is recommended to only use the older 64x64 icons.
 2. Copy the artwork files you wish to use to `/ART` or `/XEBPLUS/GME/ART` on your USB drive.
     * If it exisits, the `ART` directory on the USB root will always take priority over `/XEBPLUS/GME/ART`.
-3. Launch XEB+ and select one of the neutrino Launcher plugins.  
-If the plugin detects files in one of the artwork directories, it will automatically create an artwork cache in the `CFG/neutrinoLauncher` folder.
-4.  * This is necessary to maintain a usable level of performance while displaying artwork in the menu.
+3. Launch XEB+ and select one of the neutrino Launcher plugins.
+4. If the plugin detects files in one of the artwork directories, it will automatically create an artwork cache in the `CFG/neutrinoLauncher` folder.
+   * This is necessary to maintain a usable level of performance while displaying artwork in the menu.
 
 The caching process can take a long time to complete the first time it runs, potentially over an hour if you have a very large game library.  
 
