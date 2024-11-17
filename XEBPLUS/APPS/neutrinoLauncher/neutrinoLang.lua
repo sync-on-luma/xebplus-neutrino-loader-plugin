@@ -65,7 +65,7 @@ if XEBPlusLanguage == "en-US" then
     neuLang[63] = "neutrino Launcher (UDPBD)"
     neuLang[64] = "Launch games from a UDPBD server with neutrino"
     neuLang[65] = "Enable Cheat Device"
-    neuLang[66] = "Select cheats with Cheat Device before launching the game."
+    neuLang[66] = "Select cheats with Cheat Device before\nlaunching the game."
 
     NEUTRINO_Control1 = "image/controlmap1.png"
     NEUTRINO_Control2 = "image/controlmap2.png"
@@ -137,7 +137,7 @@ elseif XEBPlusLanguage == "es-419" then
     neuLang[63] = "Lanzador neutrino (UDPBD)"
     neuLang[64] = "Ejecutar juegos desde un servidor UDPBD con neutrino"
     neuLang[65] = "Habilitar dispositivo de trampa"
-    neuLang[66] = "Selecciona trucos con Cheat Device antes de iniciar el juego."
+    neuLang[66] = "Selecciona trucos con Cheat Device antes\nde iniciar el juego."
 
     NEUTRINO_Control1 = "image/controlmap1_es.png"
     NEUTRINO_Control2 = "image/controlmap2_es.png"
@@ -209,7 +209,7 @@ elseif XEBPlusLanguage == "pt-BR" then
     neuLang[63] = "neutrino Launcher (UDPBD)"
     neuLang[64] = "Inicie jogos de um servidor UDPBD com neutrino"
     neuLang[65] = "Habilitar Cheat Device"
-    neuLang[66] = "Selecione cheats com Cheat Device antes de iniciar o jogo."
+    neuLang[66] = "Selecione cheats com Cheat Device antes\nde iniciar o jogo."
 
     NEUTRINO_Control1 = "image/controlmap1_pt.png"
     NEUTRINO_Control2 = "image/controlmap2_pt.png"

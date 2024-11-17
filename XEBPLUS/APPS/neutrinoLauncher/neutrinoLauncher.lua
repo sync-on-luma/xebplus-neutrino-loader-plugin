@@ -1005,47 +1005,54 @@ function NEUTRINO_SaveLast()
 end
 
 function ContextMenu_ReadSettings(Settings)
+	if string.match(Settings, "(.*)cheat(.*)") then
+		ContextMenu_Cheat = "-cheat"
+		ContextMenu[3].Name = "\194\172  "..neuLang[65]
+	else
+		ContextMenu_Cheat = ""
+		ContextMenu[3].Name = "     "..neuLang[65]
+	end
 	if string.match(Settings, "(.*)logo(.*)") then
 		ContextMenu_Logo = " -logo"
-		ContextMenu[3].Name = "\194\172  "..neuLang[14]
+		ContextMenu[4].Name = "\194\172  "..neuLang[14]
 	else
 		ContextMenu_Logo = ""
-		ContextMenu[3].Name = "     "..neuLang[14]
+		ContextMenu[4].Name = "     "..neuLang[14]
 	end
 	if string.match(Settings, "(.*)dbc(.*)") then
 		ContextMenu_Colors = " -dbc"
-		ContextMenu[4].Name = "\194\172  "..neuLang[15]
+		ContextMenu[5].Name = "\194\172  "..neuLang[15]
 	else
 		ContextMenu_Colors = ""
-		ContextMenu[4].Name = "     "..neuLang[15]
+		ContextMenu[5].Name = "     "..neuLang[15]
 	end
 	if string.match(Settings, "(.*)1(.*)") then
 		ContextMenu_Accurate = "1"
-		ContextMenu[5].Name = "\194\172  "..neuLang[16]
+		ContextMenu[6].Name = "\194\172  "..neuLang[16]
 	else
 		ContextMenu_Accurate = ""
-		ContextMenu[5].Name = "     "..neuLang[16]
+		ContextMenu[6].Name = "     "..neuLang[16]
 	end
 	if string.match(Settings, "(.*)2(.*)") then
 		ContextMenu_Sync = "2"
-		ContextMenu[6].Name = "\194\172  "..neuLang[17]
+		ContextMenu[7].Name = "\194\172  "..neuLang[17]
 	else
 		ContextMenu_Sync = ""
-		ContextMenu[6].Name = "     "..neuLang[17]
+		ContextMenu[7].Name = "     "..neuLang[17]
 	end
 	if string.match(Settings, "(.*)3(.*)") then
 		ContextMenu_Unhook = "3"
-		ContextMenu[7].Name = "\194\172  "..neuLang[18]
+		ContextMenu[8].Name = "\194\172  "..neuLang[18]
 	else
 		ContextMenu_Unhook = ""
-		ContextMenu[7].Name = "     "..neuLang[18]
+		ContextMenu[8].Name = "     "..neuLang[18]
 	end
 	if string.match(Settings, "(.*)5(.*)") then
 		ContextMenu_Emulate = "5"
-		ContextMenu[8].Name = "\194\172  "..neuLang[19]
+		ContextMenu[9].Name = "\194\172  "..neuLang[19]
 	else
 		ContextMenu_Emulate = ""
-		ContextMenu[8].Name = "     "..neuLang[19]
+		ContextMenu[9].Name = "     "..neuLang[19]
 	end
 end
 ContextMenu_FirstRun = true
@@ -1065,21 +1072,23 @@ function NEUTRINO_ContextMenu()
 		ContextMenu[7] = {};
 		ContextMenu[8] = {};
 		ContextMenu[9] = {};
+		ContextMenu[10] = {};
 		ContextMenu[1].Description = neuLang[20]
 		ContextMenu[2].Description = neuLang[21]
-		ContextMenu[3].Description = neuLang[22]
-		ContextMenu[4].Description = neuLang[23]
-		ContextMenu[5].Description = neuLang[24]
-		ContextMenu[6].Description = neuLang[25]
-		ContextMenu[7].Description = neuLang[26]
-		ContextMenu[8].Description = neuLang[27]
-		ContextMenu[9].Description = neuLang[28]
+		ContextMenu[3].Description = neuLang[66]
+		ContextMenu[4].Description = neuLang[22]
+		ContextMenu[5].Description = neuLang[23]
+		ContextMenu[6].Description = neuLang[24]
+		ContextMenu[7].Description = neuLang[25]
+		ContextMenu[8].Description = neuLang[26]
+		ContextMenu[9].Description = neuLang[27]
+		ContextMenu[10].Description = neuLang[28]
 		if NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId == "" or NEUTRINO_CurrentList == NEUTRINO_Favorites then
-			ContextMenu_AllItems = 8
-		else
 			ContextMenu_AllItems = 9
+		else
+			ContextMenu_AllItems = 10
 		end
-		
+
 		if System.doesFileExist(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg") then
 			NEUTRINO_TempFile = io.open(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg", r)
 			ContextMenu_LocalSettings = (NEUTRINO_TempFile:read())
@@ -1108,9 +1117,9 @@ function NEUTRINO_ContextMenu()
 			ContextMenu_Global = true
 			ContextMenu_ReadSettings(ContextMenu_GlobalSettings)
 		end
-		ContextMenu[9].Name = neuLang[33]
+		ContextMenu[10].Name = neuLang[33]
 		ContextMenu_FirstRun = false
-		
+
 		if ContextMenu_Accurate..ContextMenu_Sync..ContextMenu_Unhook..ContextMenu_Emulate == "" then
 				ContextMenu_Disable = "0"
 			else
@@ -1192,54 +1201,62 @@ function NEUTRINO_ContextMenu()
 					ContextMenu_Global = false
 				end
 			elseif ContextMenu_SelectedItem == 3 then
-				if ContextMenu_Logo == "" then
-					ContextMenu[3].Name = "\194\172  "..neuLang[14]
-					ContextMenu_Logo = " -logo"
+				if ContextMenu_Cheat == "" then
+					ContextMenu[3].Name = "\194\172  "..neuLang[65]
+					ContextMenu_Cheat = "-cheat"
 				else
-					ContextMenu[3].Name = "     "..neuLang[14]
-					ContextMenu_Logo = ""
+					ContextMenu[3].Name = "     "..neuLang[65]
+					ContextMenu_Cheat = ""
 				end
 			elseif ContextMenu_SelectedItem == 4 then
-				if ContextMenu_Colors == "" then
-					ContextMenu[4].Name = "\194\172  "..neuLang[15]
-					ContextMenu_Colors = " -dbc"
+				if ContextMenu_Logo == "" then
+					ContextMenu[4].Name = "\194\172  "..neuLang[14]
+					ContextMenu_Logo = " -logo"
 				else
-					ContextMenu[4].Name = "     "..neuLang[15]
-					ContextMenu_Colors = ""
+					ContextMenu[4].Name = "     "..neuLang[14]
+					ContextMenu_Logo = ""
 				end
 			elseif ContextMenu_SelectedItem == 5 then
-				if ContextMenu_Accurate == "" then
-					ContextMenu[5].Name = "\194\172  "..neuLang[16]
-					ContextMenu_Accurate = "1"
+				if ContextMenu_Colors == "" then
+					ContextMenu[5].Name = "\194\172  "..neuLang[15]
+					ContextMenu_Colors = " -dbc"
 				else
-					ContextMenu[5].Name = "     "..neuLang[16]
-					ContextMenu_Accurate = ""
+					ContextMenu[5].Name = "     "..neuLang[15]
+					ContextMenu_Colors = ""
 				end
 			elseif ContextMenu_SelectedItem == 6 then
-				if ContextMenu_Sync == "" then
-					ContextMenu[6].Name = "\194\172  "..neuLang[17]
-					ContextMenu_Sync = "2"
+				if ContextMenu_Accurate == "" then
+					ContextMenu[6].Name = "\194\172  "..neuLang[16]
+					ContextMenu_Accurate = "1"
 				else
-					ContextMenu[6].Name = "     "..neuLang[17]
-					ContextMenu_Sync = ""
+					ContextMenu[6].Name = "     "..neuLang[16]
+					ContextMenu_Accurate = ""
 				end
 			elseif ContextMenu_SelectedItem == 7 then
-				if ContextMenu_Unhook == "" then
-					ContextMenu[7].Name = "\194\172  "..neuLang[18]
-					ContextMenu_Unhook = "3"
+				if ContextMenu_Sync == "" then
+					ContextMenu[7].Name = "\194\172  "..neuLang[17]
+					ContextMenu_Sync = "2"
 				else
-					ContextMenu[7].Name = "     "..neuLang[18]
-					ContextMenu_Unhook = ""
+					ContextMenu[7].Name = "     "..neuLang[17]
+					ContextMenu_Sync = ""
 				end
 			elseif ContextMenu_SelectedItem == 8 then
-				if ContextMenu_Emulate == "" then
-					ContextMenu[8].Name = "\194\172  "..neuLang[19]
-					ContextMenu_Emulate = "5"
+				if ContextMenu_Unhook == "" then
+					ContextMenu[8].Name = "\194\172  "..neuLang[18]
+					ContextMenu_Unhook = "3"
 				else
-					ContextMenu[8].Name = "     "..neuLang[19]
-					ContextMenu_Emulate = ""
+					ContextMenu[8].Name = "     "..neuLang[18]
+					ContextMenu_Unhook = ""
 				end
 			elseif ContextMenu_SelectedItem == 9 then
+				if ContextMenu_Emulate == "" then
+					ContextMenu[9].Name = "\194\172  "..neuLang[19]
+					ContextMenu_Emulate = "5"
+				else
+					ContextMenu[9].Name = "     "..neuLang[19]
+					ContextMenu_Emulate = ""
+				end
+			elseif ContextMenu_SelectedItem == 10 then
 				if NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId ~= "" then
 					NEUTRINO_CachedCount = 0
 					System.removeFile("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/DISC/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId..".png")
@@ -1302,7 +1319,8 @@ function NEUTRINO_ContextMenu()
 		end
     end
     if ContextMenu_HasMoved == 2 then
-		ContextMenu_NewSettings = "-gc="..ContextMenu_Disable
+		ContextMenu_NewSettings = ContextMenu_Cheat
+		ContextMenu_NewSettings = ContextMenu_NewSettings.."-gc="..ContextMenu_Disable
 		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Accurate
 		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Sync
 		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Unhook
@@ -1506,21 +1524,38 @@ while XEBKeepInSubMenu do
 				NEUTRINO_LaunchOptions = ""
 				NEUTRINO_LoadingText(false, neuLang[40])
 			end
+			if string.match(NEUTRINO_LaunchOptions, "(.*)cheat(.*)") then
+				NEUTRINO_LaunchOptions = string.sub(NEUTRINO_LaunchOptions, 7, string.len(NEUTRINO_LaunchOptions))
+				NEUTRINO_Cheats = true
+			end
+
 			if NEUTRINO_PathPrefix ~= "mass" then
 				NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder = ""
 			end
 
 			NEUTRINO_RadShellText = "fontsize 0.6\r\necho \"Starting "..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".iso\"\r\nsleep 1\r\nrun neutrino.elf -bsd="..NEUTRINO_Bsd.." -bsdfs="..NEUTRINO_Fs.." \"-dvd="..NEUTRINO_PathPrefix..":"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name.."."..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension.."\" -mt="..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media.." "..NEUTRINO_LaunchOptions.."\r\n"
 
-			NEUTRINO_RadShellFile = System.openFile(xebLua_AppWorkingPath.."radshellmod.ios", FRDWR)
-			System.removeFile(NEUTRINO_RadShellFile)
-			System.closeFile(NEUTRINO_RadShellFile)
+			--NEUTRINO_RadShellFile = System.openFile(xebLua_AppWorkingPath.."radshellmod.ios", FRDWR)
+			System.removeFile(xebLua_AppWorkingPath.."radshellmod.ios")
+			--System.closeFile(NEUTRINO_RadShellFile)
 			NEUTRINO_RadShellFile = System.openFile(xebLua_AppWorkingPath.."radshellmod.ios", FCREATE)
 			System.writeFile(NEUTRINO_RadShellFile, NEUTRINO_RadShellText, string.len(NEUTRINO_RadShellText))
 			System.closeFile(NEUTRINO_RadShellFile)
-
 			NEUTRINO_SaveLast()
-			System.loadELF(xebLua_AppWorkingPath.."radshellmod.elf")
+			if NEUTRINO_Cheats == true then
+				NEUTRINO_CheatFile = "mass:CHT/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId..".cht"
+
+				NEUTRINO_CheatDeviceText = "[CheatDevicePS2]\ndatabaseReadOnly = "..NEUTRINO_CheatFile.."\ndatabaseReadWrite =\nboot1 = mass:XEBPLUS/APPS/neutrinoLauncher/radshellmod.elf\nboot2 = \xE2\x81\xA0\nboot3 = \xE2\x81\xA0\nboot4 = \xE2\x81\xA0\nboot5 = \xE2\x81\xA0"
+
+				System.removeFile(xebLua_AppWorkingPath.."/CheatDevice/CheatDevicePS2.ini")
+				NEUTRINO_CheatDeviceFile = System.openFile(xebLua_AppWorkingPath.."/CheatDevice/CheatDevicePS2.ini", FCREATE)
+				System.writeFile(NEUTRINO_CheatDeviceFile, NEUTRINO_CheatDeviceText, string.len(NEUTRINO_CheatDeviceText))
+				System.closeFile(NEUTRINO_CheatDeviceFile)
+
+				System.loadELF(xebLua_AppWorkingPath.."CheatDevice/CheatDevice-EXFAT.ELF")
+			else
+				System.loadELF(xebLua_AppWorkingPath.."radshellmod.elf")
+			end
 		elseif Pads.check(pad, PAD_UP) then
 			if not Pads.check(oldpad, PAD_UP) then
 				if NEUTRINO_SelectedItem ~= 1 then
@@ -1618,7 +1653,7 @@ while XEBKeepInSubMenu do
 				end
 			end
 			::L1End::
-		elseif Pads.check(pad, PAD_R1) and not Pads.check(pad, PAD_L1) and not Pads.check(oldpad, PAD_L1 )then
+		elseif Pads.check(pad, PAD_R1) and not Pads.check(pad, PAD_L1) and not Pads.check(oldpad, PAD_L1)then
 			NEUTRINO_Scrolling = true
 			AnimateCount = 0
 			if NEUTRINO_SelectedItem == NEUTRINO_CurrentTotal() then
@@ -1655,7 +1690,80 @@ while XEBKeepInSubMenu do
 				end
 			end
 			::R1End::
-		elseif Pads.check(pad, PAD_L2) and NEUTRINO_newLetter ~= NEUTRINO_currentLetter and not Pads.check(oldpad, PAD_L2) then
+		elseif Pads.check(pad, PAD_L2) and not Pads.check(pad, PAD_R2) and not Pads.check(oldpad, PAD_R2) then
+			NEUTRINO_Scrolling = true
+			AnimateCount = 0
+			if NEUTRINO_SelectedItem == 1 then
+				if not Pads.check(oldpad, PAD_L2) then
+					NEUTRINO_SelectedItem = NEUTRINO_CurrentTotal()
+					NEUTRINO_LoadIcon(-6, 0)
+					NEUTRINO_Scrolling = false
+					NEUTRINO_AnimateUp(1)
+					goto L2End
+				end
+				NEUTRINO_SelectedItem = 1
+				if NEUTRINO_SelectedItem ~= NEUTRINO_OldItem then
+					NEUTRINO_LoadingText(false, neuLang[6])
+					NEUTRINO_LoadIcon(0, 15)
+				end
+				NEUTRINO_Scrolling = false
+			elseif (NEUTRINO_SelectedItem - 15) < 1 then
+				AnimateCount = math.abs(1 - NEUTRINO_SelectedItem)
+			else
+				AnimateCount = 15
+			end
+			if AnimateCount > 0 then
+				for i = AnimateCount,1,-1 do
+					NEUTRINO_SelectedItem = NEUTRINO_SelectedItem - 1
+					if i % 2 == 0 then
+						NEUTRINO_AnimateUp(2)
+					end
+					if i == 1 and not Pads.check(pad, PAD_L2) then
+						NEUTRINO_LoadingText(false, neuLang[6])
+						NEUTRINO_LoadIcon(-6, 5)
+						NEUTRINO_Scrolling = false
+					end
+				end
+			end
+			::L2End::
+		elseif Pads.check(pad, PAD_R2) and not Pads.check(pad, PAD_L2) and not Pads.check(oldpad, PAD_L2)then
+			NEUTRINO_Scrolling = true
+			AnimateCount = 0
+			if NEUTRINO_SelectedItem == NEUTRINO_CurrentTotal() then
+				if not Pads.check(oldpad, PAD_R2) then
+					NEUTRINO_SelectedItem = 1
+					NEUTRINO_LoadingText(false, neuLang[6])
+					NEUTRINO_LoadIcon(0, 15)
+					NEUTRINO_Scrolling = false
+					NEUTRINO_AnimateDown(1)
+					goto R2End
+				end
+				NEUTRINO_SelectedItem = NEUTRINO_CurrentTotal()
+				if NEUTRINO_SelectedItem ~= NEUTRINO_OldItem then
+					NEUTRINO_LoadingText(false, neuLang[6])
+					NEUTRINO_LoadIcon(-6, 0)
+				end
+				NEUTRINO_Scrolling = false
+			elseif (NEUTRINO_SelectedItem + 15) > NEUTRINO_CurrentTotal() then
+				AnimateCount = NEUTRINO_CurrentTotal() - NEUTRINO_SelectedItem
+			else
+				AnimateCount = 15
+			end
+			if AnimateCount > 0 then
+				for i = AnimateCount,1,-1 do
+					NEUTRINO_SelectedItem = NEUTRINO_SelectedItem + 1
+					if i % 2 == 0 then
+						NEUTRINO_AnimateDown(2)
+					end
+					if i == 1 and not Pads.check(pad, PAD_R2) then
+						NEUTRINO_LoadingText(false, neuLang[6])
+						NEUTRINO_LoadIcon(-6, 5)
+						NEUTRINO_Scrolling = false
+					end
+				end
+			end
+			::R2End::
+		elseif Pads.check(pad, PAD_L3) and NEUTRINO_newLetter ~= NEUTRINO_currentLetter and not Pads.check(oldpad, PAD_L3) then
 			NEUTRINO_currentLetter = string.sub(NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name, 1, 1)
 			NEUTRINO_newLetter = NEUTRINO_currentLetter
 			i = NEUTRINO_SelectedItem
@@ -1671,7 +1779,7 @@ while XEBKeepInSubMenu do
 			NEUTRINO_LoadingText(false, neuLang[6])
 			NEUTRINO_SelectedItem = i + 1
 			NEUTRINO_LoadIcon(-6, 5)
-		elseif Pads.check(pad, PAD_R2) and NEUTRINO_newLetter ~= NEUTRINO_currentLetter and not Pads.check(oldpad, PAD_R2) then
+		elseif Pads.check(pad, PAD_R3) and NEUTRINO_newLetter ~= NEUTRINO_currentLetter and not Pads.check(oldpad, PAD_R3) then
 			NEUTRINO_currentLetter = string.sub(NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name, 1, 1)
 			NEUTRINO_newLetter = NEUTRINO_currentLetter
 			i = NEUTRINO_SelectedItem
@@ -1682,18 +1790,6 @@ while XEBKeepInSubMenu do
 			NEUTRINO_LoadingText(false, neuLang[6])
 			NEUTRINO_SelectedItem = i
 			NEUTRINO_LoadIcon(-6, 5)
-		elseif Pads.check(pad, PAD_L3) and not Pads.check(oldpad, PAD_L3) then
-			if NEUTRINO_SelectedItem ~= 1 then
-				NEUTRINO_SelectedItem = 1
-				NEUTRINO_LoadingText(true, neuLang[6])
-				NEUTRINO_LoadIcon(-6, 5)
-			end
-		elseif Pads.check(pad, PAD_R3) and not Pads.check(oldpad, PAD_R3) then
-			if NEUTRINO_SelectedItem ~= NEUTRINO_CurrentTotal() then
-				NEUTRINO_SelectedItem = NEUTRINO_CurrentTotal()
-				NEUTRINO_LoadingText(true, neuLang[6])
-				NEUTRINO_LoadIcon(-6, 5)
-			end
 		elseif  Pads.check(pad, PAD_SQUARE) and not Pads.check(oldpad, PAD_SQUARE)then
 			XEBKeepInContextMenu = true
 			ContextMenu_HasMoved = 0
