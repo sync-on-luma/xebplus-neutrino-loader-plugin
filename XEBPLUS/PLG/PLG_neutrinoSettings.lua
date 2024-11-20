@@ -66,7 +66,7 @@ elseif XEBPlusLanguage == "es-419" then
     nSetLang[30] = "Habilite el complemento neutrino Launcher (UDPBD).\nRequiere actualización XEB+."
     nSetLang[31] = "Habilitar UDPBD"
     nSetLang[32] = "Limpiar caché de ilustraciones"
-    nSetLang[33] = "Elimine los archivos no utilizados en el caché de ilustraciones."
+    nSetLang[33] = "Elimine los archivos no utilizados en el caché\nde ilustraciones."
 elseif XEBPlusLanguage == "pt-BR" then
     nSetLang[1] = "Configurações do neutrino Launcher"
     nSetLang[2] = "Configurar menu do neutrino Launcher"

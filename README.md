@@ -8,11 +8,13 @@ It allows XEB+ to load PlayStation 2 games from HDD, MX4SIO, USB, and UDPBD via 
   * Load PlayStation 2 game backups straight from the Xtreme Elite Boot Plus dashboard.
   * Supports game loading from HDD, MX4SIO, USB, and UDPBD.
   * Supports high capacity exFAT drives (currently tested with drives up to 4TB).
+  * Works with fragmented game files.
   * Quick navigation functions for browsing large game lists.
   * Remember last played game.
   * Display game-specific artwork on the menu.
   * Display metadata for each game.
   * Set neutrino compatibility flags and other options on a global or per-game basis.
+  * Cheat support.
   * Favorites list.
   * Custom theme integration.
 
@@ -28,6 +30,7 @@ It allows XEB+ to load PlayStation 2 games from HDD, MX4SIO, USB, and UDPBD via 
   * A Phat PlayStation 2 console.
   * A PlayStation 2 network adapter or hard drive add-on.
   * A hard drive or SSD that is compatible with your Playstaion 2 network or hard drive adapter.  
+  * A FAT32 or exFAT formatted USB drive 1GB or larger.  
   This is used for XEB+ and assorted files.
   * A PC hard drive dock or USB adapter (optional)
     
@@ -66,7 +69,7 @@ This includes all neutrino Launcher files in the `APPS`, `PLG`, and `CFG` folder
 2. Extract the `XEBPLUS` folder to the root of your USB drive, and ensure that you can load into the XEB+ dashboard on your PlayStation 2.  
 Note that if you are using an exFAT formatted USB drive, you will need to use PS2BBL and [this version](https://github.com/israpps/wLaunchELF_ISR) of wLaunchELF. 
 3. (optional) Configure your PS2 exploit of choice to autorun XEB+ on startup.
-4. Download the latest version of this plugin from the Releases section.  
+4. Download the latest version of this plugin from the [Releases](https://github.com/sync-on-luma/xebplus-neutrino-loader-plugin/releases) section.  
 Extract the`XEBPLUS`folder to the root of your USB drive, merging all folders if prompted.
 5. Extract the List Builder directory to a known location on your computer.
 6. Complete setup by following the steps specific to the device you want to load games from.
@@ -206,8 +209,10 @@ dotnet UDPBD-for-XEB+-CLI.dll -path /mnt/ps2 -ps2ip 192.168.0.10 -bin2iso
 sudo umount /mnt/ps2
 sudo ./udpbd-server /dev/nvme0n1p6
 ```
-The server needs to be open and running for the entire play session.
-19. Launch XEB+ on the PS2, and use *neutrino Launcher (UDPBD)* to load games from the network share.
+The server needs to be open and running for the entire play session.  
+19. Launch XEB+ on the PS2, and use *neutrino Launcher (UDPBD)* to load games from the network share.   
+
+
 To add or remove games, stop the server then mount the exFAT storage device to `/mnt/ps2`   
 ```
 sudo mount /dev/nvme0n1p6 /mnt/ps2/ -o uid=$USER
@@ -223,12 +228,12 @@ This feature uses the same file type and naming conventions as Open PS2 Loader, 
 
 1. Prepare or acquire artwork files with the same file format and naming conventions as those used by OPL.
     * Only background art (*_BG*) and disc icon (*_ICO*) files are used by this plugin.
-    * Some recent versions of OPL have added support for 128x128 disc icons. It is strongly recommended to only use the older 64x64 icons.
+    * Some recent versions of OPL have added support for 128x128 disc icons. These are not supported, and it is recommended to only use the older 64x64 icons.
 2. Copy the artwork files you wish to use to `/ART` or `/XEBPLUS/GME/ART` on your USB drive.
     * If it exisits, the `ART` directory on the USB root will always take priority over `/XEBPLUS/GME/ART`.
-3. Launch XEB+ and select one of the neutrino Launcher plugins.  
-If the plugin detects files in one of the artwork directories, it will automatically create an artwork cache in the `CFG/neutrinoLauncher` folder.
-4.  * This is necessary to maintain a usable level of performance while displaying artwork in the menu.
+3. Launch XEB+ and select one of the neutrino Launcher plugins.
+4. If the plugin detects files in one of the artwork directories, it will automatically create an artwork cache in the `CFG/neutrinoLauncher` folder.
+   * This is necessary to maintain a usable level of performance while displaying artwork in the menu.
 
 The caching process can take a long time to complete the first time it runs, potentially over an hour if you have a very large game library.  
 
@@ -236,7 +241,18 @@ Making any changes to any of the *.list* files in the `CFG/neutrinoLauncher` fol
 A refresh can also be triggered manually from the plugin settings.  
 Cache refreshes take much less time than initial creation, so long as the cache folder has not been moved or deleted.
 
-## Usage
+### Adding Cheats
+
+The neutrino Launcher can be set to load [Cheat Device](https://israpps.github.io/CheatDevicePS2/) prior to starting a game. This allows for the use of Action Replay / Gameshark style cheat codes.  
+To make use of this feature, the following additional steps are required. 
+
+1. Create or acquire cheat database (*.cht*) files in Cheat Device format.
+    * Database files should only contain cheats for a single game.
+    * Database files must be named by PlayStation 2 title ID using this format: `SLUS_123.45.cht`
+2. Create a directory called `CHT` on the root of the USB drive containing your XEB+ install.
+3. Copy your *.cht* files to the `CHT` directory.
+
+A collection widescreen patch codes in the correct format can be found [here](https://github.com/sync-on-luma/PS2-widescreen-cheats). Other cheat codes will need to be converted from other collections or added by hand.
 
 ### Controls
 
@@ -248,8 +264,8 @@ DOWN -          **scroll down**
 UP -            **scroll up**  
 R1 -            **scroll down 5 items**  
 L1 -            **scroll up 5 items**  
-R2 -            **jump to next letter**  
-L2 -            **jump to previous letter**  
+R2 -            **scroll down 15 items**  
+L2 -            **scroll up 15 items**  
 R3 -            **jump to bottom of list**  
 L3 -            **jump to top of list**  
 SELECT -        **view control map**
@@ -270,6 +286,8 @@ Context menu options apply to the currently highlighted game by default, and are
   * **Global / Per-Game Settings** - This option toggles between Global and Per-Game settings modes.  
 When set to Global Settings, options shown below this one will apply to all games.  
 When set to Per-Game Settings, options shown below this one will apply only to the current game.
+  * **Enable Cheat Device** - When enabled, Cheat Device will be injected into the game load sequence.  
+  To start the selected game from within Cheat Device, press START, select *Start Game*, and choose the option below *==Disc==*.
   * **Enable Boot Logo** - When enabled, the PlayStation 2 logo will be shown on screen when starting a game. This setting can affect compatibly, particularly for games that do not match your console's region.
   * **Enable Debug Colors** - When enabled, a series of colors will flash on screen when starting a game. This can be used to help diagnose games that will not start.
   * **Accurate Reads** - When enabled, the data transfer rate for games will be limited to that of the PlayStation 2 DVD drive.  
@@ -279,13 +297,14 @@ When set to Per-Game Settings, options shown below this one will apply only to t
   * **Emulate DVD-DL**- When enabled, neutrino will emulate the data structure of a dual-layer DVD. This option is required for DVD9 images that have been modified to fit a DVD5.
   * **Refresh Artwork** - Immediately delete and re-copy cached artwork for the current game. This option is not affected by the current settings mode.
 
-Closing the context menu will automatically save the currently selected options. 
+Closing the context menu will automatically save the currently selected options.  
+Refer to the [compatibility list](https://github.com/sync-on-luma/xebplus-neutrino-loader-plugin/wiki/Compatibility-List) to find known-working configurations for specific games.
 
 ### Favorites
 
 Games can be added to a favorites list for easy organization and quicker access.  
 
-The favorites list is shared between all three drive types, however only titles present on the currently selected drive will be displayed.  
+The favorites list is shared between all four drive types, however only titles present on the currently selected drive will be displayed.  
 
 To add a game to the favorites list, open the context menu and select "Add To Favorites", as described in the previous section. Repeat this process to remove a game from the favorites list.  
 When a game is in the favorites list, it's title will be flanked by "●" on either side.  
@@ -334,7 +353,7 @@ If you wish to reference the included versions of these icons, they are located 
 ## Known Issues and Limitations
 
   * Artwork cannot be refreshed from the context menu while in the favorites list.
-  * The plugin may crash when switching to the favorites list in some rare cases. The cause of this issue is currently unknown.
+  * The plugin may crash when switching to the favorites list for some users. The cause of this issue is currently unknown.
   * The plugin may need to be closed and re-opened for refreshed artwork to be shown.
   * If an artwork cache build / refresh is interrupted, the system may crash the next time the plugin is loaded.  
 If this happens, the behavior will persist until the cache is refreshed manually.
