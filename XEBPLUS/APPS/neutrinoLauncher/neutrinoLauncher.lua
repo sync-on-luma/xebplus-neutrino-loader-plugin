@@ -1511,7 +1511,20 @@ while XEBKeepInSubMenu do
 				Screen.waitVblankStart()
 				Screen.flip()
 			end
-
+			
+			NEUTRINO_VMCParam = ""
+			if string.match(NEUTRINO_Bsd, "(.*)udp(.*)") and System.doesFileExist("CFG/neutrinoLauncher/enable-VMC-UDPBD.list") and NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId ~= "" and NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId ~= nil then
+				NEUTRINO_TempFile = io.open("mass:/XEBPLUS/CFG/neutrinoLauncher/enable-VMC-UDPBD.list", "r")
+				if NEUTRINO_TempFile then
+					for line in NEUTRINO_TempFile:lines() do
+						if string.match(line, NEUTRINO_NewHash) then
+							NEUTRINO_VMCParam = " \"-mc0=mass:/VMC/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId.."_0.bin\""
+						end
+					end
+				end
+				io.close(NEUTRINO_TempFile)
+			end
+			
 			if System.doesFileExist(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg") then
 				NEUTRINO_TempFile = io.open(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg", "r")
 				NEUTRINO_LaunchOptions = (NEUTRINO_TempFile:read())
@@ -1533,7 +1546,7 @@ while XEBKeepInSubMenu do
 				NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder = ""
 			end
 
-			NEUTRINO_RadShellText = "fontsize 0.6\r\necho \"Starting "..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".iso\"\r\nsleep 1\r\nrun neutrino.elf -bsd="..NEUTRINO_Bsd.." -bsdfs="..NEUTRINO_Fs.." \"-dvd="..NEUTRINO_PathPrefix..":"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name.."."..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension.."\" -mt="..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media.." "..NEUTRINO_LaunchOptions.."\r\n"
+			NEUTRINO_RadShellText = "fontsize 0.6\r\necho \"Starting "..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".iso\"\r\nsleep 1\r\nrun neutrino.elf -bsd="..NEUTRINO_Bsd.." -bsdfs="..NEUTRINO_Fs.." \"-dvd="..NEUTRINO_PathPrefix..":"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name.."."..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension.."\""..NEUTRINO_VMCParam.." -mt="..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media.." "..NEUTRINO_LaunchOptions.."\r\n"
 
 			--NEUTRINO_RadShellFile = System.openFile(xebLua_AppWorkingPath.."radshellmod.ios", FRDWR)
 			System.removeFile(xebLua_AppWorkingPath.."radshellmod.ios")
