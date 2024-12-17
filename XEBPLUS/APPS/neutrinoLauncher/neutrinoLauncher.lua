@@ -437,7 +437,7 @@ NEUTRINO_RecentsTotal = 0
 NEUTRINO_Games = {};
 NEUTRINO_Favorites = {};
 NEUTRINO_Recents = {};
-
+NEUTRINO_Vmc = ""
 NEUTRINO_CurrentList = NEUTRINO_Games
 NEUTRINO_CachedCount = 0
 NEUTRINO_TitleIdCount = 0
@@ -1091,28 +1091,27 @@ function ContextMenu_ReadSettings(Settings)
 		ContextMenu_Cheat = ""
 		ContextMenu[3].Name = "     "..neuLang[65]
 	end
-	if string.match(Settings, "(.*)mc0(.*)") then
-		ContextMenu_Vmc = " -mc0=mass:"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc
-		ContextMenu[4].Name = "\194\172  "..neuLang[53]
-		Settings = string.sub(Settings, 1, -34)
-	else
-		ContextMenu_Vmc = ""
-		ContextMenu[4].Name = "     "..neuLang[53]
+	if ContextMenu_Offset > -1 then
+		if string.match(Settings, "(.*)vmc(.*)") then
+			ContextMenu_Vmc = "-vmc "
+			ContextMenu[4].Name = "\194\172  "..neuLang[53]
+		else
+			ContextMenu_Vmc = ""
+			ContextMenu[4].Name = "     "..neuLang[53]
+		end
 	end
-
 	if ContextMenu_Offset == 1 then
+		NEUTRINO_Debug = "0"
 		if string.match(Settings, "(.*)unique(.*)") then
+			NEUTRINO_Debug = "1"
 			ContextMenu_Unique = "-unique "
 			ContextMenu[5].Name = "\194\172  ".."Use Unique VMC"
-			if ContextMenu_Vmc ~= "" then
-				ContextMenu_Vmc = " -mc0=mass:/VMC/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId.."_0.bin"
-			end
 		else
 			ContextMenu_Unique = ""
 			ContextMenu[5].Name = "     ".."Use Unique VMC"
+			NEUTRINO_Debug = "2"
 		end
 	end
-
 	if string.match(Settings, "(.*)logo(.*)") then
 		ContextMenu_Logo = " -logo"
 		ContextMenu[5+ContextMenu_Offset].Name = "\194\172  "..neuLang[14]
@@ -1161,10 +1160,14 @@ function NEUTRINO_ContextMenu()
 	if ContextMenu_FirstRun == true then
 		ContextMenu_HasMoved = 0
 		ContextMenu_SelectedItem = 1
+		ContextMenu_Vmc = ""
+		ContextMenu_Unique = ""
 		ContextMenu_UpdateFavorties = false
 		ContextMenu_ReloadArt = false
 		if string.match(NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc, "(.*)XEBP(.*)") then
 			ContextMenu_Offset = 1
+		elseif NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc == "0000000000000000000000" then
+			ContextMenu_Offset = -1
 		else
 			ContextMenu_Offset = 0
 		end
@@ -1179,16 +1182,20 @@ function NEUTRINO_ContextMenu()
 		ContextMenu[8] = {};
 		ContextMenu[9] = {};
 		ContextMenu[10] = {};
-		ContextMenu[11] = {};
+		if ContextMenu_Offset > -1 then
+			ContextMenu[11] = {};
+		end
 		if ContextMenu_Offset == 1 then
 			ContextMenu[12] = {};
 		end
 		ContextMenu[1].Description = neuLang[20]
-		ContextMenu[2].Description = neuLang[56]
-		ContextMenu[3].Description = neuLang[21]
-		ContextMenu[4].Description = neuLang[66]
+		ContextMenu[2].Description = neuLang[21]
+		ContextMenu[3].Description = neuLang[66]
+		if ContextMenu_Offset > -1 then
+			ContextMenu[4].Description = neuLang[20]
+		end
 		if ContextMenu_Offset == 1 then
-			ContextMenu[5].Description = "Use a dedicated VMC file for this game if it would normally save to a group VMC."
+			ContextMenu[5].Description = "Use a dedicated VMC file for this game."
 		end
 		ContextMenu[5+ContextMenu_Offset].Description = neuLang[22]
 		ContextMenu[6+ContextMenu_Offset].Description = neuLang[23]
@@ -1197,10 +1204,10 @@ function NEUTRINO_ContextMenu()
 		ContextMenu[9+ContextMenu_Offset].Description = neuLang[26]
 		ContextMenu[10+ContextMenu_Offset].Description = neuLang[27]
 		ContextMenu[11+ContextMenu_Offset].Description = neuLang[28]
-		if NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId == "" or NEUTRINO_CurrentList == NEUTRINO_Favorites then
-			ContextMenu_AllItems = 9
+		if NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId == "" or NEUTRINO_CurrentList ~= NEUTRINO_Games then
+			ContextMenu_AllItems = 10 + ContextMenu_Offset
 		else
-			ContextMenu_AllItems = 10
+			ContextMenu_AllItems = 11 + ContextMenu_Offset
 		end
 
 		if System.doesFileExist(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg") then
@@ -1229,15 +1236,15 @@ function NEUTRINO_ContextMenu()
 		else
 			ContextMenu_ReadSettings(ContextMenu_GlobalSettings)
 		end
-		ContextMenu[10].Name = neuLang[33]
+		ContextMenu[11+ContextMenu_Offset].Name = neuLang[33]
 		ContextMenu_FirstRun = false
 
 		if ContextMenu_Accurate..ContextMenu_Sync..ContextMenu_Unhook..ContextMenu_Emulate == "" then
-				ContextMenu_Disable = "0"
-			else
-				ContextMenu_Disable = ""
-			end
+			ContextMenu_Disable = "0"
+		else
+			ContextMenu_Disable = ""
 		end
+	end
 
 	if ContextMenu_HasMoved == 0 then
 		for move = 1, 10 do
@@ -1265,6 +1272,7 @@ function NEUTRINO_ContextMenu()
 		end
 		ContextMenu_HasMoved = 1
 	end
+
 	if ContextMenu_HasMoved == 1 then
 		NEUTRINO_DrawMenu(false)
 		DrawSubMenu(actualCat,actualOption,true)
@@ -1320,14 +1328,10 @@ function NEUTRINO_ContextMenu()
 					ContextMenu[3].Name = "     "..neuLang[65]
 					ContextMenu_Cheat = ""
 				end
-			elseif ContextMenu_SelectedItem == 4 then
+			elseif ContextMenu_SelectedItem == 4 and ContextMenu_Offset > -1 then
 				if ContextMenu_Vmc == "" then
 					ContextMenu[4].Name = "\194\172  "..neuLang[53]
-					if ContextMenu_Unique ~= "" then
-						ContextMenu_Vmc = " -mc0=mass:/VMC/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId.."_0.bin"
-					else
-						ContextMenu_Vmc = " -mc0=mass:"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc
-					end
+					ContextMenu_Vmc = "-vmc "
 				else
 					ContextMenu[4].Name = "     "..neuLang[53]
 					ContextMenu_Vmc = ""
@@ -1336,15 +1340,9 @@ function NEUTRINO_ContextMenu()
 				if ContextMenu_Unique == "" then
 					ContextMenu[5].Name = "\194\172  ".."Use Unique VMC"
 					ContextMenu_Unique = "-unique "
-					if ContextMenu_Vmc ~= "" then
-						ContextMenu_Vmc = " -mc0=mass:/VMC/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId.."_0.bin"
-					end
 				else
 					ContextMenu[5].Name = "     ".."Use Unique VMC"
 					ContextMenu_Unique = ""
-					if ContextMenu_Vmc ~= "" then
-						ContextMenu_Vmc = " -mc0=mass:"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc
-					end
 				end
 
 			elseif ContextMenu_SelectedItem == 5+ContextMenu_Offset then
@@ -1457,8 +1455,10 @@ function NEUTRINO_ContextMenu()
 			end
 		end
     end
+
     if ContextMenu_HasMoved == 2 then
-		ContextMenu_NewSettings = ContextMenu_Unique
+		ContextMenu_NewSettings = ContextMenu_Vmc
+		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Unique
 		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Cheat
 		ContextMenu_NewSettings = ContextMenu_NewSettings.."-gc="..ContextMenu_Disable
 		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Accurate
@@ -1467,14 +1467,16 @@ function NEUTRINO_ContextMenu()
 		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Emulate
 		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Colors
 		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Logo
-		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Vmc
+
 
 		if ContextMenu_Global == false and ContextMenu_NewSettings ~= ContextMenu_LocalSettings and ContextMenu_UpdateFavorties == false then
-			NEUTRINO_LoadingText(false, neuLang[34])
-			NEUTRINO_TempFile = io.open(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg", "w")
-			io.output(NEUTRINO_TempFile)
-			io.write(ContextMenu_NewSettings)
-			io.close(NEUTRINO_TempFile)
+			if ContextMenu_NewSettings ~= ContextMenu_GlobalSettings or System.doesFileExist(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg") then
+				NEUTRINO_LoadingText(false, neuLang[34])
+				NEUTRINO_TempFile = io.open(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg", "w")
+				io.output(NEUTRINO_TempFile)
+				io.write(ContextMenu_NewSettings)
+				io.close(NEUTRINO_TempFile)
+			end
 		elseif ContextMenu_Global == true then
 			NEUTRINO_LoadingText(false, neuLang[34])
 			if ContextMenu_NewSettings ~= ContextMenu_GlobalSettings then
@@ -1671,8 +1673,16 @@ while XEBKeepInSubMenu do
 				NEUTRINO_LaunchOptions = ""
 				NEUTRINO_LoadingText(false, neuLang[40])
 			end
+
+			if string.match(NEUTRINO_LaunchOptions, "(.*)vmc(.*)") then
+				NEUTRINO_LaunchOptions = string.sub(NEUTRINO_LaunchOptions, 5, string.len(NEUTRINO_LaunchOptions))
+				NEUTRINO_Vmc = " -mc0=mass:"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc
+			end
 			if string.match(NEUTRINO_LaunchOptions, "(.*)unique(.*)") then
 				NEUTRINO_LaunchOptions = string.sub(NEUTRINO_LaunchOptions, 9, string.len(NEUTRINO_LaunchOptions))
+				if NEUTRINO_Vmc ~= "" then
+					NEUTRINO_Vmc = " -mc0=mass:/VMC/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId.."_0.bin"
+				end
 			end
 			if string.match(NEUTRINO_LaunchOptions, "(.*)cheat(.*)") then
 				NEUTRINO_LaunchOptions = string.sub(NEUTRINO_LaunchOptions, 8, string.len(NEUTRINO_LaunchOptions))
@@ -1683,7 +1693,7 @@ while XEBKeepInSubMenu do
 				NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder = ""
 			end
 
-			NEUTRINO_RadShellText = "fontsize 0.6\r\necho \"Starting "..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".iso\"\r\nsleep 1\r\nrun neutrino.elf -bsd="..NEUTRINO_Bsd.." -bsdfs="..NEUTRINO_Fs.." \"-dvd="..NEUTRINO_PathPrefix..":"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name.."."..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension.."\" -mt="..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media.." "..NEUTRINO_LaunchOptions.."\r\n"
+			NEUTRINO_RadShellText = "fontsize 0.6\r\necho \"Starting "..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".iso\"\r\nsleep 1\r\nrun neutrino.elf -bsd="..NEUTRINO_Bsd.." -bsdfs="..NEUTRINO_Fs.." \"-dvd="..NEUTRINO_PathPrefix..":"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name.."."..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension.."\" -mt="..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media.." "..NEUTRINO_LaunchOptions..NEUTRINO_Vmc.."\r\n"
 
 			System.removeFile(xebLua_AppWorkingPath.."radshellmod.ios")
 			NEUTRINO_RadShellFile = System.openFile(xebLua_AppWorkingPath.."radshellmod.ios", FCREATE)
