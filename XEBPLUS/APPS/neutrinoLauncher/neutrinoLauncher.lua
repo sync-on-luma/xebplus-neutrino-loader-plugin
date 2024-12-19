@@ -622,8 +622,12 @@ if NEUTRINO_TempFile then
 			NEUTRINO_Games[NEUTRINO_GamesTotal] = {};
 			NEUTRINO_Games[NEUTRINO_GamesTotal].TitleId = string.sub(line, 1, 11)
 			line = string.gsub(line, NEUTRINO_Games[NEUTRINO_GamesTotal].TitleId.." ", "")
-			NEUTRINO_Games[NEUTRINO_GamesTotal].Vmc = string.sub(line, string.len(line)-21, string.len(line))
-			line = string.sub(line, 1, string.len(line)-23)
+			if string.match(line, "(.*)/VMC/(.*)") then
+				NEUTRINO_Games[NEUTRINO_GamesTotal].Vmc = string.sub(line, string.len(line)-21, string.len(line))
+				line = string.sub(line, 1, string.len(line)-23)
+			else
+				NEUTRINO_Games[NEUTRINO_GamesTotal].Vmc = ""
+			end
 			NEUTRINO_Games[NEUTRINO_GamesTotal].Folder, line = string.match(line, "(.*)/(.*)")
 			NEUTRINO_Games[NEUTRINO_GamesTotal].Folder = string.sub(NEUTRINO_Games[NEUTRINO_GamesTotal].Folder, 2, 4)
 			NEUTRINO_Games[NEUTRINO_GamesTotal].Name = string.sub(line, 1, -5)
@@ -664,8 +668,7 @@ end
 
 function NEUTRINO_LoadIcon(firstOffest, lastOffset)
 	for NEUTRINO_i = NEUTRINO_SelectedItem+firstOffest, NEUTRINO_SelectedItem+lastOffset do
-		if NEUTRINO_CurrentList[NEUTRINO_i].Icon ~= "default" and NEUTRINO_i >= 1 and NEUTRINO_i <= NEUTRINO_CurrentTotal()
-		then
+		if NEUTRINO_CurrentList[NEUTRINO_i].Icon ~= "default" and NEUTRINO_i >= 1 and NEUTRINO_i <= NEUTRINO_CurrentTotal() then
 			if themeInUse[NEUTRINO_CurrentList[NEUTRINO_i].IconSlot] > 0 then
 				Graphics.freeImage(themeInUse[NEUTRINO_CurrentList[NEUTRINO_i].IconSlot])
 				themeInUse[NEUTRINO_CurrentList[NEUTRINO_i].IconSlot] = 0
@@ -813,6 +816,9 @@ if not NEUTRINO_IsThereAnError then
 
 	NEUTRINO_CurrentList = NEUTRINO_Games
 	NEUTRINO_LinkedList = NEUTRINO_Favorites
+	if NEUTRINO_SelectedItem == nil then
+		NEUTRINO_SelectedItem = 1
+	end
 	NEUTRINO_InitList()
 end
 
@@ -1215,7 +1221,7 @@ function NEUTRINO_ContextMenu()
 			ContextMenu_LocalSettings = (NEUTRINO_TempFile:read())
 			io.close(NEUTRINO_TempFile)
 		else
-			ContextMenu_LocalSettings = 0
+			ContextMenu_LocalSettings = 1
 		end
 		if System.doesFileExist("CFG/neutrinoLauncher/neutrinoLaunchOptions.cfg") then
 			NEUTRINO_TempFile = io.open("CFG/neutrinoLauncher/neutrinoLaunchOptions.cfg", "r")
@@ -1676,7 +1682,9 @@ while XEBKeepInSubMenu do
 
 			if string.match(NEUTRINO_LaunchOptions, "(.*)vmc(.*)") then
 				NEUTRINO_LaunchOptions = string.sub(NEUTRINO_LaunchOptions, 5, string.len(NEUTRINO_LaunchOptions))
-				NEUTRINO_Vmc = " -mc0=mass:"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc
+				if NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc ~= "" and NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc ~= nil then
+					NEUTRINO_Vmc = " -mc0=mass:"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc
+				end
 			end
 			if string.match(NEUTRINO_LaunchOptions, "(.*)unique(.*)") then
 				NEUTRINO_LaunchOptions = string.sub(NEUTRINO_LaunchOptions, 9, string.len(NEUTRINO_LaunchOptions))
