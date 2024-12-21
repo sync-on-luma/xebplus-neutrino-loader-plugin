@@ -25,7 +25,7 @@ if XEBPlusLanguage == "en-US" then
     neuLang[23] = "Flash a series of colors on launch.\nThis can help diagnose titles that will\nnot start."
     neuLang[24] = "Limit data transfer rates to match\nthose of the PlayStation 2 DVD-ROM\ndrive."
     neuLang[25] = "Disable asynchronous loading.\nAll read requests will execute immediately."
-    neuLang[26] = "Remove Neutrino hooks from memory\nafter game is launched."
+    neuLang[26] = "Remove neutrino hooks from memory\nafter game is launched."
     neuLang[27] = "Emulate a dual-layer disc structure.\nRequired for flattened DVD9 images."
     neuLang[28] = "Delete and re-copy cached artwork\nfiles for the current game."
     neuLang[29] = "Remove From Favorites"
@@ -67,11 +67,19 @@ if XEBPlusLanguage == "en-US" then
     neuLang[65] = "Enable Cheat Device"
     neuLang[66] = "Select cheats with Cheat Device before\nlaunching the game."
     neuLang[67] = "Reboot"
+    neuLang[68] = "Recent Games - "
+    neuLang[69] = "Recently Played"
+    neuLang[70] = "No recent games"
+    neuLang[71] = "Starting "
+    neuLang[72] = "Loading Recents"
+    neuLang[73] = "Use unique VMC"
+    neuLang[74] = "Use a dedicated VMC file for this game."
 
     NEUTRINO_Control1 = "image/controlmap1.png"
     NEUTRINO_Control2 = "image/controlmap2.png"
     NEUTRINO_BoxPos = 425
     NEUTRINO_HeaderPos = 473
+    NEUTRINO_RecentPos = 460
 elseif XEBPlusLanguage == "es-419" then
     neuLang[1] = "Cargando Plugin"
     neuLang[2] = "Favorito"
@@ -139,12 +147,20 @@ elseif XEBPlusLanguage == "es-419" then
     neuLang[64] = "Ejecutar juegos desde un servidor UDPBD con neutrino"
     neuLang[65] = "Habilitar dispositivo de trampa"
     neuLang[66] = "Selecciona trucos con Cheat Device antes\nde iniciar el juego."
-    neuLang[67] = ""
+    neuLang[67] = "Reiniciar"
+    neuLang[68] = "Juegos recientes - "
+    neuLang[69] = "Recientemente jugado"
+    neuLang[70] = "No hay juegos recientes"
+    neuLang[71] = "Iniciando "
+    neuLang[72] = "Cargando reciente"
+    neuLang[73] = "Usar VMC exclusivo"
+    neuLang[74] = "Utilice un archivo VMC dedicado para este\njuego."
 
     NEUTRINO_Control1 = "image/controlmap1_es.png"
     NEUTRINO_Control2 = "image/controlmap2_es.png"
     NEUTRINO_BoxPos = 405
     NEUTRINO_HeaderPos = 425
+    NEUTRINO_RecentPos = 425
 elseif XEBPlusLanguage == "pt-BR" then
     neuLang[1] = "Carregando Plugin"
     neuLang[2] = "Favoritos"
@@ -171,7 +187,7 @@ elseif XEBPlusLanguage == "pt-BR" then
     neuLang[23] = "Mostra uma série de cores no lançamento.\nIsto pode ajudar a diagnosticar títulos\nque não iniciam."
     neuLang[24] = "Limite as taxas de transferência de dados\npara corresponderem às da unidade de\nDVD-ROM do PlayStation 2."
     neuLang[25] = "Desative o carregamento assíncrono.\nTodas as solicitações de leitura serão\nexecutadas imediatamente."
-    neuLang[26] = "Remova os ganchos do Neutrino da\nmemória após o lançamento do jogo."
+    neuLang[26] = "Remova os ganchos do neutrino da\nmemória após o lançamento do jogo."
     neuLang[27] = "Emule uma estrutura de disco de\ncamada dupla.\nNecessário para imagens DVD9."
     neuLang[28] = "Apague e copie novamente os ficheiros\nde artwork em cache do jogo atual."
     neuLang[29] = "Remover dos favoritos"
@@ -212,12 +228,20 @@ elseif XEBPlusLanguage == "pt-BR" then
     neuLang[64] = "Inicie jogos de um servidor UDPBD com neutrino"
     neuLang[65] = "Habilitar Cheat Device"
     neuLang[66] = "Selecione cheats com Cheat Device antes\nde iniciar o jogo."
-    neuLang[67] = ""
+    neuLang[67] = "Reiniciar"
+    neuLang[68] = "Jogos recentes - "
+    neuLang[69] = "Jogados recentemente"
+    neuLang[70] = "Nenhum jogo recente"
+    neuLang[71] = "Iniciando "
+    neuLang[72] = "Carregando recentes"
+    neuLang[73] = "Usar VMC exclusivo"
+    neuLang[74] = "Usar um arquivo VMC dedicado para este\njogos"
 
     NEUTRINO_Control1 = "image/controlmap1_pt.png"
     NEUTRINO_Control2 = "image/controlmap2_pt.png"
     NEUTRINO_BoxPos = 425
     NEUTRINO_HeaderPos = 445
+    NEUTRINO_RecentPos = 440
 end
 Font.ftInit()
 fontMid = Font.ftLoad("THM/"..loadedTheme.."/font.ttf")

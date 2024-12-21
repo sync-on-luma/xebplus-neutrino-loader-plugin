@@ -192,7 +192,7 @@ function NEUTRINO_DrawUnderlay(Animate)
 	elseif NEUTRINO_CurrentList == NEUTRINO_Favorites then
 		Font.ftPrint(fontMid, 495, plusYValue+45, 0, 400, 64, neuLang[11]..NEUTRINO_SelectedItem..neuLang[9]..NEUTRINO_FavoritesTotal, baseColorFull)
 	elseif NEUTRINO_CurrentList == NEUTRINO_Recents then
-		Font.ftPrint(fontMid, 460, plusYValue+45, 0, 400, 64, "Recent Games - "..NEUTRINO_SelectedItem..neuLang[9]..NEUTRINO_GamesTotal, baseColorFull)
+		Font.ftPrint(fontMid, NEUTRINO_RecentPos, plusYValue+45, 0, 400, 64, neuLang[68]..NEUTRINO_SelectedItem..neuLang[9]..NEUTRINO_GamesTotal, baseColorFull)
 	end
 	Graphics.drawImage(themeInUse[-95], 500, plusYValue+400)
 	Graphics.drawImage(themeInUse[-93], 506, plusYValue+400)
@@ -1111,10 +1111,10 @@ function ContextMenu_ReadSettings(Settings)
 		if string.match(Settings, "(.*)unique(.*)") then
 			NEUTRINO_Debug = "1"
 			ContextMenu_Unique = "-unique "
-			ContextMenu[5].Name = "\194\172  ".."Use Unique VMC"
+			ContextMenu[5].Name = "\194\172  "..neuLang[73]
 		else
 			ContextMenu_Unique = ""
-			ContextMenu[5].Name = "     ".."Use Unique VMC"
+			ContextMenu[5].Name = "     "..neuLang[73]
 			NEUTRINO_Debug = "2"
 		end
 	end
@@ -1198,10 +1198,10 @@ function NEUTRINO_ContextMenu()
 		ContextMenu[2].Description = neuLang[21]
 		ContextMenu[3].Description = neuLang[66]
 		if ContextMenu_Offset > -1 then
-			ContextMenu[4].Description = neuLang[20]
+			ContextMenu[4].Description = neuLang[56]
 		end
 		if ContextMenu_Offset == 1 then
-			ContextMenu[5].Description = "Use a dedicated VMC file for this game."
+			ContextMenu[5].Description = neuLang[74]
 		end
 		ContextMenu[5+ContextMenu_Offset].Description = neuLang[22]
 		ContextMenu[6+ContextMenu_Offset].Description = neuLang[23]
@@ -1344,10 +1344,10 @@ function NEUTRINO_ContextMenu()
 				end
 			elseif ContextMenu_SelectedItem == 5 and ContextMenu_Offset == 1 then
 				if ContextMenu_Unique == "" then
-					ContextMenu[5].Name = "\194\172  ".."Use Unique VMC"
+					ContextMenu[5].Name = "\194\172  "..neuLang[73]
 					ContextMenu_Unique = "-unique "
 				else
-					ContextMenu[5].Name = "     ".."Use Unique VMC"
+					ContextMenu[5].Name = "     "..neuLang[73]
 					ContextMenu_Unique = ""
 				end
 
@@ -1584,10 +1584,10 @@ while XEBKeepInSubMenu do
 			Font.ftPrint(fontSmall, 153, plusYValue+243, 0, 512, 64, neuLang[47], baseColorFull)
 			Graphics.drawImage(themeInUse[-95], 500, plusYValue+400)
 			Graphics.drawImage(themeInUse[-96], 506, plusYValue+400)
-			Font.ftPrint(fontSmall, 543, plusYValue+405, 0, 400, 64, "Recently Played", baseColorFull)
+			Font.ftPrint(fontSmall, 543, plusYValue+405, 0, 400, 64, neuLang[69], baseColorFull)
 		elseif NEUTRINO_CurrentList == NEUTRINO_Recents then
 			Font.ftPrint(fontBig, 152, plusYValue+222, 0, 512, 64, xebLang[35], baseColorFull)
-			Font.ftPrint(fontSmall, 153, plusYValue+243, 0, 512, 64, "No recent games", baseColorFull)
+			Font.ftPrint(fontSmall, 153, plusYValue+243, 0, 512, 64, neuLang[70], baseColorFull)
 			Graphics.drawImage(themeInUse[-95], 500, plusYValue+400)
 			Graphics.drawImage(themeInUse[-96], 506, plusYValue+400)
 			Font.ftPrint(fontSmall, 543, plusYValue+405, 0, 400, 64, neuLang[10], baseColorFull)
@@ -1701,7 +1701,7 @@ while XEBKeepInSubMenu do
 				NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder = ""
 			end
 
-			NEUTRINO_RadShellText = "fontsize 0.6\r\necho \"Starting "..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".iso\"\r\nsleep 1\r\nrun neutrino.elf -bsd="..NEUTRINO_Bsd.." -bsdfs="..NEUTRINO_Fs.." \"-dvd="..NEUTRINO_PathPrefix..":"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name.."."..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension.."\" -mt="..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media.." "..NEUTRINO_LaunchOptions..NEUTRINO_Vmc.."\r\n"
+			NEUTRINO_RadShellText = "fontsize 0.6\r\necho \""..neuLang[71]..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".iso\"\r\nsleep 1\r\nrun neutrino.elf -bsd="..NEUTRINO_Bsd.." -bsdfs="..NEUTRINO_Fs.." \"-dvd="..NEUTRINO_PathPrefix..":"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name.."."..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension.."\" -mt="..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media.." "..NEUTRINO_LaunchOptions..NEUTRINO_Vmc.."\r\n"
 
 			System.removeFile(xebLua_AppWorkingPath.."radshellmod.ios")
 			NEUTRINO_RadShellFile = System.openFile(xebLua_AppWorkingPath.."radshellmod.ios", FCREATE)
@@ -1982,7 +1982,7 @@ while XEBKeepInSubMenu do
 				NEUTRINO_CurrentList = NEUTRINO_Recents
 				NEUTRINO_LinkedList = NEUTRINO_Games
 				NEUTRINO_SelectedItem = 1
-				NEUTRINO_LoadingText(false, "Loading Recents")
+				NEUTRINO_LoadingText(false, neuLang[72])
 			elseif NEUTRINO_CurrentList == NEUTRINO_Recents then
 				NEUTRINO_CurrentList = NEUTRINO_Favorites
 				NEUTRINO_LinkedList = NEUTRINO_Games
