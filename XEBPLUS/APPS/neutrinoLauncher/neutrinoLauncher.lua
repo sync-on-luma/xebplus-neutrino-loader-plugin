@@ -622,8 +622,12 @@ if NEUTRINO_TempFile then
 			NEUTRINO_Games[NEUTRINO_GamesTotal] = {};
 			NEUTRINO_Games[NEUTRINO_GamesTotal].TitleId = string.sub(line, 1, 11)
 			line = string.gsub(line, NEUTRINO_Games[NEUTRINO_GamesTotal].TitleId.." ", "")
-			NEUTRINO_Games[NEUTRINO_GamesTotal].Vmc = string.sub(line, string.len(line)-21, string.len(line))
-			line = string.sub(line, 1, string.len(line)-23)
+			if string.match(line, "(.*)/VMC/(.*)") or string.match(line, "(.*)0000000000000000000000(.*)") then
+				NEUTRINO_Games[NEUTRINO_GamesTotal].Vmc = string.sub(line, string.len(line)-21, string.len(line))
+				line = string.sub(line, 1, string.len(line)-23)
+			else
+				NEUTRINO_Games[NEUTRINO_GamesTotal].Vmc = "0000000000000000000000"
+			end
 			NEUTRINO_Games[NEUTRINO_GamesTotal].Folder, line = string.match(line, "(.*)/(.*)")
 			NEUTRINO_Games[NEUTRINO_GamesTotal].Folder = string.sub(NEUTRINO_Games[NEUTRINO_GamesTotal].Folder, 2, 4)
 			NEUTRINO_Games[NEUTRINO_GamesTotal].Name = string.sub(line, 1, -5)
