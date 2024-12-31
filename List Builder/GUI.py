@@ -59,8 +59,7 @@ def current_folder_2():
 def build_list():
     global text
     process = subprocess.Popen(
-        "\""+sys.executable+"\" -u \""+os.getcwd()+"/list_builder.py\" \""+selected.get()+"\" \""+ent1.get()+"\" \""+ent2.get()+"\"",
-        #"python -u list_builder.py "+selected.get()+" "+ent1.get()+" "+ent2.get(),
+        "\""+sys.executable+"\" -u \""+os.getcwd()+"/list_builder.py\" \""+selected.get()+"\" \""+ent1.get()+"\" \""+ent2.get()+"\" "+vmc.get(),
         stdout=subprocess.PIPE,
         universal_newlines=True,
         shell=True
@@ -78,13 +77,13 @@ def build_list():
     process.stdout.close()
 
 #defines radio buttons
-buttonFrame = ttk.LabelFrame(text=' Drive Type ')
-buttonFrame.pack(fill='none', pady=10)
+radioFrame = ttk.LabelFrame(text=' Drive Type ')
+radioFrame.pack(fill='none', pady=10)
 
 selected = ttk.StringVar()
-r1 = ttk.Radiobutton(buttonFrame, text='PS2 HDD', value='-h', variable=selected, command=enable_build)
-r2 = ttk.Radiobutton(buttonFrame, text='MX4SIO', value='-m', variable=selected, command=enable_build)
-r3 = ttk.Radiobutton(buttonFrame, text='USB Drive', value='-u', variable=selected, command=enable_build)
+r1 = ttk.Radiobutton(radioFrame, text='PS2 HDD', value='-h', variable=selected, command=enable_build)
+r2 = ttk.Radiobutton(radioFrame, text='MX4SIO', value='-m', variable=selected, command=enable_build)
+r3 = ttk.Radiobutton(radioFrame, text='USB Drive', value='-u', variable=selected, command=enable_build)
 r1.grid(padx=5, pady=5, row=0, column=1)
 r2.grid(padx=5, pady=5, row=0, column=2)
 r3.grid(padx=5, pady=5, row=0, column=3)
@@ -105,8 +104,16 @@ directory_button2.grid(padx=5)
 ent2=ttk.Entry(directoryFrame2, font=40, width=40)
 ent2.grid(row=0,column=2, padx=5)
 
-build_button = ttk.Button(root, text="Build List", command=build_list)
-build_button.pack(pady=10)
+#defines VMC checkbox and build button
+buttonFrame = ttk.Frame(root)
+buttonFrame.pack(fill='x')
+
+vmc = ttk.StringVar()
+vmc_check = ttk.Checkbutton(buttonFrame,text='Create VMCs', variable=vmc, onvalue='-vmc', offvalue='')
+vmc_check.grid(padx=30, row=0, column=1)
+
+build_button = ttk.Button(buttonFrame, text="Build List", command=build_list)
+build_button.grid(padx=305, pady=5, row=0, column=2)
 build_button["state"] = "disabled"
 
 text = ttk.Text(root)
