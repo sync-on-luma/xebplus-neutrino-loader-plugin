@@ -30,7 +30,7 @@ It allows XEB+ to load PlayStation 2 games from HDD, MX4SIO, USB, and UDPBD via 
 
   * A Phat PlayStation 2 console.
   * A PlayStation 2 network adapter or hard drive add-on.
-  * A hard drive or SSD that is compatible with your Playstaion 2 network or hard drive adapter.  
+  * A hard drive or SSD that is compatible with your PlayStation 2 network or hard drive adapter.  
   * A FAT32 or exFAT formatted USB drive 1GB or larger.  
   This is used for XEB+ and assorted files.
   * A PC hard drive dock or USB adapter (optional)
@@ -67,12 +67,12 @@ If your PC does not have an ethernet port available, a USB ethernet adapter will
 If you are updating from version 2.3 or earlier, you will need to rebuild all of your game lists.  
 If you are updating from version 1.x, you will need to remove the old version of neutrino Launcher from your XEB+ install before continuing. This includes all neutrino Launcher files in the `APPS`, `PLG`, and `CFG` folders, as well as the `CD` and `DVD` folders on the root of your USB drive.*
 
-1. If you have not already done so, download the Xtreme Eliete Boot Plus Xmas 2021 showcase [here](http://web.archive.org/web/20221225042045/http://www.hwc.nat.cu/ps2-vault/hwc-projects/xebplus/).
+1. If you have not already done so, download the Xtreme Elite Boot Plus Xmas 2021 showcase [here](http://web.archive.org/web/20221225042045/http://www.hwc.nat.cu/ps2-vault/hwc-projects/xebplus/).
 2. Extract the `XEBPLUS` folder to the root of your USB drive, and ensure that you can load into the XEB+ dashboard on your PlayStation 2.  
 Note that if you are using an exFAT formatted USB drive, you will need to use PS2BBL and [this version](https://github.com/israpps/wLaunchELF_ISR) of wLaunchELF. 
 3. (optional) Configure your PS2 exploit of choice to autorun XEB+ on startup.
 4. Download the latest version of this plugin from the [Releases](https://github.com/sync-on-luma/xebplus-neutrino-loader-plugin/releases) section.  
-Extract the`XEBPLUS`folder to the root of your USB drive, merging all folders if prompted.
+Extract the `XEBPLUS` folder to the root of your USB drive, merging all folders if prompted.
 5. Extract the List Builder directory to a known location on your computer.
 6. Complete setup by following the steps specific to the device you want to load games from.
 
@@ -144,7 +144,7 @@ The sync app will convert them automatically if placed in the CD folder and chec
 For using a router instead of a direct connection, set the PC's IP assignment to *Automatic (DHCP)*.  
 Then [follow this guide](http://ps2ulaunchelf.pbworks.com/w/page/19520139/ps2ftp) for assigning a proper IP address on the PS2.  
 LaunchELF defaults to *192.168.0.10* and needs to be changed manually to work on your network.
-14 Run LaunchELF on the PS2 and naviage to MISC -> PS2Net  
+14 Run LaunchELF on the PS2 and navigate to MISC -> PS2Net  
 ![launchelf-ps2net](readme-images/launchelf-ps2net.jpg)  
 15. Let the PS2 idle on this screen for the next steps on the PC.  
 ![launchelf-ftp-enabled](readme-images/launchelf-ftp-enabled.jpg)
@@ -235,7 +235,7 @@ This feature uses the same file type and naming conventions as Open PS2 Loader, 
     * Only background art (*_BG*) and disc icon (*_ICO*) files are used by this plugin.
     * Some recent versions of OPL have added support for 128x128 disc icons. These are not supported, and it is recommended to only use the older 64x64 icons.
 2. Copy the artwork files you wish to use to `/ART` or `/XEBPLUS/GME/ART` on your USB drive.
-    * If it exisits, the `ART` directory on the USB root will always take priority over `/XEBPLUS/GME/ART`.
+    * If it exists, the `ART` directory on the USB root will always take priority over `/XEBPLUS/GME/ART`.
 3. Launch XEB+ and select one of the neutrino Launcher plugins.  
 If the plugin detects files in one of the artwork directories, it will automatically create an artwork cache in the `CFG/neutrinoLauncher` folder.
 4.  * This is necessary to maintain a usable level of performance while displaying artwork in the menu.
@@ -296,7 +296,7 @@ When set to Per-Game Settings, options shown below this one will apply only to t
   * **Enable VMC** - When enabled, the selected game will save data to a virtual memory card image instead of the memory card in Slot 1 of the PS2.
   *  **Use Unique VMC** - If the selected game is in a memory card group, enabling this option will force it to use a dedicated VMC instead of the default group one.  
     More info on memory card groups can be found [here](https://github.com/sync-on-luma/xebplus-neutrino-loader-plugin/wiki/Memory-Card-Groups).
-  * **Enable Boot Logo** - When enabled, the PlayStation 2 logo will be shown on screen when starting a game. This setting can affect compatibly, particularly for games that do not match your console's region.
+  * **Enable Boot Logo** - When enabled, the PlayStation 2 logo will be shown on screen when starting a game. This setting can affect compatibility, particularly for games that do not match your console's region.
   * **Enable Debug Colors** - When enabled, a series of colors will flash on screen when starting a game. This can be used to help diagnose games that will not start.
   * **Accurate Reads** - When enabled, the data transfer rate for games will be limited to that of the PlayStation 2 DVD drive.  
   This will increase load times if using a hard drive, but can fix compatibility issues with some titles.  
@@ -311,7 +311,7 @@ Refer to the [compatibility list](https://github.com/sync-on-luma/xebplus-neutri
 
 ### Recent Games
 
-The neutrino Luancher plugin keeps track of the ten most recently played games for each drive type. Recent games are stored in the recent games list in reverse chronological order.  
+The neutrino Launcher plugin keeps track of the ten most recently played games for each drive type. Recent games are stored in the recent games list in reverse chronological order.  
 
 To access the recent games list, press TRIANGLE while on the game selection menu. Press TRIANGLE again to advance to the favorites list. 
 
@@ -340,7 +340,7 @@ This contains a settings menu whose options apply to the main neutrino Launcher 
   * **Disable Status Messages** - When enabled, the text that appears at the bottom of the screen to indicate loading and other behavior will not be shown.
   * **Disable Background Fading** - When enabled, background artwork will not fade in/out when the image changes.
   * **Disable Icon Animation** - When enabled, the disc icon for the currently highlighted game will not spin.
-  *  **Show Title ID** - When enabled, each game's PlayStation 2 title ID will be shown under it's title.
+  *  **Show Title ID** - When enabled, each game's PlayStation 2 title ID will be shown under its title.
   *  **Show Media** - When enabled, each game's media type will be shown under it's title.
   * **Refresh Artwork Cache** - Sets artwork cache to refresh next time one of the neutrino Launcher plugins is loaded.
   * **Clean Artwork Cache** - Immediately scan the artwork cache for unused files and remove them.
@@ -357,11 +357,11 @@ Alternate icons will be used instead if icon files with the correct names are pr
 
 The filenames each plugin looks for are as follows:
 
-  * *ic_tool_neutrino_hdl.png* - neutrino Luancher (HDD)
-  * *ic_tool_neutrino_mx4.png* - neutrino Luancher (MX4SIO)
-  * *ic_tool_neutrino_usb.png* - neutrino Luancher (USB)
-  * *ic_tool_neutrino_udpbd.png* - neutrino Luancher (UDPBD)
-  * *ic_set_neutrino_cfg.png* - neutrino Luancher Settings
+  * *ic_tool_neutrino_hdl.png* - neutrino Launcher (HDD)
+  * *ic_tool_neutrino_mx4.png* - neutrino Launcher (MX4SIO)
+  * *ic_tool_neutrino_usb.png* - neutrino Launcher (USB)
+  * *ic_tool_neutrino_udpbd.png* - neutrino Launcher (UDPBD)
+  * *ic_set_neutrino_cfg.png* - neutrino Launcher Settings
 
 If you wish to reference the included versions of these icons, they are located at `XEBPLUS/APPS/neutrinoLauncher/image/`.
 
