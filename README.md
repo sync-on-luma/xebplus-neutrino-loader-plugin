@@ -55,7 +55,7 @@ PS2BBL supports this by default. ExFAT support can be added to FreeMcBoot with [
 ### UDPBD
 
   * An OEM network adapter if using a fat PS2.
-  * A PC with enough free space to store game ISOs.
+  * A PC with a connected exFAT formateed drive with enough free space for game ISOs.
   * A FAT32 or exFAT formatted USB drive 1GB or larger.  
   This is used for XEB+ and assorted files.
   * An ethernet cable to connect the PS2 to the PC.  
