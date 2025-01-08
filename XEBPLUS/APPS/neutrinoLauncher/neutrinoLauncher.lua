@@ -1701,7 +1701,12 @@ while XEBKeepInSubMenu do
 				NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder = ""
 			end
 
-			NEUTRINO_RadShellText = "fontsize 0.6\r\necho \""..neuLang[71]..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".iso\"\r\nsleep 1\r\nrun neutrino.elf -bsd="..NEUTRINO_Bsd.." -bsdfs="..NEUTRINO_Fs.." \"-dvd="..NEUTRINO_PathPrefix..":"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name.."."..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension.."\" -mt="..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media.." "..NEUTRINO_LaunchOptions..NEUTRINO_Vmc.."\r\n"
+			NEUTRINO_PrepIRX = ""
+			if string.match(NEUTRINO_Bsd, "(.*)udp(.*)") then
+				NEUTRINO_PrepIRX = "load modules/dev9_ns.irx\r\necho \"Initializing Network . . .\"\r\nsleep 3\r\n"
+			end
+
+			NEUTRINO_RadShellText = "fontsize 0.6\r\necho \""..neuLang[71]..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".iso\"\r\n"..NEUTRINO_PrepIRX.."sleep 1\r\nrun neutrino.elf -bsd="..NEUTRINO_Bsd.." -bsdfs="..NEUTRINO_Fs.." \"-dvd="..NEUTRINO_PathPrefix..":"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name.."."..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension.."\" -mt="..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media.." "..NEUTRINO_LaunchOptions..NEUTRINO_Vmc.."\r\n"
 
 			System.removeFile(xebLua_AppWorkingPath.."radshellmod.ios")
 			NEUTRINO_RadShellFile = System.openFile(xebLua_AppWorkingPath.."radshellmod.ios", FCREATE)
