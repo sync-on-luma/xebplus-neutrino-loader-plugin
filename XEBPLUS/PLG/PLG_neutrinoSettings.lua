@@ -33,6 +33,8 @@ if XEBPlusLanguage == "en-US" then
     nSetLang[31] = "Enable UDPBD"
     nSetLang[32] = "Clean Artwork Cache"
     nSetLang[33] = "Delete unused files in the artwork cache."
+    nSetLang[34] = "Enable iLink"
+    nSetLang[35] = "Enable neutrino Launcher (iLink) plugin.\nRequires XEB+ refresh."
 elseif XEBPlusLanguage == "es-419" then
     nSetLang[1] = "Configuración del lanzador neutrino"
     nSetLang[2] = "Configurar el menú del lanzador de neutrino"
@@ -67,6 +69,8 @@ elseif XEBPlusLanguage == "es-419" then
     nSetLang[31] = "Habilitar UDPBD"
     nSetLang[32] = "Limpiar caché de ilustraciones"
     nSetLang[33] = "Elimine los archivos no utilizados en el caché\nde ilustraciones."
+    nSetLang[34] = "Habilitar iLink"
+    nSetLang[35] = "Habilite el complemento neutrino Launcher (iLink).\nRequiere actualización XEB+."
 elseif XEBPlusLanguage == "pt-BR" then
     nSetLang[1] = "Configurações do neutrino Launcher"
     nSetLang[2] = "Configurar menu do neutrino Launcher"
@@ -101,6 +105,8 @@ elseif XEBPlusLanguage == "pt-BR" then
     nSetLang[31] = "Habilitar UDPBD"
     nSetLang[32] = "Limpar cache de arte"
     nSetLang[33] = "Apague os ficheiros não utilizados do cache de arte."
+    nSetLang[34] = "Habilitar iLink"
+    nSetLang[35] = "Ative o plugin neutrino Launcher (iLink).\nRequer atualização XEB+."
 end
 
 PluginData = {};

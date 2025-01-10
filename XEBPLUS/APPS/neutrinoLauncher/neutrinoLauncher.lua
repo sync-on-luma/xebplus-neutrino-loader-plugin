@@ -192,15 +192,15 @@ function NEUTRINO_DrawUnderlay(Animate)
 	elseif NEUTRINO_CurrentList == NEUTRINO_Favorites then
 		Font.ftPrint(fontMid, 495, plusYValue+45, 0, 400, 64, neuLang[11]..NEUTRINO_SelectedItem..neuLang[9]..NEUTRINO_FavoritesTotal, baseColorFull)
 	elseif NEUTRINO_CurrentList == NEUTRINO_Recents then
-		Font.ftPrint(fontMid, NEUTRINO_RecentPos, plusYValue+45, 0, 400, 64, neuLang[68]..NEUTRINO_SelectedItem..neuLang[9]..NEUTRINO_GamesTotal, baseColorFull)
+		Font.ftPrint(fontMid, NEUTRINO_RecentPos, plusYValue+45, 0, 400, 64, neuLang[68]..NEUTRINO_SelectedItem..neuLang[9]..NEUTRINO_RecentsTotal, baseColorFull)
 	end
 	Graphics.drawImage(themeInUse[-95], 500, plusYValue+400)
 	Graphics.drawImage(themeInUse[-93], 506, plusYValue+400)
 	Font.ftPrint(fontSmall, 543, plusYValue+405, 0, 400, 64, neuLang[12], baseColorFull)
 
-	if NEUTRINO_Debug ~= nil then
-		Font.ftPrint(fontBig, 280, plusYValue+390, 11, 620, 64, NEUTRINO_Debug, baseColorFull)
-	end
+	--if NEUTRINO_Debug ~= nil then
+	--	Font.ftPrint(fontBig, 280, plusYValue+390, 11, 620, 64, NEUTRINO_Debug, baseColorFull)
+	--end
 end
 
 function NEUTRINO_DrawMenu(Animate)
@@ -622,11 +622,11 @@ if NEUTRINO_TempFile then
 			NEUTRINO_Games[NEUTRINO_GamesTotal] = {};
 			NEUTRINO_Games[NEUTRINO_GamesTotal].TitleId = string.sub(line, 1, 11)
 			line = string.gsub(line, NEUTRINO_Games[NEUTRINO_GamesTotal].TitleId.." ", "")
-			if string.match(line, "(.*)/VMC/(.*)") then
+			if string.match(line, "(.*)/VMC/(.*)") or string.match(line, "(.*)0000000000000000000000(.*)") then
 				NEUTRINO_Games[NEUTRINO_GamesTotal].Vmc = string.sub(line, string.len(line)-21, string.len(line))
 				line = string.sub(line, 1, string.len(line)-23)
 			else
-				NEUTRINO_Games[NEUTRINO_GamesTotal].Vmc = ""
+				NEUTRINO_Games[NEUTRINO_GamesTotal].Vmc = "0000000000000000000000"
 			end
 			NEUTRINO_Games[NEUTRINO_GamesTotal].Folder, line = string.match(line, "(.*)/(.*)")
 			NEUTRINO_Games[NEUTRINO_GamesTotal].Folder = string.sub(NEUTRINO_Games[NEUTRINO_GamesTotal].Folder, 2, 4)
@@ -841,7 +841,6 @@ for NEUTRINO_i = 1, 3 do
 		for NEUTRINO_iB = NEUTRINO_SelectedItem-6, NEUTRINO_SelectedItem+5 do
 			NEUTRINO_iB_Y = NEUTRINO_ItemPosition*71
 
-			--NEUTRINO_DebugLog(NEUTRINO_CurrentList[NEUTRINO_iB].IconSlot)
 			if NEUTRINO_iB == NEUTRINO_SelectedItem then
 				NEUTRINO_DrawItemFrame(NEUTRINO_CurrentList[NEUTRINO_iB], 152, 206, false, NEUTRINO_i, baseColorFull, NEUTRINO_ColorFullZero)
 			else
@@ -1107,15 +1106,12 @@ function ContextMenu_ReadSettings(Settings)
 		end
 	end
 	if ContextMenu_Offset == 1 then
-		NEUTRINO_Debug = "0"
 		if string.match(Settings, "(.*)unique(.*)") then
-			NEUTRINO_Debug = "1"
 			ContextMenu_Unique = "-unique "
 			ContextMenu[5].Name = "\194\172  "..neuLang[73]
 		else
 			ContextMenu_Unique = ""
 			ContextMenu[5].Name = "     "..neuLang[73]
-			NEUTRINO_Debug = "2"
 		end
 	end
 	if string.match(Settings, "(.*)logo(.*)") then
@@ -1561,7 +1557,6 @@ function NEUTRINO_ContextMenu()
 end 
 
 while XEBKeepInSubMenu do
-	NEUTRINO_Debug = NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc
 	pad = Pads.get()
 	if XEBKeepInContextMenu == true then
 		goto contexMenu
@@ -1682,7 +1677,7 @@ while XEBKeepInSubMenu do
 
 			if string.match(NEUTRINO_LaunchOptions, "(.*)vmc(.*)") then
 				NEUTRINO_LaunchOptions = string.sub(NEUTRINO_LaunchOptions, 5, string.len(NEUTRINO_LaunchOptions))
-				if NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc ~= "" and NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc ~= nil then
+				if NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc ~= "0000000000000000000000" and NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc ~= nil then
 					NEUTRINO_Vmc = " -mc0=mass:"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc
 				end
 			end
@@ -1701,7 +1696,12 @@ while XEBKeepInSubMenu do
 				NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder = ""
 			end
 
-			NEUTRINO_RadShellText = "fontsize 0.6\r\necho \""..neuLang[71]..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".iso\"\r\nsleep 1\r\nrun neutrino.elf -bsd="..NEUTRINO_Bsd.." -bsdfs="..NEUTRINO_Fs.." \"-dvd="..NEUTRINO_PathPrefix..":"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name.."."..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension.."\" -mt="..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media.." "..NEUTRINO_LaunchOptions..NEUTRINO_Vmc.."\r\n"
+			NEUTRINO_PrepIRX = ""
+			if string.match(NEUTRINO_Bsd, "(.*)udp(.*)") then
+				NEUTRINO_PrepIRX = "load modules/dev9_ns.irx\r\necho \"Initializing Network . . .\"\r\nsleep 3\r\n"
+			end
+
+			NEUTRINO_RadShellText = "fontsize 0.6\r\necho \""..neuLang[71]..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".iso\"\r\n"..NEUTRINO_PrepIRX.."sleep 1\r\nrun neutrino.elf -bsd="..NEUTRINO_Bsd.." -bsdfs="..NEUTRINO_Fs.." \"-dvd="..NEUTRINO_PathPrefix..":"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name.."."..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension.."\" -mt="..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media.." "..NEUTRINO_LaunchOptions..NEUTRINO_Vmc.."\r\n"
 
 			System.removeFile(xebLua_AppWorkingPath.."radshellmod.ios")
 			NEUTRINO_RadShellFile = System.openFile(xebLua_AppWorkingPath.."radshellmod.ios", FCREATE)
