@@ -105,7 +105,7 @@ def process_iso(folder):
 
 def error_message():
     print('Error: Missing argument(s).')
-    print('Usage: list_builder.py <drive type>[-h -u -m] <path/to/games> <path/to/XEBPLUS/installation> <create VMCs>[-vmc]')
+    print('Usage: list_builder.py <drive type>[-h -u -m -i] <path/to/games> <path/to/XEBPLUS/installation> <create VMCs>[-vmc]')
     print('')
     print('Examples:')
     print('list_builder.py -h E:\\PS2 D:\\')
@@ -142,6 +142,8 @@ def main(arg1, arg2, arg3, arg4):
         game_list = 'neutrinoUSB.list'
     elif drive == "-M" or drive == "-m":
         game_list = 'neutrinoMX4.list'
+    elif drive == "-I" or drive == "-i":
+        game_list = 'neutrinoILINK.list'
     else:
         print('Error: Invalid drive type')
         quit()

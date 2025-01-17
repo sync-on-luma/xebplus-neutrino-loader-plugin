@@ -5,6 +5,15 @@ GoToSubMenuIcon(actualCat,actualOption,true)
 XEBKeepInSubMenu=true
 XEBKeepInContextMenu=false
 
+function NEUTRINO_ShowDebug()
+	Screen.clear()
+	if NEUTRINO_Debug ~= nil then
+		Font.ftPrint(fontBig, 280, plusYValue+390, 11, 620, 64, NEUTRINO_Debug, baseColorFull)
+	end
+	Screen.waitVblankStart()
+	Screen.flip()
+end
+
 if System.doesFileExist("CFG/neutrinoLauncher/menu.cfg") then
     ContextMenu_TempFile = io.open("CFG/neutrinoLauncher/menu.cfg", "r")
     NEUTRINO_Settings = (ContextMenu_TempFile:read())
@@ -13,9 +22,14 @@ else
     NEUTRINO_Settings = ""
 end
 if string.match(NEUTRINO_Settings, "(.*)1(.*)") then
-	NEUTRINO_DisableArt = true
+	NEUTRINO_DisableDisc = true
 else
-	NEUTRINO_DisableArt = false
+	NEUTRINO_DisableDisc = false
+end
+if string.match(NEUTRINO_Settings, "(.*)8(.*)") then
+	NEUTRINO_DisableBg = true
+else
+	NEUTRINO_DisableBg = false
 end
 if string.match(NEUTRINO_Settings, "(.*)2(.*)") then
 	NEUTRINO_DisableStatus = true
@@ -198,9 +212,7 @@ function NEUTRINO_DrawUnderlay(Animate)
 	Graphics.drawImage(themeInUse[-93], 506, plusYValue+400)
 	Font.ftPrint(fontSmall, 543, plusYValue+405, 0, 400, 64, neuLang[12], baseColorFull)
 
-	--if NEUTRINO_Debug ~= nil then
-	--	Font.ftPrint(fontBig, 280, plusYValue+390, 11, 620, 64, NEUTRINO_Debug, baseColorFull)
-	--end
+	--NEUTRINO_ShowDebug()
 end
 
 function NEUTRINO_DrawMenu(Animate)
@@ -338,7 +350,8 @@ if System.doesDirectoryExist("mass:/ART/") then
 elseif System.doesDirectoryExist("mass:/XEBPLUS/GME/ART/") then
 	NEUTRINO_ArtFolder = "mass:/XEBPLUS/GME/ART/"
 else
-	NEUTRINO_DisableArt = true
+	NEUTRINO_DisableDisc = true
+	NEUTRINO_DisableBg = true
 end
 
 --themeInUse[-90] = Graphics.loadImage(xebLua_AppWorkingPath.."image/bgfallback.png")
@@ -487,7 +500,7 @@ function NEUTRINO_DrawCacheStatus(Index)
 end
 
 function NEUTRINO_CacheArt(Index)
-	if System.doesDirectoryExist("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache") and NEUTRINO_DisableArt == false then
+	if System.doesDirectoryExist("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache") then
 		if NEUTRINO_CachedStatus == false then
 			if not NEUTRINO_ArtList then
 				NEUTRINO_LoadingText(false, neuLang[13])
@@ -560,19 +573,27 @@ function NEUTRINO_CacheArt(Index)
 			end
 
 		elseif NEUTRINO_CachedStatus == true then
-			for NEUTRINO_i in string.gmatch(NEUTRINO_NoDisc, "[^,]+") do
-				if NEUTRINO_i == NEUTRINO_Games[Index].TitleId then
-					NEUTRINO_Games[Index].Icon = "default"
-					NEUTRINO_NoDisc = string.sub(NEUTRINO_NoDisc, 13)
-					break
+			if NEUTRINO_DisableDisc == false then
+				for NEUTRINO_i in string.gmatch(NEUTRINO_NoDisc, "[^,]+") do
+					if NEUTRINO_i == NEUTRINO_Games[Index].TitleId then
+						NEUTRINO_Games[Index].Icon = "default"
+						NEUTRINO_NoDisc = string.sub(NEUTRINO_NoDisc, 13)
+						break
+					end
 				end
+			else
+				NEUTRINO_Games[Index].Icon = "default"
 			end
-			for NEUTRINO_i in string.gmatch(NEUTRINO_NoBg, "[^,]+") do
-				if NEUTRINO_i == NEUTRINO_Games[Index].TitleId then
-					NEUTRINO_Games[Index].BackGround = "default"
-					NEUTRINO_NoBg = string.sub(NEUTRINO_NoBg, 13)
-					break
+			if NEUTRINO_DisableBg == false then
+				for NEUTRINO_i in string.gmatch(NEUTRINO_NoBg, "[^,]+") do
+					if NEUTRINO_i == NEUTRINO_Games[Index].TitleId then
+						NEUTRINO_Games[Index].BackGround = "default"
+						NEUTRINO_NoBg = string.sub(NEUTRINO_NoBg, 13)
+						break
+					end
 				end
+			else
+				NEUTRINO_Games[Index].BackGround = "default"
 			end
 		end
 		
@@ -580,20 +601,28 @@ function NEUTRINO_CacheArt(Index)
 				NEUTRINO_Games[Index].Icon = "default"
 				NEUTRINO_Games[Index].BackGround = "default"
 		else
-			if NEUTRINO_Games[Index].Icon ~= "default" then
+			if NEUTRINO_Games[Index].Icon ~= "default" and NEUTRINO_DisableDisc == false then
 				NEUTRINO_Games[Index].Icon = "mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/DISC/"..NEUTRINO_Games[Index].TitleId..".png"
-			else
+			elseif NEUTRINO_DisableDisc == false then
 				NEUTRINO_NDiscCount = NEUTRINO_NDiscCount + 1
-			end
-			if NEUTRINO_Games[Index].BackGround ~= "default" then
-				NEUTRINO_Games[Index].BackGround = "mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/BG/"..NEUTRINO_Games[Index].TitleId..".png"
 			else
+				NEUTRINO_Games[Index].Icon = "default"
+			end
+			if NEUTRINO_Games[Index].BackGround ~= "default" and NEUTRINO_DisableBg == false then
+				NEUTRINO_Games[Index].BackGround = "mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/BG/"..NEUTRINO_Games[Index].TitleId..".png"
+			elseif NEUTRINO_DisableBg == false then
 				NEUTRINO_NBgCount = NEUTRINO_NBgCount + 1
+			else
+				NEUTRINO_Games[Index].BackGround = "default"
 			end
 		end
-	elseif NEUTRINO_DisableArt == true then
-		NEUTRINO_Games[Index].Icon = "default"
-		NEUTRINO_Games[Index].BackGround = "default"
+	--[[elseif NEUTRINO_DisableDisc == true or  NEUTRINO_DisableBg == true then
+		if NEUTRINO_DisableDisc == true then
+			NEUTRINO_Games[Index].Icon = "default"
+		end
+		if NEUTRINO_DisableBg == true then
+			NEUTRINO_Games[Index].BackGround = "default"
+		end]]
 	else
 		Screen.clear()
 		thmDrawBKG()
@@ -841,7 +870,6 @@ for NEUTRINO_i = 1, 3 do
 		for NEUTRINO_iB = NEUTRINO_SelectedItem-6, NEUTRINO_SelectedItem+5 do
 			NEUTRINO_iB_Y = NEUTRINO_ItemPosition*71
 
-			--NEUTRINO_DebugLog(NEUTRINO_CurrentList[NEUTRINO_iB].IconSlot)
 			if NEUTRINO_iB == NEUTRINO_SelectedItem then
 				NEUTRINO_DrawItemFrame(NEUTRINO_CurrentList[NEUTRINO_iB], 152, 206, false, NEUTRINO_i, baseColorFull, NEUTRINO_ColorFullZero)
 			else
@@ -1107,15 +1135,12 @@ function ContextMenu_ReadSettings(Settings)
 		end
 	end
 	if ContextMenu_Offset == 1 then
-		NEUTRINO_Debug = "0"
 		if string.match(Settings, "(.*)unique(.*)") then
-			NEUTRINO_Debug = "1"
 			ContextMenu_Unique = "-unique "
 			ContextMenu[5].Name = "\194\172  "..neuLang[73]
 		else
 			ContextMenu_Unique = ""
 			ContextMenu[5].Name = "     "..neuLang[73]
-			NEUTRINO_Debug = "2"
 		end
 	end
 	if string.match(Settings, "(.*)logo(.*)") then
@@ -1132,11 +1157,11 @@ function ContextMenu_ReadSettings(Settings)
 		ContextMenu_Colors = ""
 		ContextMenu[6+ContextMenu_Offset].Name = "     "..neuLang[15]
 	end
-	if string.match(Settings, "(.*)1(.*)") then
-		ContextMenu_Accurate = "1"
+	if string.match(Settings, "(.*)0(.*)") then
+		ContextMenu_Fast = "0"
 		ContextMenu[7+ContextMenu_Offset].Name = "\194\172  "..neuLang[16]
 	else
-		ContextMenu_Accurate = ""
+		ContextMenu_Fast = ""
 		ContextMenu[7+ContextMenu_Offset].Name = "     "..neuLang[16]
 	end
 	if string.match(Settings, "(.*)2(.*)") then
@@ -1159,6 +1184,13 @@ function ContextMenu_ReadSettings(Settings)
 	else
 		ContextMenu_Emulate = ""
 		ContextMenu[10+ContextMenu_Offset].Name = "     "..neuLang[19]
+	end
+	if string.match(Settings, "(.*)7(.*)") then
+		ContextMenu_Buffer = "7"
+		ContextMenu[11+ContextMenu_Offset].Name = "\194\172  "..neuLang[77]
+	else
+		ContextMenu_Buffer = ""
+		ContextMenu[11+ContextMenu_Offset].Name = "     "..neuLang[77]
 	end
 end
 ContextMenu_FirstRun = true
@@ -1188,12 +1220,14 @@ function NEUTRINO_ContextMenu()
 		ContextMenu[8] = {};
 		ContextMenu[9] = {};
 		ContextMenu[10] = {};
+		ContextMenu[11] = {};
 		if ContextMenu_Offset > -1 then
-			ContextMenu[11] = {};
-		end
-		if ContextMenu_Offset == 1 then
 			ContextMenu[12] = {};
 		end
+		if ContextMenu_Offset == 1 then
+			ContextMenu[13] = {};
+		end
+
 		ContextMenu[1].Description = neuLang[20]
 		ContextMenu[2].Description = neuLang[21]
 		ContextMenu[3].Description = neuLang[66]
@@ -1209,13 +1243,14 @@ function NEUTRINO_ContextMenu()
 		ContextMenu[8+ContextMenu_Offset].Description = neuLang[25]
 		ContextMenu[9+ContextMenu_Offset].Description = neuLang[26]
 		ContextMenu[10+ContextMenu_Offset].Description = neuLang[27]
-		ContextMenu[11+ContextMenu_Offset].Description = neuLang[28]
-		if NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId == "" or NEUTRINO_CurrentList ~= NEUTRINO_Games then
-			ContextMenu_AllItems = 10 + ContextMenu_Offset
-		else
-			ContextMenu_AllItems = 11 + ContextMenu_Offset
-		end
+		ContextMenu[11+ContextMenu_Offset].Description = neuLang[78]
+		ContextMenu[12+ContextMenu_Offset].Description = neuLang[28]
 
+		if NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId == "" or NEUTRINO_CurrentList ~= NEUTRINO_Games then
+			ContextMenu_AllItems = 11 + ContextMenu_Offset
+		else
+			ContextMenu_AllItems = 12 + ContextMenu_Offset
+		end
 		if System.doesFileExist(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg") then
 			NEUTRINO_TempFile = io.open(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg", r)
 			ContextMenu_LocalSettings = (NEUTRINO_TempFile:read())
@@ -1242,13 +1277,13 @@ function NEUTRINO_ContextMenu()
 		else
 			ContextMenu_ReadSettings(ContextMenu_GlobalSettings)
 		end
-		ContextMenu[11+ContextMenu_Offset].Name = neuLang[33]
+		ContextMenu[12+ContextMenu_Offset].Name = neuLang[33]
 		ContextMenu_FirstRun = false
 
-		if ContextMenu_Accurate..ContextMenu_Sync..ContextMenu_Unhook..ContextMenu_Emulate == "" then
-			ContextMenu_Disable = "0"
-		else
+		if ContextMenu_Fast..ContextMenu_Sync..ContextMenu_Unhook..ContextMenu_Emulate..ContextMenu_Buffer == "" then
 			ContextMenu_Disable = ""
+		else
+			ContextMenu_Disable = "-gc="
 		end
 	end
 
@@ -1350,7 +1385,6 @@ function NEUTRINO_ContextMenu()
 					ContextMenu[5].Name = "     "..neuLang[73]
 					ContextMenu_Unique = ""
 				end
-
 			elseif ContextMenu_SelectedItem == 5+ContextMenu_Offset then
 				if ContextMenu_Logo == "" then
 					ContextMenu[5+ContextMenu_Offset].Name = "\194\172  "..neuLang[14]
@@ -1368,12 +1402,12 @@ function NEUTRINO_ContextMenu()
 					ContextMenu_Colors = ""
 				end
 			elseif ContextMenu_SelectedItem == 7+ContextMenu_Offset then
-				if ContextMenu_Accurate == "" then
+				if ContextMenu_Fast == "" then
 					ContextMenu[7+ContextMenu_Offset].Name = "\194\172  "..neuLang[16]
-					ContextMenu_Accurate = "1"
+					ContextMenu_Fast = "0"
 				else
 					ContextMenu[7+ContextMenu_Offset].Name = "     "..neuLang[16]
-					ContextMenu_Accurate = ""
+					ContextMenu_Fast = ""
 				end
 			elseif ContextMenu_SelectedItem == 8+ContextMenu_Offset then
 				if ContextMenu_Sync == "" then
@@ -1400,6 +1434,14 @@ function NEUTRINO_ContextMenu()
 					ContextMenu_Emulate = ""
 				end
 			elseif ContextMenu_SelectedItem == 11+ContextMenu_Offset then
+				if ContextMenu_Buffer == "" then
+					ContextMenu[11+ContextMenu_Offset].Name = "\194\172  "..neuLang[77]
+					ContextMenu_Buffer = "7"
+				else
+					ContextMenu[11+ContextMenu_Offset].Name = "     "..neuLang[77]
+					ContextMenu_Buffer = ""
+				end
+			elseif ContextMenu_SelectedItem == 12+ContextMenu_Offset then
 				if NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId ~= "" then
 					NEUTRINO_CachedCount = 0
 					System.removeFile("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/DISC/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId..".png")
@@ -1454,10 +1496,10 @@ function NEUTRINO_ContextMenu()
 					io.close(NEUTRINO_TempFile)
 				end
 			end
-			if ContextMenu_Accurate..ContextMenu_Sync..ContextMenu_Unhook..ContextMenu_Emulate == "" then
-				ContextMenu_Disable = "0"
-			else
+			if ContextMenu_Fast..ContextMenu_Sync..ContextMenu_Unhook..ContextMenu_Emulate..ContextMenu_Buffer == "" then
 				ContextMenu_Disable = ""
+			else
+				ContextMenu_Disable = "-gc="
 			end
 		end
     end
@@ -1466,11 +1508,12 @@ function NEUTRINO_ContextMenu()
 		ContextMenu_NewSettings = ContextMenu_Vmc
 		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Unique
 		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Cheat
-		ContextMenu_NewSettings = ContextMenu_NewSettings.."-gc="..ContextMenu_Disable
-		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Accurate
+		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Disable
+		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Fast
 		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Sync
 		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Unhook
 		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Emulate
+		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Buffer
 		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Colors
 		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Logo
 
@@ -1478,18 +1521,26 @@ function NEUTRINO_ContextMenu()
 		if ContextMenu_Global == false and ContextMenu_NewSettings ~= ContextMenu_LocalSettings and ContextMenu_UpdateFavorties == false then
 			if ContextMenu_NewSettings ~= ContextMenu_GlobalSettings or System.doesFileExist(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg") then
 				NEUTRINO_LoadingText(false, neuLang[34])
-				NEUTRINO_TempFile = io.open(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg", "w")
-				io.output(NEUTRINO_TempFile)
-				io.write(ContextMenu_NewSettings)
-				io.close(NEUTRINO_TempFile)
+				if ContextMenu_NewSettings == "" then
+					System.removeFile(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg")
+				else
+					NEUTRINO_TempFile = io.open(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg", "w")
+					io.output(NEUTRINO_TempFile)
+					io.write(ContextMenu_NewSettings)
+					io.close(NEUTRINO_TempFile)
+				end
 			end
 		elseif ContextMenu_Global == true then
 			NEUTRINO_LoadingText(false, neuLang[34])
 			if ContextMenu_NewSettings ~= ContextMenu_GlobalSettings then
-				NEUTRINO_TempFile = io.open("CFG/neutrinoLauncher/neutrinoLaunchOptions.cfg", "w")
-				io.output(NEUTRINO_TempFile)
-				io.write(ContextMenu_NewSettings)
-				io.close(NEUTRINO_TempFile)
+				if ContextMenu_NewSettings == "" then
+					System.removeFile("CFG/neutrinoLauncher/neutrinoLaunchOptions.cfg")
+				else
+					NEUTRINO_TempFile = io.open("CFG/neutrinoLauncher/neutrinoLaunchOptions.cfg", "w")
+					io.output(NEUTRINO_TempFile)
+					io.write(ContextMenu_NewSettings)
+					io.close(NEUTRINO_TempFile)
+				end
 			end
 			if ContextMenu_LocalSettings ~= 0 then
 				System.removeFile(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg")
@@ -1561,7 +1612,6 @@ function NEUTRINO_ContextMenu()
 end 
 
 while XEBKeepInSubMenu do
-	NEUTRINO_Debug = NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc
 	pad = Pads.get()
 	if XEBKeepInContextMenu == true then
 		goto contexMenu

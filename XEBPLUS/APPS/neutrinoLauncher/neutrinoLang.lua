@@ -15,7 +15,7 @@ if XEBPlusLanguage == "en-US" then
     neuLang[13] = "Loading Artwork"
     neuLang[14] = "Enable Boot Logo"
     neuLang[15] = "Enable Debug Colors"
-    neuLang[16] = "Accurate Reads"
+    neuLang[16] = "Fast Reads"
     neuLang[17] = "Synchronous Reads"
     neuLang[18] = "Unhook Syscalls"
     neuLang[19] = "Emulate DVD-DL"
@@ -23,7 +23,7 @@ if XEBPlusLanguage == "en-US" then
     neuLang[21] = "Choose wether selected options will apply to\nall games, or just the current one."
     neuLang[22] = "Display the PlayStation 2 logo when a\ngame is launched."
     neuLang[23] = "Flash a series of colors on launch.\nThis can help diagnose titles that will\nnot start."
-    neuLang[24] = "Limit data transfer rates to match\nthose of the PlayStation 2 DVD-ROM\ndrive."
+    neuLang[24] = "Allow data transfer rate to exceed that\nof the PlayStation 2 DVD-ROM drive."
     neuLang[25] = "Disable asynchronous loading.\nAll read requests will execute immediately."
     neuLang[26] = "Remove neutrino hooks from memory\nafter game is launched."
     neuLang[27] = "Emulate a dual-layer disc structure.\nRequired for flattened DVD9 images."
@@ -74,6 +74,10 @@ if XEBPlusLanguage == "en-US" then
     neuLang[72] = "Loading Recents"
     neuLang[73] = "Use Unique VMC"
     neuLang[74] = "Use a dedicated VMC file for this game."
+    neuLang[75] = "neutrino Launcher (iLink)"
+    neuLang[76] = "Launch games from the iLink port with neutrino"
+    neuLang[77] = "Fix Buffer Overrun"
+    neuLang[78] = "Prevent crashes and other issues in\ncertain games."
 
     NEUTRINO_Control1 = "image/controlmap1.png"
     NEUTRINO_Control2 = "image/controlmap2.png"
@@ -96,7 +100,7 @@ elseif XEBPlusLanguage == "es-419" then
     neuLang[13] = "Cargando arte"
     neuLang[14] = "Habilitar el logo de arranque"
     neuLang[15] = "Habilitar colores de depuración"
-    neuLang[16] = "Lecturas precisas"
+    neuLang[16] = "Lecturas rápidas"
     neuLang[17] = "Lecturas sincronizadas"
     neuLang[18] = "Desenganchar Syscalls"
     neuLang[19] = "Emular DVD-DL"
@@ -104,7 +108,7 @@ elseif XEBPlusLanguage == "es-419" then
     neuLang[21] = "Decida si las opciones seleccionadas se\naplicarán a todos los juegos o solo al actual."
     neuLang[22] = "Mostrar el logotipo de PlayStation 2\ncuando se inicia un juego."
     neuLang[23] = "Muestra una serie de colores al iniciarse.\nEsto puede ayudar a diagnosticar títulos\nque no inicien."
-    neuLang[24] = "Limita las velocidades de transferencia de\ndatos para que coincidan con las de la\nunidad de DVD-ROM de PlayStation 2."
+    neuLang[24] = "Permitir que la velocidad de transferencia\nde datos supere la de la unidad de\nDVD-ROM de PlayStation 2."
     neuLang[25] = "Desactivar la carga asincrónica.\nTodas las solicitudes de lectura se\nejecutarán de inmediato."
     neuLang[26] = "Eliminar los ganchos de neutrino de la\nmemoria después de iniciar el juego."
     neuLang[27] = "Emula una estructura de disco de doble capa.\nNecesario para imágenes DVD9."
@@ -155,6 +159,10 @@ elseif XEBPlusLanguage == "es-419" then
     neuLang[72] = "Cargando reciente"
     neuLang[73] = "Usar VMC exclusivo"
     neuLang[74] = "Utilice un archivo VMC dedicado para este\njuego."
+    neuLang[75] = "Lanzador neutrino (iLink)"
+    neuLang[76] = "Ejecuta juegos desde el puerto iLink con\nneutrino"
+    neuLang[77] = "Corregir desbordamiento del búfer"
+    neuLang[78] = "Evita fallos y otros problemas en\ndeterminados juegos."
 
     NEUTRINO_Control1 = "image/controlmap1_es.png"
     NEUTRINO_Control2 = "image/controlmap2_es.png"
@@ -177,7 +185,7 @@ elseif XEBPlusLanguage == "pt-BR" then
     neuLang[13] = "Carregando artwork"
     neuLang[14] = "Ativar logotipo de arranque"
     neuLang[15] = "Ativar cores de depuração"
-    neuLang[16] = "Leituras precisas"
+    neuLang[16] = "Leituras rápidas"
     neuLang[17] = "Leituras síncronas"
     neuLang[18] = "Desconectar Syscalls"
     neuLang[19] = "Emular DVD-DL"
@@ -185,7 +193,7 @@ elseif XEBPlusLanguage == "pt-BR" then
     neuLang[21] = "Escolha se as opções selecionadas serão\naplicadas a todos os jogos ou apenas\nao atual."
     neuLang[22] = "Apresenta o logótipo da PlayStation 2\nquando um jogo for iniciado."
     neuLang[23] = "Mostra uma série de cores no lançamento.\nIsto pode ajudar a diagnosticar títulos\nque não iniciam."
-    neuLang[24] = "Limite as taxas de transferência de dados\npara corresponderem às da unidade de\nDVD-ROM do PlayStation 2."
+    neuLang[24] = "Permitir que a taxa de transferência de\ndados exceda a da unidade de DVD-ROM do\nPlayStation 2."
     neuLang[25] = "Desative o carregamento assíncrono.\nTodas as solicitações de leitura serão\nexecutadas imediatamente."
     neuLang[26] = "Remova os ganchos do neutrino da\nmemória após o lançamento do jogo."
     neuLang[27] = "Emule uma estrutura de disco de\ncamada dupla.\nNecessário para imagens DVD9."
@@ -236,6 +244,10 @@ elseif XEBPlusLanguage == "pt-BR" then
     neuLang[72] = "Carregando recentes"
     neuLang[73] = "Usar VMC exclusivo"
     neuLang[74] = "Usar um arquivo VMC dedicado para este\njogos"
+    neuLang[75] = "neutrino Launcher (iLink)"
+    neuLang[76] = "Lançar jogos da entrada iLink com neutrino"
+    neuLang[77] = "Corrigir buffer overrun"
+    neuLang[78] = "Evitar travamentos e outros problemas\nem determinados jogos."
 
     NEUTRINO_Control1 = "image/controlmap1_pt.png"
     NEUTRINO_Control2 = "image/controlmap2_pt.png"
@@ -277,4 +289,9 @@ if string.match(Settings, "(.*)D(.*)") then
     NEUTRINO_EnableUDPBD = false
 else
     NEUTRINO_EnableUDPBD = true
+end
+if string.match(Settings, "(.*)I(.*)") then
+    NEUTRINO_EnableILINK = true
+else
+    NEUTRINO_EnableILINK = false
 end
