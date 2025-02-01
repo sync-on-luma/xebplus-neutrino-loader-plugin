@@ -80,8 +80,8 @@ if XEBPlusLanguage == "en-US" then
     neuLang[78] = "Prevent crashes and other issues in\ncertain games."
     neuLang[79] = "GSM: Progessive"
     neuLang[80] = "GSM: Progessive 2X"
-    neuLang[81] = "GSM: Progessive (Feild Flipping)"
-    neuLang[82] = "GSM: Progessive 2X (Feild Flipping)"
+    neuLang[81] = "GSM: Progessive (Field Flipping)"
+    neuLang[82] = "GSM: Progessive 2X (Field Flipping)"
 
     NEUTRINO_Control1 = "image/controlmap1.png"
     NEUTRINO_Control2 = "image/controlmap2.png"
