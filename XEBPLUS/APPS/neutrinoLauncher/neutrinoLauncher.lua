@@ -5,10 +5,10 @@ GoToSubMenuIcon(actualCat,actualOption,true)
 XEBKeepInSubMenu=true
 XEBKeepInContextMenu=false
 
-function NEUTRINO_ShowDebug()
+function NEUTRINO_ShowDebug(message)
 	Screen.clear()
 	if NEUTRINO_Debug ~= nil then
-		Font.ftPrint(fontBig, 280, plusYValue+390, 11, 620, 64, NEUTRINO_Debug, baseColorFull)
+		Font.ftPrint(fontBig, 280, plusYValue+390, 11, 620, 64, message, baseColorFull)
 	end
 	Screen.waitVblankStart()
 	Screen.flip()
@@ -1157,6 +1157,25 @@ function ContextMenu_ReadSettings(Settings)
 		ContextMenu_Colors = ""
 		ContextMenu[6+ContextMenu_Offset].Name = "     "..neuLang[15]
 	end
+	if string.match(Settings, "(.*)-gsm=1F(.*)") then
+		ContextMenu_Gsm = " -gsm=1F"
+		ContextMenu[12+ContextMenu_Offset].Name = neuLang[81]
+	elseif string.match(Settings, "(.*)-gsm=2F(.*)") then
+		ContextMenu_Gsm = " -gsm=2F"
+		ContextMenu[12+ContextMenu_Offset].Name = neuLang[82]
+	elseif string.match(Settings, "(.*)-gsm=1(.*)") then
+		ContextMenu_Gsm = " -gsm=1"
+		ContextMenu[12+ContextMenu_Offset].Name = neuLang[79]
+	elseif string.match(Settings, "(.*)-gsm=2(.*)") then
+		ContextMenu_Gsm = " -gsm=2"
+		ContextMenu[12+ContextMenu_Offset].Name = neuLang[80]
+	else
+		ContextMenu_Gsm = " -gsm=0"
+		ContextMenu[12+ContextMenu_Offset].Name = neuLang[57]
+	end
+	if string.match(Settings, "(.*)"..ContextMenu_Gsm.."(.*)") then
+		Settings = Settings:gsub(ContextMenu_Gsm, "")
+	end
 	if string.match(Settings, "(.*)0(.*)") then
 		ContextMenu_Fast = "0"
 		ContextMenu[7+ContextMenu_Offset].Name = "\194\172  "..neuLang[16]
@@ -1200,6 +1219,7 @@ function NEUTRINO_ContextMenu()
 		ContextMenu_SelectedItem = 1
 		ContextMenu_Vmc = ""
 		ContextMenu_Unique = ""
+		ContextMenu_Gsm = ""
 		ContextMenu_UpdateFavorties = false
 		ContextMenu_ReloadArt = false
 		if string.match(NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc, "(.*)XEBP(.*)") then
@@ -1221,11 +1241,12 @@ function NEUTRINO_ContextMenu()
 		ContextMenu[9] = {};
 		ContextMenu[10] = {};
 		ContextMenu[11] = {};
+		ContextMenu[12] = {};
 		if ContextMenu_Offset > -1 then
-			ContextMenu[12] = {};
+			ContextMenu[13] = {};
 		end
 		if ContextMenu_Offset == 1 then
-			ContextMenu[13] = {};
+			ContextMenu[14] = {};
 		end
 
 		ContextMenu[1].Description = neuLang[20]
@@ -1244,12 +1265,13 @@ function NEUTRINO_ContextMenu()
 		ContextMenu[9+ContextMenu_Offset].Description = neuLang[26]
 		ContextMenu[10+ContextMenu_Offset].Description = neuLang[27]
 		ContextMenu[11+ContextMenu_Offset].Description = neuLang[78]
-		ContextMenu[12+ContextMenu_Offset].Description = neuLang[28]
+		ContextMenu[12+ContextMenu_Offset].Description = neuLang[58]
+		ContextMenu[13+ContextMenu_Offset].Description = neuLang[28]
 
 		if NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId == "" or NEUTRINO_CurrentList ~= NEUTRINO_Games then
-			ContextMenu_AllItems = 11 + ContextMenu_Offset
-		else
 			ContextMenu_AllItems = 12 + ContextMenu_Offset
+		else
+			ContextMenu_AllItems = 13 + ContextMenu_Offset
 		end
 		if System.doesFileExist(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg") then
 			NEUTRINO_TempFile = io.open(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg", r)
@@ -1277,9 +1299,8 @@ function NEUTRINO_ContextMenu()
 		else
 			ContextMenu_ReadSettings(ContextMenu_GlobalSettings)
 		end
-		ContextMenu[12+ContextMenu_Offset].Name = neuLang[33]
+		ContextMenu[13+ContextMenu_Offset].Name = neuLang[33]
 		ContextMenu_FirstRun = false
-
 		if ContextMenu_Fast..ContextMenu_Sync..ContextMenu_Unhook..ContextMenu_Emulate..ContextMenu_Buffer == "" then
 			ContextMenu_Disable = ""
 		else
@@ -1442,6 +1463,23 @@ function NEUTRINO_ContextMenu()
 					ContextMenu_Buffer = ""
 				end
 			elseif ContextMenu_SelectedItem == 12+ContextMenu_Offset then
+				if ContextMenu_Gsm == " -gsm=0" then
+					ContextMenu_Gsm = " -gsm=1"
+					ContextMenu[12+ContextMenu_Offset].Name = neuLang[79]
+				elseif ContextMenu_Gsm == " -gsm=1" then
+					ContextMenu_Gsm = " -gsm=2"
+					ContextMenu[12+ContextMenu_Offset].Name = neuLang[80]
+				elseif ContextMenu_Gsm == " -gsm=2" then
+					ContextMenu_Gsm = " -gsm=1F"
+					ContextMenu[12+ContextMenu_Offset].Name = neuLang[81]
+				elseif ContextMenu_Gsm == " -gsm=1F" then
+					ContextMenu_Gsm = " -gsm=2F"
+					ContextMenu[12+ContextMenu_Offset].Name = neuLang[82]
+				elseif ContextMenu_Gsm == " -gsm=2F" then
+					ContextMenu_Gsm = " -gsm=0"
+					ContextMenu[12+ContextMenu_Offset].Name = neuLang[57]
+				end
+			elseif ContextMenu_SelectedItem == 13+ContextMenu_Offset then
 				if NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId ~= "" then
 					NEUTRINO_CachedCount = 0
 					System.removeFile("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/DISC/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].TitleId..".png")
@@ -1499,7 +1537,7 @@ function NEUTRINO_ContextMenu()
 			if ContextMenu_Fast..ContextMenu_Sync..ContextMenu_Unhook..ContextMenu_Emulate..ContextMenu_Buffer == "" then
 				ContextMenu_Disable = ""
 			else
-				ContextMenu_Disable = "-gc="
+				ContextMenu_Disable = " -gc="
 			end
 		end
     end
@@ -1516,6 +1554,7 @@ function NEUTRINO_ContextMenu()
 		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Buffer
 		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Colors
 		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Logo
+		ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_Gsm
 
 
 		if ContextMenu_Global == false and ContextMenu_NewSettings ~= ContextMenu_LocalSettings and ContextMenu_UpdateFavorties == false then
@@ -1756,7 +1795,7 @@ while XEBKeepInSubMenu do
 				NEUTRINO_PrepIRX = "load modules/dev9_ns.irx\r\necho \"Initializing Network . . .\"\r\nsleep 3\r\n"
 			end
 
-			NEUTRINO_RadShellText = "fontsize 0.6\r\necho \""..neuLang[71]..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".iso\"\r\n"..NEUTRINO_PrepIRX.."sleep 1\r\nrun neutrino.elf -bsd="..NEUTRINO_Bsd.." -bsdfs="..NEUTRINO_Fs.." \"-dvd="..NEUTRINO_PathPrefix..":"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name.."."..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension.."\" -mt="..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media.." "..NEUTRINO_LaunchOptions..NEUTRINO_Vmc.."\r\n"
+			NEUTRINO_RadShellText = "fontsize 0.6\r\necho \""..neuLang[71]..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".iso\"\r\n"..NEUTRINO_PrepIRX.."sleep 1\r\nrun neutrino.elf -bsd="..NEUTRINO_Bsd.." -bsdfs="..NEUTRINO_Fs.." \"-dvd="..NEUTRINO_PathPrefix..":"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name.."."..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension.."\" -mt="..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media..NEUTRINO_LaunchOptions..NEUTRINO_Vmc.."\r\n"
 
 			System.removeFile(xebLua_AppWorkingPath.."radshellmod.ios")
 			NEUTRINO_RadShellFile = System.openFile(xebLua_AppWorkingPath.."radshellmod.ios", FCREATE)
