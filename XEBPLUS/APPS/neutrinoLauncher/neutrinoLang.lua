@@ -82,6 +82,8 @@ if XEBPlusLanguage == "en-US" then
     neuLang[80] = "GSM: Progessive 2X"
     neuLang[81] = "GSM: Progessive (Field Flipping)"
     neuLang[82] = "GSM: Progessive 2X (Field Flipping)"
+    neuLang[83] = "neutrino Launcher (MMCE)"
+    neuLang[84] = "Launch games from an MMCE device with neutrino"
 
     NEUTRINO_Control1 = "image/controlmap1.png"
     NEUTRINO_Control2 = "image/controlmap2.png"
@@ -145,7 +147,7 @@ elseif XEBPlusLanguage == "es-419" then
     neuLang[54] = "Habilite VMC en la ranura 0"
     neuLang[55] = "Habilite VMC en la ranura 1"
     neuLang[56] = "Utilice una imagen de tarjeta de memoria\nvirtual de neutrino para guardar los datos del juego."
-    neuLang[57] = ""
+    neuLang[57] = "GSM: Off"
     neuLang[58] = "Cambiar el modo del Sintetizador Gráfico"
     neuLang[59] = "\nEs posible que el archivo falte o esté dañado."
     neuLang[60] = "% completo."
@@ -171,6 +173,8 @@ elseif XEBPlusLanguage == "es-419" then
     neuLang[80] = "GSM: Progresivo 2X "
     neuLang[81] = "GSM: Progresivo (cambio de campo)"
     neuLang[82] = "GSM: Progresivo 2X (cambio de campo)"
+    neuLang[83] = "Lanzador neutrino (MMCE)"
+    neuLang[84] = ""
 
     NEUTRINO_Control1 = "image/controlmap1_es.png"
     NEUTRINO_Control2 = "image/controlmap2_es.png"
@@ -234,7 +238,7 @@ elseif XEBPlusLanguage == "pt-BR" then
     neuLang[54] = "Habilitar VMC no Slot 0"
     neuLang[55] = "Habilitar VMC no Slot 1"
     neuLang[56] = "Use uma imagem de cartão de memória\nvirtual neutrino para salvar os dados do jogo."
-    neuLang[57] = ""
+    neuLang[57] = "GSM: Desligado"
     neuLang[58] = "Alterar modo Sintetizador Gráfico"
     neuLang[59] = "\nO arquivo pode estar ausente ou corrompido."
     neuLang[60] = "% concluído."
@@ -260,6 +264,8 @@ elseif XEBPlusLanguage == "pt-BR" then
     neuLang[80] = "GSM: Progressivo 2X"
     neuLang[81] = "GSM: Progressivo (inversão de campo)"
     neuLang[82] = "GSM: Progressivo 2X (inversão de campo)"
+    neuLang[83] = "neutrino Launcher (MMCE)"
+    neuLang[84] = ""
 
     NEUTRINO_Control1 = "image/controlmap1_pt.png"
     NEUTRINO_Control2 = "image/controlmap2_pt.png"
@@ -301,6 +307,11 @@ if string.match(Settings, "(.*)D(.*)") then
     NEUTRINO_EnableUDPBD = false
 else
     NEUTRINO_EnableUDPBD = true
+end
+if string.match(Settings, "(.*)C(.*)") then
+    NEUTRINO_EnableMMCE = false
+else
+    NEUTRINO_EnableMMCE = true
 end
 if string.match(Settings, "(.*)I(.*)") then
     NEUTRINO_EnableILINK = true
