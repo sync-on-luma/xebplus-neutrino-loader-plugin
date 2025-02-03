@@ -3,7 +3,11 @@ TransparencyAlpha=0
 TempX=840
 TempY=32
 
+<<<<<<< Updated upstream
 ContextMenu_AllItems = 12
+=======
+ContextMenu_AllItems = 15
+>>>>>>> Stashed changes
 ContextMenu_SelectedItem = 1
 ContextMenu={};
 ContextMenu[1] = {};
@@ -19,6 +23,7 @@ ContextMenu[10] = {};
 ContextMenu[11] = {};
 ContextMenu[12] = {};
 ContextMenu[13] = {};
+<<<<<<< Updated upstream
 ContextMenu[1].Description = nSetLang[16]
 ContextMenu[2].Description = nSetLang[18]
 ContextMenu[3].Description = nSetLang[17]
@@ -32,6 +37,25 @@ ContextMenu[10].Description = nSetLang[22]
 ContextMenu[11].Description = nSetLang[24]
 ContextMenu[12].Description = nSetLang[6]
 ContextMenu[13].Description = nSetLang[33]
+=======
+ContextMenu[14] = {};
+ContextMenu[15] = {};
+ContextMenu[1].Description = nSetLang[16]
+ContextMenu[2].Description = nSetLang[18]
+ContextMenu[3].Description = nSetLang[39]
+ContextMenu[4].Description = nSetLang[17]
+ContextMenu[5].Description = nSetLang[30]
+ContextMenu[6].Description = nSetLang[35]
+ContextMenu[7].Description = nSetLang[3]
+ContextMenu[8].Description = nSetLang[37]
+ContextMenu[9].Description = nSetLang[4]
+ContextMenu[10].Description = nSetLang[29]
+ContextMenu[11].Description = nSetLang[5]
+ContextMenu[12].Description = nSetLang[22]
+ContextMenu[13].Description = nSetLang[24]
+ContextMenu[14].Description = nSetLang[6]
+ContextMenu[15].Description = nSetLang[33]
+>>>>>>> Stashed changes
 
 if System.doesFileExist("CFG/neutrinoLauncher/menu.cfg") then
     ContextMenu_TempFile = io.open("CFG/neutrinoLauncher/menu.cfg", "r")
@@ -56,28 +80,36 @@ else
 	ContextMenu_EnableMX4 = ""
 	ContextMenu[2].Name = "\194\172  "..nSetLang[21]
 end
+if string.match(Settings, "(.*)C(.*)") then
+	ContextMenu_EnableMMCE = "C"
+	ContextMenu[3].Name = "     "..nSetLang[38]
+else
+	ContextMenu_EnableMMCE = ""
+	ContextMenu[3].Name = "\194\172  "..nSetLang[38]
+end
 if string.match(Settings, "(.*)U(.*)") then
 	ContextMenu_EnableUSB = "U"
-	ContextMenu[3].Name = "     "..nSetLang[20]
+	ContextMenu[4].Name = "     "..nSetLang[20]
 else
 	ContextMenu_EnableUSB = ""
-	ContextMenu[3].Name = "\194\172  "..nSetLang[20]
+	ContextMenu[4].Name = "\194\172  "..nSetLang[20]
 end
 if string.match(Settings, "(.*)D(.*)") then
 	ContextMenu_EnableUDPBD = "D"
-	ContextMenu[4].Name = "     "..nSetLang[31]
+	ContextMenu[5].Name = "     "..nSetLang[31]
 else
 	ContextMenu_EnableUDPBD = ""
-	ContextMenu[4].Name = "\194\172  "..nSetLang[31]
+	ContextMenu[5].Name = "\194\172  "..nSetLang[31]
 end
 if string.match(Settings, "(.*)I(.*)") then
 	ContextMenu_EnableILINK = "I"
-	ContextMenu[5].Name = "\194\172  "..nSetLang[34]
+	ContextMenu[6].Name = "\194\172  "..nSetLang[34]
 else
 	ContextMenu_EnableILINK = ""
-	ContextMenu[5].Name = "     "..nSetLang[34]
+	ContextMenu[6].Name = "     "..nSetLang[34]
 end
 if string.match(Settings, "(.*)1(.*)") then
+<<<<<<< Updated upstream
 	ContextMenu_DisableArt = "1"
 	ContextMenu[6].Name = "\194\172  "..nSetLang[8]
 else
@@ -125,6 +157,62 @@ else
     ContextMenu[12].Name = nSetLang[12]
 end
 ContextMenu[13].Name = nSetLang[32]
+=======
+	ContextMenu_DisableDisc = "1"
+	ContextMenu[7].Name = "\194\172  "..nSetLang[8]
+else
+	ContextMenu_DisableDisc = ""
+	ContextMenu[7].Name = "     "..nSetLang[8]
+end
+if string.match(Settings, "(.*)8(.*)") then
+    ContextMenu_DisableBg = "8"
+    ContextMenu[8].Name = "\194\172  "..nSetLang[36]
+else
+    ContextMenu_DisableBg = ""
+    ContextMenu[8].Name = "     "..nSetLang[36]
+end
+if string.match(Settings, "(.*)2(.*)") then
+	ContextMenu_DisableStatus = "2"
+	ContextMenu[9].Name = "\194\172  "..nSetLang[9]
+else
+	ContextMenu_DisableStatus = ""
+	ContextMenu[9].Name = "     "..nSetLang[9]
+end
+if string.match(Settings, "(.*)7(.*)") then
+	ContextMenu_DisableFade = "7"
+	ContextMenu[10].Name = "\194\172  "..nSetLang[28]
+else
+	ContextMenu_DisableFade = ""
+	ContextMenu[10].Name = "     "..nSetLang[28]
+end
+if string.match(Settings, "(.*)3(.*)") then
+	ContextMenu_DisableAnim = "3"
+	ContextMenu[11].Name = "\194\172  "..nSetLang[15]
+else
+	ContextMenu_DisableAnim = ""
+	ContextMenu[11].Name = "     "..nSetLang[15]
+end
+if string.match(Settings, "(.*)4(.*)") then
+	ContextMenu_ShowTitleId = "4"
+	ContextMenu[12].Name = "     "..nSetLang[25]
+else
+	ContextMenu_ShowTitleId = ""
+	ContextMenu[12].Name = "\194\172  "..nSetLang[25]
+end
+if string.match(Settings, "(.*)6(.*)") then
+	ContextMenu_ShowMedia = "6"
+	ContextMenu[13].Name = "     "..nSetLang[27]
+else
+	ContextMenu_ShowMedia = ""
+	ContextMenu[13].Name = "\194\172  "..nSetLang[27]
+end
+if System.doesFileExist("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/lastart.cfg") then
+    ContextMenu[14].Name = nSetLang[11]
+else
+    ContextMenu[14].Name = nSetLang[12]
+end
+ContextMenu[15].Name = nSetLang[32]
+>>>>>>> Stashed changes
 
 function ContextMenu_ReadList(ListFile)
     ContextMenu_TempFile = nil
@@ -276,37 +364,39 @@ while XEBKeepInContextMenu do
         elseif ContextMenu_SelectedItem == 2 then
             if ContextMenu_EnableMX4 == "" then
                 ContextMenu_EnableMX4 = "M"
-
                 ContextMenu[2].Name = "     "..nSetLang[21]
             else
             	ContextMenu_EnableMX4 = ""
                 ContextMenu[2].Name = "\194\172  "..nSetLang[21]
             end
+            
         elseif ContextMenu_SelectedItem == 3 then
+            if ContextMenu_EnableMMCE == "" then
+                ContextMenu_EnableMMCE = "C"
+                ContextMenu[3].Name = "     "..nSetLang[38]
+            else
+            	ContextMenu_EnableMMCE = ""
+                ContextMenu[3].Name = "\194\172  "..nSetLang[38]
+            end
+            
+        elseif ContextMenu_SelectedItem == 4 then
             if ContextMenu_EnableUSB == "" then
                 ContextMenu_EnableUSB = "U"
-                ContextMenu[3].Name = "     "..nSetLang[20]
+                ContextMenu[4].Name = "     "..nSetLang[20]
             else
             	ContextMenu_EnableUSB = ""
-                ContextMenu[3].Name = "\194\172  "..nSetLang[20]
-            end
-        elseif ContextMenu_SelectedItem == 4 then
-            if ContextMenu_EnableUDPBD == "" then
-                ContextMenu_EnableUDPBD = "D"
-                ContextMenu[4].Name = "     "..nSetLang[31]
-            else
-            	ContextMenu_EnableUDPBD = ""
-                ContextMenu[4].Name = "\194\172  "..nSetLang[31]
+                ContextMenu[4].Name = "\194\172  "..nSetLang[20]
             end
         elseif ContextMenu_SelectedItem == 5 then
-            if ContextMenu_EnableILINK == "" then
-                ContextMenu_EnableILINK = "I"
-                ContextMenu[5].Name = "\194\172  "..nSetLang[34]
+            if ContextMenu_EnableUDPBD == "" then
+                ContextMenu_EnableUDPBD = "D"
+                ContextMenu[5].Name = "     "..nSetLang[31]
             else
-            	ContextMenu_EnableILINK = ""
-                ContextMenu[5].Name = "     "..nSetLang[34]
+            	ContextMenu_EnableUDPBD = ""
+                ContextMenu[5].Name = "\194\172  "..nSetLang[31]
             end
         elseif ContextMenu_SelectedItem == 6 then
+<<<<<<< Updated upstream
             if ContextMenu_DisableArt == "" then
                 ContextMenu_DisableArt = "1"
                 ContextMenu[6].Name = "\194\172  "..nSetLang[8]
@@ -356,11 +446,83 @@ while XEBKeepInContextMenu do
                 ContextMenu[11].Name = "\194\172  "..nSetLang[27]
             end
         elseif ContextMenu_SelectedItem == 12 then
+=======
+            if ContextMenu_EnableILINK == "" then
+                ContextMenu_EnableILINK = "I"
+                ContextMenu[6].Name = "\194\172  "..nSetLang[34]
+            else
+            	ContextMenu_EnableILINK = ""
+                ContextMenu[6].Name = "     "..nSetLang[34]
+            end
+        elseif ContextMenu_SelectedItem == 7 then
+            if ContextMenu_DisableDisc == "" then
+                ContextMenu_DisableDisc = "1"
+                ContextMenu[7].Name = "\194\172  "..nSetLang[8]
+            else
+                ContextMenu_DisableDisc = ""
+                ContextMenu[7].Name = "     "..nSetLang[8]
+            end
+
+        elseif ContextMenu_SelectedItem == 8 then
+            if ContextMenu_DisableBg == "" then
+                ContextMenu_DisableBg = "8"
+                ContextMenu[8].Name = "\194\172  "..nSetLang[36]
+            else
+                ContextMenu_DisableBg = ""
+                ContextMenu[8].Name = "     "..nSetLang[36]
+            end
+        elseif ContextMenu_SelectedItem == 9 then
+            if ContextMenu_DisableStatus == "" then
+                ContextMenu_DisableStatus = "2"
+                ContextMenu[9].Name = "\194\172  "..nSetLang[9]
+            else
+                ContextMenu_DisableStatus = ""
+                ContextMenu[9].Name = "     "..nSetLang[9]
+            end
+        elseif ContextMenu_SelectedItem == 10 then
+            if ContextMenu_DisableFade == "" then
+                ContextMenu_DisableFade = "7"
+                ContextMenu[10].Name = "\194\172  "..nSetLang[28]
+            else
+                ContextMenu_DisableFade = ""
+                ContextMenu[10].Name = "     "..nSetLang[28]
+            end
+
+        elseif ContextMenu_SelectedItem == 11 then
+            if ContextMenu_DisableAnim == "" then
+                ContextMenu_DisableAnim = "3"
+                ContextMenu[11].Name = "\194\172  "..nSetLang[15]
+            else
+                ContextMenu_DisableAnim = ""
+                ContextMenu[11].Name = "     "..nSetLang[15]
+            end
+        elseif ContextMenu_SelectedItem == 12 then
+            if ContextMenu_ShowTitleId == "" then
+                ContextMenu_ShowTitleId = "4"
+                ContextMenu[12].Name = "     "..nSetLang[25]
+            else
+                ContextMenu_ShowTitleId = ""
+                ContextMenu[12].Name = "\194\172  "..nSetLang[25]
+            end
+        elseif ContextMenu_SelectedItem == 13 then
+            if ContextMenu_ShowMedia == "" then
+                ContextMenu_ShowMedia = "6"
+                ContextMenu[13].Name = "     "..nSetLang[27]
+            else
+                ContextMenu_ShowMedia = ""
+                ContextMenu[13].Name = "\194\172  "..nSetLang[27]
+            end
+        elseif ContextMenu_SelectedItem == 14 then
+>>>>>>> Stashed changes
             if System.doesFileExist("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/lastart.cfg") then
                 System.removeFile("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/lastart.cfg")
                 ContextMenu[12].Name = nSetLang[12]
             end
+<<<<<<< Updated upstream
         elseif ContextMenu_SelectedItem == 13 then
+=======
+        elseif ContextMenu_SelectedItem == 15 then
+>>>>>>> Stashed changes
             ContextMenu_CleanCache()
         end
     end
@@ -382,10 +544,10 @@ while XEBKeepInContextMenu do
     Screen.flip()
 end
 
-ContextMenu_NewSettings = ""
 ContextMenu_NewSettings = ContextMenu_EnableHDD
 ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_EnableUSB
 ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_EnableMX4
+ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_EnableMMCE
 ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_EnableUDPBD
 ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_EnableILINK
 ContextMenu_NewSettings = ContextMenu_NewSettings..ContextMenu_DisableArt

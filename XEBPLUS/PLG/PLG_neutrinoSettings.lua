@@ -35,6 +35,13 @@ if XEBPlusLanguage == "en-US" then
     nSetLang[33] = "Delete unused files in the artwork cache."
     nSetLang[34] = "Enable iLink"
     nSetLang[35] = "Enable neutrino Launcher (iLink) plugin.\nRequires XEB+ refresh."
+<<<<<<< Updated upstream
+=======
+    nSetLang[36] = "Disable Background Art"
+    nSetLang[37] = "Don't show background artwork in the menu."
+    nSetLang[38] = "Enable MMCE"
+    nSetLang[39] = "Enable neutrino Launcher (MMCE) plugin.\nRequires XEB+ refresh."
+>>>>>>> Stashed changes
 elseif XEBPlusLanguage == "es-419" then
     nSetLang[1] = "Configuración del lanzador neutrino"
     nSetLang[2] = "Configurar el menú del lanzador de neutrino"
@@ -71,6 +78,13 @@ elseif XEBPlusLanguage == "es-419" then
     nSetLang[33] = "Elimine los archivos no utilizados en el caché\nde ilustraciones."
     nSetLang[34] = "Habilitar iLink"
     nSetLang[35] = "Habilite el complemento neutrino Launcher (iLink).\nRequiere actualización XEB+."
+<<<<<<< Updated upstream
+=======
+    nSetLang[36] = "Desactivar el arte de fondo"
+    nSetLang[37] = "No mostrar ilustraciones de fondo en el menú."
+    nSetLang[38] = "Habilitar MMCE"
+    nSetLang[39] = "Habilite el complemento neutrino Launcher (MMCE).\nRequiere actualización XEB+."
+>>>>>>> Stashed changes
 elseif XEBPlusLanguage == "pt-BR" then
     nSetLang[1] = "Configurações do neutrino Launcher"
     nSetLang[2] = "Configurar menu do neutrino Launcher"
@@ -107,6 +121,13 @@ elseif XEBPlusLanguage == "pt-BR" then
     nSetLang[33] = "Apague os ficheiros não utilizados do cache de arte."
     nSetLang[34] = "Habilitar iLink"
     nSetLang[35] = "Ative o plugin neutrino Launcher (iLink).\nRequer atualização XEB+."
+<<<<<<< Updated upstream
+=======
+    nSetLang[36] = "Desativar Background Arte"
+    nSetLang[37] = "Não mostrar background arte no menu."
+    nSetLang[38] = "Habilitar MMCE"
+    nSetLang[39] = "Ative o plugin neutrino Launcher (MMCE).\nRequer atualização XEB+."
+>>>>>>> Stashed changes
 end
 
 PluginData = {};

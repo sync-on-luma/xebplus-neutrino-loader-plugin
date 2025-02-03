@@ -142,6 +142,8 @@ def main(arg1, arg2, arg3, arg4):
         game_list = 'neutrinoUSB.list'
     elif drive == "-M" or drive == "-m":
         game_list = 'neutrinoMX4.list'
+    elif drive == "-C" or drive == "-c":
+        game_list = 'neutrinoMMCE.list'
     elif drive == "-I" or drive == "-i":
         game_list = 'neutrinoILINK.list'
     else:
