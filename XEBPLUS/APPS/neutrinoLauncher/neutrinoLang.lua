@@ -158,7 +158,19 @@ elseif XEBPlusLanguage == "es-419" then
     neuLang[73] = "Usar VMC exclusivo"
     neuLang[74] = "Utilice un archivo VMC dedicado para este\njuego."
     neuLang[75] = "Lanzador neutrino (iLink)"
+<<<<<<< Updated upstream
     neuLang[76] = ""
+=======
+    neuLang[76] = "Ejecuta juegos desde el puerto iLink con\nneutrino"
+    neuLang[77] = "Corregir desbordamiento del búfer"
+    neuLang[78] = "Evita fallos y otros problemas en\ndeterminados juegos."
+    neuLang[79] = "GSM: Progresivo"
+    neuLang[80] = "GSM: Progresivo 2X "
+    neuLang[81] = "GSM: Progresivo (cambio de campo)"
+    neuLang[82] = "GSM: Progresivo 2X (cambio de campo)"
+    neuLang[83] = "Lanzador neutrino (MMCE)"
+    neuLang[84] = "Iniciar juegos desde un dispositivo MMCE con neutrino"
+>>>>>>> Stashed changes
 
     NEUTRINO_Control1 = "image/controlmap1_es.png"
     NEUTRINO_Control2 = "image/controlmap2_es.png"
@@ -241,7 +253,19 @@ elseif XEBPlusLanguage == "pt-BR" then
     neuLang[73] = "Usar VMC exclusivo"
     neuLang[74] = "Usar um arquivo VMC dedicado para este\njogos"
     neuLang[75] = "neutrino Launcher (iLink)"
+<<<<<<< Updated upstream
     neuLang[76] = ""
+=======
+    neuLang[76] = "Lançar jogos da entrada iLink com neutrino"
+    neuLang[77] = "Corrigir buffer overrun"
+    neuLang[78] = "Evitar travamentos e outros problemas\nem determinados jogos."
+    neuLang[79] = "GSM: Progressivo"
+    neuLang[80] = "GSM: Progressivo 2X"
+    neuLang[81] = "GSM: Progressivo (inversão de campo)"
+    neuLang[82] = "GSM: Progressivo 2X (inversão de campo)"
+    neuLang[83] = "neutrino Launcher (MMCE)"
+    neuLang[84] = "Lançar jogos de um dispositivo MMCE com neutrino"
+>>>>>>> Stashed changes
 
     NEUTRINO_Control1 = "image/controlmap1_pt.png"
     NEUTRINO_Control2 = "image/controlmap2_pt.png"
