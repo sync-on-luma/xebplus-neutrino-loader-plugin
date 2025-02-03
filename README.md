@@ -6,7 +6,7 @@ It allows XEB+ to load PlayStation 2 games from HDD, MX4SIO, USB, and UDPBD via 
 ## Features
 
   * Load PlayStation 2 game backups straight from the Xtreme Elite Boot Plus dashboard.
-  * Supports game loading from HDD, MX4SIO, USB, and UDPBD.
+  * Supports game loading from HDD, MX4SIO, MMCE, USB, and UDPBD.
   * Supports high capacity exFAT drives (currently tested with drives up to 4TB).
   * Works with fragmented game files.
   * Quick navigation functions for browsing large game lists.
@@ -14,7 +14,8 @@ It allows XEB+ to load PlayStation 2 games from HDD, MX4SIO, USB, and UDPBD via 
   * Display game-specific artwork on the menu.
   * Display metadata for each game.
   * Set neutrino compatibility flags and other options on a global or per-game basis.
-  * Virtual Memory Cards
+  * Change video modes via GSM.
+  * Virtual Memory Cards.
   * Cheat support.
   * Favorites list.
   * Custom theme integration.
@@ -23,7 +24,6 @@ It allows XEB+ to load PlayStation 2 games from HDD, MX4SIO, USB, and UDPBD via 
 
   * A PlayStation 2 console configured to run unsigned code via a custom boot loader.  
 [PS2BBL](https://israpps.github.io/PlayStation2-Basic-BootLoader/) is the recommended option.
-  * A computer with a recent version of [Python](https://www.python.org/) installed.
   * All of the requirements specific to the device you want to load games from.
  
 ### HDD
@@ -33,7 +33,8 @@ It allows XEB+ to load PlayStation 2 games from HDD, MX4SIO, USB, and UDPBD via 
   * A hard drive or SSD that is compatible with your PlayStation 2 network or hard drive adapter.  
   * A FAT32 or exFAT formatted USB drive 1GB or larger.  
   This is used for XEB+ and assorted files.
-  * A PC hard drive dock or USB adapter (optional)
+  * A computer with a recent version of [Python](https://www.python.org/) installed.
+  * A PC hard drive dock or USB adapter (optional).
     
 ### MX4SIO
 
@@ -42,7 +43,18 @@ It allows XEB+ to load PlayStation 2 games from HDD, MX4SIO, USB, and UDPBD via 
 32GB or larger is recommended.
   * A FAT32 or exFAT formatted USB drive 1GB or larger.  
   This is used for XEB+ and assorted files.
-  * A USB SD card reader (optional)
+  * A computer with a recent version of [Python](https://www.python.org/) installed.
+  * A USB SD card reader (optional).
+
+### MMCE
+
+  * An MMCE compatible device, such as a MemCard Pro 2 or SD2PSX.
+  * A micro SD card no less than 4GB in size.  
+32GB or larger is recommended.
+  * A FAT32 or exFAT formatted USB drive 1GB or larger.  
+  This is used for XEB+ and assorted files.
+  * A computer with a recent version of [Python](https://www.python.org/) installed.
+  * A USB micro SD card reader (optional).
     
 ### USB
 
@@ -50,31 +62,35 @@ It allows XEB+ to load PlayStation 2 games from HDD, MX4SIO, USB, and UDPBD via 
 32GB or larger is recommended.
   * A PS2 boot loader that can read exFAT drives.  
 PS2BBL supports this by default. ExFAT support can be added to FreeMcBoot with [BDM Assault](https://github.com/israpps/BDMAssault).
+  * A computer with a recent version of [Python](https://www.python.org/) installed.
 
 
 ### UDPBD
 
   * An OEM network adapter if using a fat PS2.
-  * A PC with a connected exFAT formateed drive with enough free space for game ISOs.
+  * A Windows or Linux PC with a connected exFAT formatted drive with enough free space for game ISOs.
   * A FAT32 or exFAT formatted USB drive 1GB or larger.  
   This is used for XEB+ and assorted files.
   * An ethernet cable to connect the PS2 to the PC.  
-If your PC does not have an ethernet port available, a USB ethernet adapter will work.
+If your PC does not have an Ethernet port available, a USB Ethernet adapter will work.
 
 ## Setup
 
-*Note: This setup process is for version 2.4 of this plugin.  
+*Note: This setup process is for version 2.6 of this plugin.  
+If you are updating from version 2.5 or earlier, you may need to remove the `XEBPLUS/CFG/neutrinoLuancher` folder on your USB drive.  
 If you are updating from version 2.3 or earlier, you will need to rebuild all of your game lists.  
 If you are updating from version 1.x, you will need to remove the old version of neutrino Launcher from your XEB+ install before continuing. This includes all neutrino Launcher files in the `APPS`, `PLG`, and `CFG` folders, as well as the `CD` and `DVD` folders on the root of your USB drive.*
 
 1. If you have not already done so, download the Xtreme Elite Boot Plus Xmas 2021 showcase [here](http://web.archive.org/web/20221225042045/http://www.hwc.nat.cu/ps2-vault/hwc-projects/xebplus/).
-2. Extract the `XEBPLUS` folder to the root of your USB drive, and ensure that you can load into the XEB+ dashboard on your PlayStation 2.  
+2. Extract the `XEBPLUS` folder to the root of your USB drive, and ensure that you can load into the XEB+ dashboard on your PlayStation 2.
+Use [7-zip](https://7-zip.org/) to extract the `XEBPLUS` folder to the root of your USB drive. (Windows does not natively support `.rar` with passwords.)  
+The password is at the bottom of `xebplus_xmas_showcase.rar\Distribution License.txt`.  
 Note that if you are using an exFAT formatted USB drive, you will need to use PS2BBL and [this version](https://github.com/israpps/wLaunchELF_ISR) of wLaunchELF. 
-3. (optional) Configure your PS2 exploit of choice to autorun XEB+ on startup.
-4. Download the latest version of this plugin from the [Releases](https://github.com/sync-on-luma/xebplus-neutrino-loader-plugin/releases) section.  
+4. (optional) Configure your PS2 exploit of choice to autorun XEB+ on startup.
+5. Download the latest version of this plugin from the [Releases](https://github.com/sync-on-luma/xebplus-neutrino-loader-plugin/releases) section.  
 Extract the `XEBPLUS` folder to the root of your USB drive, merging all folders if prompted.
-5. Extract the List Builder directory to a known location on your computer.
-6. Complete setup by following the steps specific to the device you want to load games from.
+6. Extract the List Builder directory to a known location on your computer.
+7. Complete setup by following the steps specific to the device you want to load games from.
 
 
 ### HDD
@@ -108,8 +124,24 @@ All disc images must be in *.iso* format.
 14. Eject both drives from the computer. Insert the SD card into an MX4SIO adapter and connect it to memory card slot 2 on the PlayStation 2. Plug the USB drive into either of the front USB ports.  
 15. Launch XEB+ on the PS2, and use *neutrino Launcher (MX4SIO)* to load games from the SD card.  
 
-Repeat steps 9-13 to add or remove games on the SD card.
+Repeat steps 9-14 to add or remove games on the SD card.
 
+### MMCE
+
+7. Ensure you have completed the initial setup of your MMCE device according to it's instructions and that it's firmware has been updated to the latest version.
+8. Insert your micro SD card into your MMCE device and format using the device firmware if you did not do this as part of the initial setup.
+9. Connect the micro SD card to your computer and create folders named `CD` and `DVD` in it's root directory.
+10. Rip/copy any PlayStation 2 disc images you wish to load into the folder that corresponds with their original source media.  
+All disc images must be in *.iso* format.
+11. Run `GUI.py` from the included `List Builder` folder, and select *MMCE* under *Drive Type*.  
+12. Click the *Choose Directory* button under *XEBPLUS Location* and navigate to the root of the USB drive containing your XEB+ install.  
+13. Click the *Choose Directory* button under *Games Location* and navigate to the root of your micro SD card.  
+14. Click the *Create VMCs* checkbox if you wish to use virtual memory cards.  
+15. Click *Build List* and wait for the process to complete.
+14. Eject both drives from the computer. Insert the SD card into an MMCE adapter and connect it to memory card slot 1 on the PlayStation 2. Plug the USB drive into either of the front USB ports.  
+15. Launch XEB+ on the PS2, and use *neutrino Launcher (MMCE)* to load games from the SD card.
+
+Repeat steps 9-15 to add or remove games on the micro SD card.
 
 ### USB
 
@@ -125,7 +157,7 @@ The *Games Location* will automatically be set to the same folder.
 14. Eject the USB drive and plug it into either of the front USB ports on the PlayStation 2.  
 15. Launch XEB+ on the PS2, and use *neutrino Launcher (USB)* to load games from the USB drive.  
 
-Repeat steps 9-12 to add or remove games on the USB drive.
+Repeat steps 9-13 to add or remove games on the USB drive.
 
 ### UDPBD
 
@@ -136,7 +168,7 @@ Repeat steps 9-12 to add or remove games on the USB drive.
 9. Rip/copy any PlayStation 2 ISOs you wish to load into the folder that corresponds with their original source media.
 10. All `.bin` + `.cue` CD games must be converted to `.iso` format.  
 The sync app will convert them automatically if placed in the CD folder and check the `Convert CD Bin to ISO` box before synchronizing.
-11. Extract the `UDPBD-for-XEB+ Sync App` folder from the plugin package to a known location on your computer.
+11. From the [latest release on this page](https://github.com/MegaBitmap/UDPBD-for-XEBP/releases), extract the `UDPBD-for-XEB+ Sync App` folder.
 12. Plug in the ethernet cable as shown:  
 ![ps2-slim-connected-to-laptop](readme-images/ps2-slim-connected-to-laptop.jpg)
 13. For a direct connection, as seen in the previous step, set a manual IPv4 address and subnet mask.  
@@ -144,7 +176,8 @@ The sync app will convert them automatically if placed in the CD folder and chec
 For using a router instead of a direct connection, set the PC's IP assignment to *Automatic (DHCP)*.  
 Then [follow this guide](http://ps2ulaunchelf.pbworks.com/w/page/19520139/ps2ftp) for assigning a proper IP address on the PS2.  
 LaunchELF defaults to *192.168.0.10* and needs to be changed manually to work on your network.
-14 Run LaunchELF on the PS2 and navigate to MISC -> PS2Net  
+14. Hold *R1* on the controller during FreeMCBoot/PS2BBL startup to open LaunchELF.  
+Open MISC -> PS2Net  
 ![launchelf-ps2net](readme-images/launchelf-ps2net.jpg)  
 15. Let the PS2 idle on this screen for the next steps on the PC.  
 ![launchelf-ftp-enabled](readme-images/launchelf-ftp-enabled.jpg)
@@ -161,7 +194,9 @@ The server needs to be open and running for the entire play session. (Disable sl
 20. The PC setup is now complete, back on the PS2 run XEB+.  
 ![launchelf-xeb](readme-images/launchelf-xeb.jpg)
 It's recommended to set FreeMCBoot or PS2BBL to autorun the `.ELF` file.
-21. Launch XEB+ on the PS2, and use *neutrino Launcher (UDPBD)* to load games from the network share.  
+21. Play!  
+![xeb-game-list](readme-images/xeb-game-list.jpg)  
+
 Repeat steps 14-21 of the setup process after adding or removing games.
 
 #### Linux
@@ -214,15 +249,14 @@ dotnet UDPBD-for-XEB+-CLI.dll -path /mnt/ps2 -ps2ip 192.168.0.10 -bin2iso
 sudo umount /mnt/ps2
 sudo ./udpbd-server /dev/nvme0n1p6
 ```
-The server needs to be open and running for the entire play session.  
-19. Launch XEB+ on the PS2, and use *neutrino Launcher (UDPBD)* to load games from the network share.   
-
-
-To add or remove games, stop the server then mount the exFAT storage device to `/mnt/ps2`   
+The server needs to be open and running for the entire play session.
+19. Launch XEB+ then Play!
+To add or remove games, stop the server then mount the exFAT storage device to `/mnt/ps2`  
 ```
 sudo mount /dev/nvme0n1p6 /mnt/ps2/ -o uid=$USER
 ```
-Then add your games and repeat steps 15-19 of the setup process.
+Then add your games and repeat steps 15-19 of the Linux setup process.
+
 
 
 ### Adding Artwork
@@ -233,16 +267,16 @@ This feature uses the same file type and naming conventions as Open PS2 Loader, 
 
 1. Prepare or acquire artwork files with the same file format and naming conventions as those used by OPL.
     * Only background art (*_BG*) and disc icon (*_ICO*) files are used by this plugin.
-    * Some recent versions of OPL have added support for 128x128 disc icons. These are not supported, and it is recommended to only use the older 64x64 icons.
+    * Some recent versions of OPL have added support for 128x128 disc icons. While these are technically supported, it is recommended to only use the older 64x64 icons.
 2. Copy the artwork files you wish to use to `/ART` or `/XEBPLUS/GME/ART` on your USB drive.
     * If it exists, the `ART` directory on the USB root will always take priority over `/XEBPLUS/GME/ART`.
 3. Launch XEB+ and select one of the neutrino Launcher plugins.  
-If the plugin detects files in one of the artwork directories, it will automatically create an artwork cache in the `CFG/neutrinoLauncher` folder.
-4.  * This is necessary to maintain a usable level of performance while displaying artwork in the menu.
+    * If the plugin detects files in one of the artwork directories, it will automatically create an artwork cache in the `CFG/neutrinoLauncher` folder.
+    * This is necessary to maintain a usable level of performance while displaying artwork in the menu.
 
 The caching process can take a long time to complete the first time it runs, potentially over an hour if you have a very large game library.  
 
-Making any changes to any of the *.list* files in the `CFG/neutrinoLauncher` folder, or modifying the cache folder, will trigger a refresh of the artwork cache the next time the plugin is launched.  
+Making any changes to any of the *.list* files in the `CFG/neutrinoLauncher` folder, or modifying the cache folder will trigger a refresh of the artwork cache the next time the plugin is launched.  
 A refresh can also be triggered manually from the plugin settings.  
 Cache refreshes take much less time than initial creation, so long as the cache folder has not been moved or deleted.
 
@@ -298,12 +332,18 @@ When set to Per-Game Settings, options shown below this one will apply only to t
     More info on memory card groups can be found [here](https://github.com/sync-on-luma/xebplus-neutrino-loader-plugin/wiki/Memory-Card-Groups).
   * **Enable Boot Logo** - When enabled, the PlayStation 2 logo will be shown on screen when starting a game. This setting can affect compatibility, particularly for games that do not match your console's region.
   * **Enable Debug Colors** - When enabled, a series of colors will flash on screen when starting a game. This can be used to help diagnose games that will not start.
-  * **Accurate Reads** - When enabled, the data transfer rate for games will be limited to that of the PlayStation 2 DVD drive.  
-  This will increase load times if using a hard drive, but can fix compatibility issues with some titles.  
-  This option is enabled by default for better compatibility.
+  * **Fast Reads** - When enabled, the data transfer rate for games will be able to exceed that of the PlayStation 2 DVD drive.  
+  This will reduce load times if using UDPBD or a hard drive, but can cause compatibility issues with some titles.  
   * **Synchronous Reads** - When enabled, asynchronous (background) loading will not be used. This can affect load times, and fixes compatibility issues with some titles.
   * **Unhook Syscalls** - When enabled, neutrino Syscalls will be removed from memory after starting a game. This fixes compatibility issues with some titles.
   * **Emulate DVD-DL**- When enabled, neutrino will emulate the data structure of a dual-layer DVD. This option is required for DVD9 images that have been modified to fit a DVD5.
+  * **Fix Buffer Overrun**- Fixes a compatibility issue present in a very small number of games.
+  * **GSM**- Force the PS2 Graphics Synthesizer to use a specific video mode when running the selected game. The available modes are as follows:
+    * Off - Use the game's default video mode.
+    * Progressive - Use the progressive scan equivalent of the game's default video mode. This is 480p for NTSC titles and 576p for PAL.
+    * Progressive 2X - The same as Progressive, but adds line doubling for a higher signal resolution.
+    * Progressive Field-Flipped - The same as Progressive, but the video fields are reversed.
+    * Progressive 2X Field-Flipped - The same as Progressive 2X, but the video fields are reversed.
   * **Refresh Artwork** - Immediately delete and re-copy cached artwork for the current game. This option is not affected by the current settings mode.
 
 Closing the context menu will automatically save the currently selected options.  
@@ -332,11 +372,14 @@ The plugin will always start up to the all games list, even if it was previously
 This package includes a secondary plugin called *neutrino Launcher Settings*, which is accessible from the far right column of the XEB+ dashboard.  
 This contains a settings menu whose options apply to the main neutrino Launcher plugins. The available options are as follows:
    
-   * **Enable HDD** - When enabled, *neutrino Launcher (HDD)* will be available on the XEB+ dashboard.*
-   * **Enable MX4SIO** - When enabled, *neutrino Launcher (MX4SIO)* will be available on the XEB+ dashboard.*
-   * **Enable USB** - When enabled, *neutrino Launcher (USB)* will be available on the XEB+ dashboard.*
-   * **Enable UDPBD** - When enabled, *neutrino Launcher (UDPBD)* will be available on the XEB+ dashboard.*
-   * **Disable Artwork** - When enabled, game specific artwork will not be shown on the menu. This can prevent the cache from auto-refreshing in some cases.
+  * **Enable HDD** - When enabled, *neutrino Launcher (HDD)* will be available on the XEB+ dashboard.*
+  * **Enable MX4SIO** - When enabled, *neutrino Launcher (MX4SIO)* will be available on the XEB+ dashboard.*
+  * **Eanable MMCE** - When enabled, *neutrino Launcher (MMCE)* will be available on the XEB+ dashboard.*
+  * **Enable USB** - When enabled, *neutrino Launcher (USB)* will be available on the XEB+ dashboard.*
+  * **Enable UDPBD** - When enabled, *neutrino Launcher (UDPBD)* will be available on the XEB+ dashboard.*
+  * **Enable iLINK** - When enabled, *neutrino Launcher (iLink)* will be available on the XEB+ dashboard.*
+  * **Disable Disc Art** - When enabled, game specific disc icons will not be shown on the menu. This can decrease lag when browsing the list.
+  * **Disable Background Art** - When enabled, game specific backgrounds will not be shown on the menu. This can improve performace when browsing the list.
   * **Disable Status Messages** - When enabled, the text that appears at the bottom of the screen to indicate loading and other behavior will not be shown.
   * **Disable Background Fading** - When enabled, background artwork will not fade in/out when the image changes.
   * **Disable Icon Animation** - When enabled, the disc icon for the currently highlighted game will not spin.
@@ -351,7 +394,7 @@ Returning to the dashboard will automatically save the currently selected option
 
 ## Integrating With Custom Themes
 
-The four neutrino Launcher plugins and the settings plugin each use their own custom dashboard icon that is not normally present in XEB+.  
+The six neutrino Launcher plugins and the settings plugin each use their own custom dashboard icon that is not normally present in XEB+.  
 Versions of these icons that are visually consistent with the default XEB+ theme are included and will be loaded by default.  
 Alternate icons will be used instead if icon files with the correct names are present in the current XEB+ theme folder.  
 
@@ -359,11 +402,50 @@ The filenames each plugin looks for are as follows:
 
   * *ic_tool_neutrino_hdl.png* - neutrino Launcher (HDD)
   * *ic_tool_neutrino_mx4.png* - neutrino Launcher (MX4SIO)
+  * * *ic_tool_neutrino_mmce.png* - neutrino Launcher (MMCE)
   * *ic_tool_neutrino_usb.png* - neutrino Launcher (USB)
   * *ic_tool_neutrino_udpbd.png* - neutrino Launcher (UDPBD)
+  * *ic_tool_neutrino_ilink.png* - neutrino Launcher (iLink)
   * *ic_set_neutrino_cfg.png* - neutrino Launcher Settings
 
 If you wish to reference the included versions of these icons, they are located at `XEBPLUS/APPS/neutrinoLauncher/image/`.
+
+## Troubleshooting
+
+Here are some common issues that can occur with the neutrino Launcher plugin and possible fixes for them.
+
+### Pluign reports "Error: Could not read \<file\>.list. The file may be missing or corrupted"
+This error occurs when the game list file for the selected drive type is missing or severely malformed. Refer to the setup procedure for your drive type to (re)build the game list.
+
+### PS2 reboots instead of starting a game
+This behavior occurs when the *.iso* file for the selected game cannot be found. The console may hang on a black screen for up to 30 seconds before rebooting.  
+Some things to check if you encounter this issue:
+* Ensure your game drive is properly connected to the console. MX4SIO adapters must be in Memory Cart Slot 2, and MMCE devices in Memory Card Slot 1. Neither device type will work if connected through a multitap.
+* Ensure the game you are trying to load is present on your game drive.
+* Ensure your game drive is formatted as eXFAT.  If using an MMCE device, ensure the SD card has been formatted with the device firmware.
+* Ensure the plugin is trying to load the correct file. This can be accomplished by rebuilding the game list.
+* If using UDPBD, ensure the server software is running and that both the PS2 and server are connected to the same network and properly configured.
+* If using UDPBD, ensure your network connection to the server is fast and stable. This can be tested by running PS2NET through launchELF and pimging the PS2's IP address from your computer. If the connection is solid there will be 0% packet loss and less than 3ms average response time.
+
+### PS2 freezes on a black screen when starting a game
+This behavior usually occurs when data for the selected game cannot be read.
+Some things to try if you encounter this issue:
+* Launch the game again with different compatiblity settings. A list of known working configurations can be found [here](https://github.com/sync-on-luma/xebplus-neutrino-loader-plugin/wiki/Compatibility-List).
+* Launch the game with debug colors enabled. If the boot sequence freezes on a speciifc color, this can be used to precisely determine the issue.
+* Connect your game drive to a computer and verify the integrity of the affected game. This can be done by taking a hash of the *.iso* file and checking it against the database found at http://redump.org. The file should be replaced if it does not match.
+* If using UDPBD, ensure your network connection to the server is fast and stable. This can be tested by running PS2NET through launchELF and pinging the PS2's IP address from your computer. If the connection is solid there will be 0% packet loss and less than 3ms average response time.
+* Re-copy the neutrino Launcher plugin files to the USB drive. Ensure the drive is properly ejected from the computer after doing this.
+
+### XEB+ crashes when loading the plugin
+This is usally caused by a stale artwrok cache. If this is the case, manually triggering a cache refresh from neutrino Launcher Settings will fix the issue.  
+If that does not work, the following my help:
+* Delete the `menu.cfg` file found in `XEBPLUS/CFG/neutrinoLauncher` on your USB drive.
+* Disable disc and/or background artwork in the neutrino Launcher Settings.
+* Delete the `XEBPLUS/CFG/neutrinoLauncher`folder from your USB drive. Note that you will have to rebuild all game lists and re-cache artwork if you do this.
+
+### Plugin crashes when scrolling the list
+This happens when the plugin attempts to load a corrupted art asset. Disabling disc and/or background artwork in the neutrino Launcher Settings can be used to diagnose and temporarily resolve the issue. For a permanent fix, the offending artwork file must be removed or replaced.  
+The artwork file in question will either be the background artwork for the next game in the list that would be selected when the crash happens, or the disc icon for the item just off the edge of the screen in the direction the list is scrolling when the crash happens.
 
 ## Known Issues and Limitations
 
@@ -378,4 +460,3 @@ If this happens, the behavior will persist until the cache is refreshed manually
   * If installed, the PlayStation 2 hard drive will spin up when loading games from MX4SIO or UDPBD.
   * Repeatedly closing and re-opening the *neutrino Launcher* plugin can cause the system to crash.
   * Scrolling through the list quickly may cause corrupted graphics to be displayed briefly.
-
