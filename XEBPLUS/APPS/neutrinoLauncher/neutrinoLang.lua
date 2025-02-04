@@ -174,7 +174,7 @@ elseif XEBPlusLanguage == "es-419" then
     neuLang[81] = "GSM: Progresivo (cambio de campo)"
     neuLang[82] = "GSM: Progresivo 2X (cambio de campo)"
     neuLang[83] = "Lanzador neutrino (MMCE)"
-    neuLang[84] = ""
+    neuLang[84] = "Iniciar juegos desde un dispositivo MMCE con neutrino"
 
     NEUTRINO_Control1 = "image/controlmap1_es.png"
     NEUTRINO_Control2 = "image/controlmap2_es.png"
@@ -265,7 +265,7 @@ elseif XEBPlusLanguage == "pt-BR" then
     neuLang[81] = "GSM: Progressivo (inversão de campo)"
     neuLang[82] = "GSM: Progressivo 2X (inversão de campo)"
     neuLang[83] = "neutrino Launcher (MMCE)"
-    neuLang[84] = ""
+    neuLang[84] = "Lançar jogos de um dispositivo MMCE com neutrino"
 
     NEUTRINO_Control1 = "image/controlmap1_pt.png"
     NEUTRINO_Control2 = "image/controlmap2_pt.png"
