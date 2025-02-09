@@ -3,12 +3,12 @@ import sys
 import pathlib
 import subprocess
 import list_builder
+import tkinter as tk
 from tkinter import filedialog
 from tkinter import ttk
-import tkinter as ttk
 
 #defines parent/root window
-root=ttk.Tk()
+root=tk.Tk()
 root.title('XEB+ neutrino List Builder GUI')
 
 #set window size
@@ -30,8 +30,8 @@ def enable_build():
     if selected.get() == '-u':
         directory_button2["state"] = "normal"
         ent2["state"] = "normal"
-        ent2.delete(0, ttk.END)
-        ent2.insert(ttk.END, ent1.get())
+        ent2.delete(0, tk.END)
+        ent2.insert(tk.END, ent1.get())
         directory_button2["state"] = "disabled"
         ent2["state"] = "disabled"
     else:
@@ -45,8 +45,8 @@ def enable_build():
 def current_folder_1():
     global folder_path_1
     folder_path_1=filedialog.askdirectory(title='Choose a Directory')
-    ent1.delete(0, ttk.END)
-    ent1.insert(ttk.END, folder_path_1)
+    ent1.delete(0, tk.END)
+    ent1.insert(tk.END, folder_path_1)
     enable_build()
 
 def current_folder_2():
@@ -67,7 +67,7 @@ def build_list():
     lines = 0
     for stdout_line in iter(process.stdout.readline, ""):
         if lines > 2:
-            text.insert(ttk.END, stdout_line)
+            text.insert(tk.END, stdout_line)
             text.see("end")
             text.update_idletasks()
             root.update_idletasks()
@@ -80,7 +80,7 @@ def build_list():
 radioFrame = ttk.LabelFrame(text=' Drive Type ')
 radioFrame.pack(fill='none', pady=10)
 
-selected = ttk.StringVar()
+selected = tk.StringVar()
 r1 = ttk.Radiobutton(radioFrame, text='PS2 HDD', value='-h', variable=selected, command=enable_build)
 r2 = ttk.Radiobutton(radioFrame, text='MX4SIO', value='-m', variable=selected, command=enable_build)
 r3 = ttk.Radiobutton(radioFrame, text='MMCE', value='-c', variable=selected, command=enable_build)
@@ -112,7 +112,7 @@ ent2.grid(row=0,column=2, padx=5)
 buttonFrame = ttk.Frame(root)
 buttonFrame.pack(fill='x')
 
-vmc = ttk.StringVar()
+vmc = tk.StringVar()
 vmc_check = ttk.Checkbutton(buttonFrame,text='Create VMCs', variable=vmc, onvalue='-vmc', offvalue='')
 vmc_check.grid(padx=30, row=0, column=1)
 
@@ -120,7 +120,7 @@ build_button = ttk.Button(buttonFrame, text="Build List", command=build_list)
 build_button.grid(padx=305, pady=5, row=0, column=2)
 build_button["state"] = "disabled"
 
-text = ttk.Text(root)
+text = tk.Text(root)
 text.pack()
 
 root.update_idletasks()
