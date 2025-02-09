@@ -427,14 +427,19 @@ Some things to check if you encounter this issue:
 * If using UDPBD, ensure the server software is running and that both the PS2 and server are connected to the same network and properly configured.
 * If using UDPBD, ensure your network connection to the server is fast and stable. This can be tested by running PS2NET through launchELF and pimging the PS2's IP address from your computer. If the connection is solid there will be 0% packet loss and less than 3ms average response time.
 
-### PS2 freezes on a black screen when starting a game
+### PS2 freezes on a black screen when starting a single game
 This behavior usually occurs when data for the selected game cannot be read.
 Some things to try if you encounter this issue:
 * Launch the game again with different compatiblity settings. A list of known working configurations can be found [here](https://github.com/sync-on-luma/xebplus-neutrino-loader-plugin/wiki/Compatibility-List).
 * Launch the game with debug colors enabled. If the boot sequence freezes on a speciifc color, this can be used to precisely determine the issue.
 * Connect your game drive to a computer and verify the integrity of the affected game. This can be done by taking a hash of the *.iso* file and checking it against the database found at http://redump.org. The file should be replaced if it does not match.
 * If using UDPBD, ensure your network connection to the server is fast and stable. This can be tested by running PS2NET through launchELF and pinging the PS2's IP address from your computer. If the connection is solid there will be 0% packet loss and less than 3ms average response time.
+
+### PS2 freezes on a black screen when starting any game
+* Verify the integrity of the USB drive with CHKDSK or similar application.
 * Re-copy the neutrino Launcher plugin files to the USB drive. Ensure the drive is properly ejected from the computer after doing this.
+* Reformat the USB drive, then reinstall XEB+ and the neutrino Launcher plugin.
+* If all else fails, shred the partiton on the USB drive and create a new one. Then reinstall XEB+ and the neutrino Launcher plugin.
 
 ### XEB+ crashes when loading the plugin
 This is usally caused by a stale artwrok cache. If this is the case, manually triggering a cache refresh from neutrino Launcher Settings will fix the issue.  
