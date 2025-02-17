@@ -1,30 +1,32 @@
 import os
 import sys
-import pathlib
 import subprocess
-import list_builder
-from tkinter import filedialog
-from tkinter import ttk
-import tkinter as ttk
+from tkinter import filedialog, ttk, Tk, StringVar, Entry, Text, Checkbutton, Button, LabelFrame, Frame
 
-#defines parent/root window
-root=ttk.Tk()
+# Define parent/root window
+root = Tk()
 root.title('XEB+ neutrino List Builder GUI')
 
-#set window size
-window_width=480
-window_height=250
-screen_width=root.winfo_screenwidth()
-screen_height=root.winfo_screenheight()
-center_y=int(screen_width/2-window_width/2)
-center_x=int(screen_height/2-window_height/2)
+# Set window size
+window_width = 480
+window_height = 250
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+center_y = int(screen_width / 2 - window_width / 2)
+center_x = int(screen_height / 2 - window_height / 2)
 root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
-root.minsize(600,400)
-root.maxsize(768,800)
+root.minsize(600, 400)
+root.maxsize(768, 800)
 
-#set window columns and rows
-root.grid_columnconfigure(1,weight=1)
-root.grid_rowconfigure(1,weight=1)
+# Set window columns and rows
+root.grid_columnconfigure(1, weight=1)
+root.grid_rowconfigure(1, weight=1)
+
+# Define global variables
+selected = StringVar()
+vmc = StringVar()
+folder_path_1 = ""
+folder_path_2 = ""
 
 def enable_build():
     if selected.get() == '-u':
@@ -41,17 +43,17 @@ def enable_build():
     if selected.get() and ent1.get() and ent2.get():
         build_button["state"] = "normal"
 
-#functions for finding folders
+# Functions for finding folders
 def current_folder_1():
     global folder_path_1
-    folder_path_1=filedialog.askdirectory(title='Choose a Directory')
+    folder_path_1 = filedialog.askdirectory(title='Choose a Directory')
     ent1.delete(0, ttk.END)
     ent1.insert(ttk.END, folder_path_1)
     enable_build()
 
 def current_folder_2():
     global folder_path_2
-    folder_path_2=filedialog.askdirectory(title='Choose a Directory')
+    folder_path_2 = filedialog.askdirectory(title='Choose a Directory')
     ent2.delete(0, ttk.END)
     ent2.insert(ttk.END, folder_path_2)
     enable_build()
@@ -59,7 +61,7 @@ def current_folder_2():
 def build_list():
     global text
     process = subprocess.Popen(
-        "\""+sys.executable+"\" -u \""+os.getcwd()+"/list_builder.py\" \""+selected.get()+"\" \""+ent1.get()+"\" \""+ent2.get()+"\" "+vmc.get(),
+        f'"{sys.executable}" -u "{os.getcwd()}/list_builder.py" "{selected.get()}" "{ent1.get()}" "{ent2.get()}" {vmc.get()}',
         stdout=subprocess.PIPE,
         universal_newlines=True,
         shell=True
@@ -73,14 +75,13 @@ def build_list():
             root.update_idletasks()
             root.update()
         else:
-            lines = lines + 1
+            lines += 1
     process.stdout.close()
 
-#defines radio buttons
-radioFrame = ttk.LabelFrame(text=' Drive Type ')
+# Define radio buttons
+radioFrame = LabelFrame(root, text=' Drive Type ')
 radioFrame.pack(fill='none', pady=10)
 
-selected = ttk.StringVar()
 r1 = ttk.Radiobutton(radioFrame, text='PS2 HDD', value='-h', variable=selected, command=enable_build)
 r2 = ttk.Radiobutton(radioFrame, text='MX4SIO', value='-m', variable=selected, command=enable_build)
 r3 = ttk.Radiobutton(radioFrame, text='MMCE', value='-c', variable=selected, command=enable_build)
@@ -92,35 +93,34 @@ r3.grid(padx=5, pady=5, row=0, column=3)
 r4.grid(padx=5, pady=5, row=0, column=4)
 r5.grid(padx=5, pady=5, row=0, column=5)
 
-#defines directory and run buttons
-directoryFrame1 = ttk.LabelFrame(text=' Games Location ')
+# Define directory and run buttons
+directoryFrame1 = LabelFrame(root, text=' Games Location ')
 directoryFrame1.pack(fill='none', pady=10)
-directoryFrame2 = ttk.LabelFrame(text=' XEBPLUS Location ')
+directoryFrame2 = LabelFrame(root, text=' XEBPLUS Location ')
 directoryFrame2.pack(fill='none', pady=10)
 
-directory_button1 = ttk.Button(directoryFrame1, text="Choose Directory", command=current_folder_1)
+directory_button1 = Button(directoryFrame1, text="Choose Directory", command=current_folder_1)
 directory_button1.grid(padx=5)
-ent1=ttk.Entry(directoryFrame1, font=40, width=40)
-ent1.grid(row=0,column=2, padx=5)
+ent1 = Entry(directoryFrame1, font=40, width=40)
+ent1.grid(row=0, column=2, padx=5)
 
-directory_button2 = ttk.Button(directoryFrame2, text="Choose Directory", command=current_folder_2)
+directory_button2 = Button(directoryFrame2, text="Choose Directory", command=current_folder_2)
 directory_button2.grid(padx=5)
-ent2=ttk.Entry(directoryFrame2, font=40, width=40)
-ent2.grid(row=0,column=2, padx=5)
+ent2 = Entry(directoryFrame2, font=40, width=40)
+ent2.grid(row=0, column=2, padx=5)
 
-#defines VMC checkbox and build button
-buttonFrame = ttk.Frame(root)
+# Define VMC checkbox and build button
+buttonFrame = Frame(root)
 buttonFrame.pack(fill='x')
 
-vmc = ttk.StringVar()
-vmc_check = ttk.Checkbutton(buttonFrame,text='Create VMCs', variable=vmc, onvalue='-vmc', offvalue='')
+vmc_check = Checkbutton(buttonFrame, text='Create VMCs', variable=vmc, onvalue='-vmc', offvalue='')
 vmc_check.grid(padx=30, row=0, column=1)
 
-build_button = ttk.Button(buttonFrame, text="Build List", command=build_list)
+build_button = Button(buttonFrame, text="Build List", command=build_list)
 build_button.grid(padx=305, pady=5, row=0, column=2)
 build_button["state"] = "disabled"
 
-text = ttk.Text(root)
+text = Text(root)
 text.pack()
 
 root.update_idletasks()
