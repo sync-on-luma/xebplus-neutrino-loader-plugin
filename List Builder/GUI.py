@@ -1,7 +1,7 @@
 import os
 import sys
 import subprocess
-from tkinter import filedialog, ttk, Tk, StringVar, Entry, Text, Checkbutton, Button, LabelFrame, Frame
+from tkinter import filedialog, ttk, Tk, StringVar, Entry, Text, Checkbutton, Button, LabelFrame, Frame, END
 
 # Define parent/root window
 root = Tk()
@@ -32,8 +32,8 @@ def enable_build():
     if selected.get() == '-u':
         directory_button2["state"] = "normal"
         ent2["state"] = "normal"
-        ent2.delete(0, ttk.END)
-        ent2.insert(ttk.END, ent1.get())
+        ent2.delete(0, END)
+        ent2.insert(END, ent1.get())
         directory_button2["state"] = "disabled"
         ent2["state"] = "disabled"
     else:
@@ -47,15 +47,15 @@ def enable_build():
 def current_folder_1():
     global folder_path_1
     folder_path_1 = filedialog.askdirectory(title='Choose a Directory')
-    ent1.delete(0, ttk.END)
-    ent1.insert(ttk.END, folder_path_1)
+    ent1.delete(0, END)
+    ent1.insert(END, folder_path_1)
     enable_build()
 
 def current_folder_2():
     global folder_path_2
     folder_path_2 = filedialog.askdirectory(title='Choose a Directory')
-    ent2.delete(0, ttk.END)
-    ent2.insert(ttk.END, folder_path_2)
+    ent2.delete(0, END)
+    ent2.insert(END, folder_path_2)
     enable_build()
 
 def build_list():
@@ -69,7 +69,7 @@ def build_list():
     lines = 0
     for stdout_line in iter(process.stdout.readline, ""):
         if lines > 2:
-            text.insert(ttk.END, stdout_line)
+            text.insert(END, stdout_line)
             text.see("end")
             text.update_idletasks()
             root.update_idletasks()
