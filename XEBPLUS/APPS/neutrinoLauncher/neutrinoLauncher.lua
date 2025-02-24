@@ -1157,20 +1157,20 @@ function ContextMenu_ReadSettings(Settings)
 		ContextMenu_Colors = ""
 		ContextMenu[6+ContextMenu_Offset].Name = "     "..neuLang[15]
 	end
-	if string.match(Settings, "(.*)-gsm=1F(.*)") then
-		ContextMenu_Gsm = " -gsm=1F"
+	if string.match(Settings, "(.*)-gsm=fp::1(.*)") then
+		ContextMenu_Gsm = " -gsm=fp::1"
 		ContextMenu[12+ContextMenu_Offset].Name = neuLang[81]
-	elseif string.match(Settings, "(.*)-gsm=2F(.*)") then
-		ContextMenu_Gsm = " -gsm=2F"
+	elseif string.match(Settings, "(.*)-gsm=fp:fp2:1(.*)") then
+		ContextMenu_Gsm = " -gsm=fp:fp2:1"
 		ContextMenu[12+ContextMenu_Offset].Name = neuLang[82]
-	elseif string.match(Settings, "(.*)-gsm=1(.*)") then
-		ContextMenu_Gsm = " -gsm=1"
+	elseif string.match(Settings, "(.*)-gsm=fp(.*)") then
+		ContextMenu_Gsm = " -gsm=fp"
 		ContextMenu[12+ContextMenu_Offset].Name = neuLang[79]
-	elseif string.match(Settings, "(.*)-gsm=2(.*)") then
-		ContextMenu_Gsm = " -gsm=2"
+	elseif string.match(Settings, "(.*)-gsm=fp:fp2(.*)") then
+		ContextMenu_Gsm = " -gsm=fp:fp2"
 		ContextMenu[12+ContextMenu_Offset].Name = neuLang[80]
 	else
-		ContextMenu_Gsm = " -gsm=0"
+		ContextMenu_Gsm = " -gsm="
 		ContextMenu[12+ContextMenu_Offset].Name = neuLang[57]
 	end
 	if string.match(Settings, "(.*)"..ContextMenu_Gsm.."(.*)") then
@@ -1463,20 +1463,20 @@ function NEUTRINO_ContextMenu()
 					ContextMenu_Buffer = ""
 				end
 			elseif ContextMenu_SelectedItem == 12+ContextMenu_Offset then
-				if ContextMenu_Gsm == " -gsm=0" then
-					ContextMenu_Gsm = " -gsm=1"
+				if ContextMenu_Gsm == " -gsm=" then
+					ContextMenu_Gsm = " -gsm=fp"
 					ContextMenu[12+ContextMenu_Offset].Name = neuLang[79]
-				elseif ContextMenu_Gsm == " -gsm=1" then
-					ContextMenu_Gsm = " -gsm=2"
+				elseif ContextMenu_Gsm == " -gsm=fp" then
+					ContextMenu_Gsm = " -gsm=fp:fp2"
 					ContextMenu[12+ContextMenu_Offset].Name = neuLang[80]
-				elseif ContextMenu_Gsm == " -gsm=2" then
-					ContextMenu_Gsm = " -gsm=1F"
+				elseif ContextMenu_Gsm == " -gsm=fp:fp2" then
+					ContextMenu_Gsm = " -gsm=fp::1"
 					ContextMenu[12+ContextMenu_Offset].Name = neuLang[81]
-				elseif ContextMenu_Gsm == " -gsm=1F" then
-					ContextMenu_Gsm = " -gsm=2F"
+				elseif ContextMenu_Gsm == " -gsm=fp::1" then
+					ContextMenu_Gsm = " -gsm=fp:fp2:1"
 					ContextMenu[12+ContextMenu_Offset].Name = neuLang[82]
-				elseif ContextMenu_Gsm == " -gsm=2F" then
-					ContextMenu_Gsm = " -gsm=0"
+				elseif ContextMenu_Gsm == " -gsm=fp:fp2:1" then
+					ContextMenu_Gsm = " -gsm="
 					ContextMenu[12+ContextMenu_Offset].Name = neuLang[57]
 				end
 			elseif ContextMenu_SelectedItem == 13+ContextMenu_Offset then

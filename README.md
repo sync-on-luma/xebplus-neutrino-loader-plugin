@@ -298,7 +298,7 @@ A collection widescreen patch codes in the correct format can be found [here](ht
 CROSS -         **confirm / launch game**  
 CIRCLE / LEFT - **cancel / close plugin**  
 SQUARE -        **open context menu**  
-TRIANGLE -      **show favorites / show recents / show all**  
+TRIANGLE -      **show favorites / show recent / show all**  
 DOWN -          **scroll down**  
 UP -            **scroll up**  
 R1 -            **scroll down 5 items**  
@@ -372,14 +372,14 @@ The plugin will always start up to the all games list, even if it was previously
 This package includes a secondary plugin called *neutrino Launcher Settings*, which is accessible from the far right column of the XEB+ dashboard.  
 This contains a settings menu whose options apply to the main neutrino Launcher plugins. The available options are as follows:
    
-  * **Enable HDD** - When enabled, *neutrino Launcher (HDD)* will be available on the XEB+ dashboard.*
-  * **Enable MX4SIO** - When enabled, *neutrino Launcher (MX4SIO)* will be available on the XEB+ dashboard.*
-  * **Eanable MMCE** - When enabled, *neutrino Launcher (MMCE)* will be available on the XEB+ dashboard.*
-  * **Enable USB** - When enabled, *neutrino Launcher (USB)* will be available on the XEB+ dashboard.*
-  * **Enable UDPBD** - When enabled, *neutrino Launcher (UDPBD)* will be available on the XEB+ dashboard.*
-  * **Enable iLINK** - When enabled, *neutrino Launcher (iLink)* will be available on the XEB+ dashboard.*
+  * **Enable HDD** - When enabled, *neutrino Launcher (HDD)* will be available on the XEB+ dashboard.
+  * **Enable MX4SIO** - When enabled, *neutrino Launcher (MX4SIO)* will be available on the XEB+ dashboard.
+  * **Eanable MMCE** - When enabled, *neutrino Launcher (MMCE)* will be available on the XEB+ dashboard.
+  * **Enable USB** - When enabled, *neutrino Launcher (USB)* will be available on the XEB+ dashboard.
+  * **Enable UDPBD** - When enabled, *neutrino Launcher (UDPBD)* will be available on the XEB+ dashboard.
+  * **Enable iLINK** - When enabled, *neutrino Launcher (iLink)* will be available on the XEB+ dashboard.
   * **Disable Disc Art** - When enabled, game specific disc icons will not be shown on the menu. This can decrease lag when browsing the list.
-  * **Disable Background Art** - When enabled, game specific backgrounds will not be shown on the menu. This can improve performace when browsing the list.
+  * **Disable Background Art** - When enabled, game specific backgrounds will not be shown on the menu. This can improve performance when browsing the list.
   * **Disable Status Messages** - When enabled, the text that appears at the bottom of the screen to indicate loading and other behavior will not be shown.
   * **Disable Background Fading** - When enabled, background artwork will not fade in/out when the image changes.
   * **Disable Icon Animation** - When enabled, the disc icon for the currently highlighted game will not spin.
@@ -402,7 +402,7 @@ The filenames each plugin looks for are as follows:
 
   * *ic_tool_neutrino_hdl.png* - neutrino Launcher (HDD)
   * *ic_tool_neutrino_mx4.png* - neutrino Launcher (MX4SIO)
-  * * *ic_tool_neutrino_mmce.png* - neutrino Launcher (MMCE)
+  * *ic_tool_neutrino_mmce.png* - neutrino Launcher (MMCE)
   * *ic_tool_neutrino_usb.png* - neutrino Launcher (USB)
   * *ic_tool_neutrino_udpbd.png* - neutrino Launcher (UDPBD)
   * *ic_tool_neutrino_ilink.png* - neutrino Launcher (iLink)
@@ -414,7 +414,7 @@ If you wish to reference the included versions of these icons, they are located 
 
 Here are some common issues that can occur with the neutrino Launcher plugin and possible fixes for them.
 
-### Pluign reports "Error: Could not read \<file\>.list. The file may be missing or corrupted"
+### Plugin reports "Error: Could not read \<file\>.list. The file may be missing or corrupted"
 This error occurs when the game list file for the selected drive type is missing or severely malformed. Refer to the setup procedure for your drive type to (re)build the game list.
 
 ### PS2 reboots instead of starting a game
@@ -425,13 +425,13 @@ Some things to check if you encounter this issue:
 * Ensure your game drive is formatted as eXFAT.  If using an MMCE device, ensure the SD card has been formatted with the device firmware.
 * Ensure the plugin is trying to load the correct file. This can be accomplished by rebuilding the game list.
 * If using UDPBD, ensure the server software is running and that both the PS2 and server are connected to the same network and properly configured.
-* If using UDPBD, ensure your network connection to the server is fast and stable. This can be tested by running PS2NET through launchELF and pimging the PS2's IP address from your computer. If the connection is solid there will be 0% packet loss and less than 3ms average response time.
+* If using UDPBD, ensure your network connection to the server is fast and stable. This can be tested by running PS2NET through launchELF and pinging the PS2's IP address from your computer. If the connection is solid there will be 0% packet loss and less than 3ms average response time.
 
 ### PS2 freezes on a black screen when starting a single game
 This behavior usually occurs when data for the selected game cannot be read.
 Some things to try if you encounter this issue:
-* Launch the game again with different compatiblity settings. A list of known working configurations can be found [here](https://github.com/sync-on-luma/xebplus-neutrino-loader-plugin/wiki/Compatibility-List).
-* Launch the game with debug colors enabled. If the boot sequence freezes on a speciifc color, this can be used to precisely determine the issue.
+* Launch the game again with different compatibility settings. A list of known working configurations can be found [here](https://github.com/sync-on-luma/xebplus-neutrino-loader-plugin/wiki/Compatibility-List).
+* Launch the game with debug colors enabled. If the boot sequence freezes on a specific color, this can be used to precisely determine the issue.
 * Connect your game drive to a computer and verify the integrity of the affected game. This can be done by taking a hash of the *.iso* file and checking it against the database found at http://redump.org. The file should be replaced if it does not match.
 * If using UDPBD, ensure your network connection to the server is fast and stable. This can be tested by running PS2NET through launchELF and pinging the PS2's IP address from your computer. If the connection is solid there will be 0% packet loss and less than 3ms average response time.
 
@@ -439,10 +439,10 @@ Some things to try if you encounter this issue:
 * Verify the integrity of the USB drive with CHKDSK or similar application.
 * Re-copy the neutrino Launcher plugin files to the USB drive. Ensure the drive is properly ejected from the computer after doing this.
 * Reformat the USB drive, then reinstall XEB+ and the neutrino Launcher plugin.
-* If all else fails, shred the partiton on the USB drive and create a new one. Then reinstall XEB+ and the neutrino Launcher plugin.
+* If all else fails, shred the partition on the USB drive and create a new one. Then reinstall XEB+ and the neutrino Launcher plugin.
 
 ### XEB+ crashes when loading the plugin
-This is usally caused by a stale artwrok cache. If this is the case, manually triggering a cache refresh from neutrino Launcher Settings will fix the issue.  
+This is usually caused by a stale artwork cache. If this is the case, manually triggering a cache refresh from neutrino Launcher Settings will fix the issue.  
 If that does not work, the following my help:
 * Delete the `menu.cfg` file found in `XEBPLUS/CFG/neutrinoLauncher` on your USB drive.
 * Disable disc and/or background artwork in the neutrino Launcher Settings.
