@@ -16,6 +16,7 @@ It allows XEB+ to load PlayStation 2 games from HDD, MX4SIO, USB, and UDPBD via 
   * Set neutrino compatibility flags and other options on a global or per-game basis.
   * Change video modes via GSM.
   * Virtual Memory Cards.
+  * Supports Memcard Pro 2 and SD2PSX.
   * Cheat support.
   * Favorites list.
   * Custom theme integration.
@@ -76,7 +77,7 @@ If your PC does not have an Ethernet port available, a USB Ethernet adapter will
 
 ## Setup
 
-*Note: This setup process is for version 2.6 of this plugin.  
+*Note: This setup process is for version 2.7 of this plugin.  
 If you are updating from version 2.5 or earlier, you may need to remove the `XEBPLUS/CFG/neutrinoLuancher` folder on your USB drive.  
 If you are updating from version 2.3 or earlier, you will need to rebuild all of your game lists.  
 If you are updating from version 1.x, you will need to remove the old version of neutrino Launcher from your XEB+ install before continuing. This includes all neutrino Launcher files in the `APPS`, `PLG`, and `CFG` folders, as well as the `CD` and `DVD` folders on the root of your USB drive.*
@@ -298,15 +299,15 @@ A collection widescreen patch codes in the correct format can be found [here](ht
 CROSS -         **confirm / launch game**  
 CIRCLE / LEFT - **cancel / close plugin**  
 SQUARE -        **open context menu**  
-TRIANGLE -      **show favorites / show recent / show all**  
+TRIANGLE -      **add/remove favorite**  
 DOWN -          **scroll down**  
 UP -            **scroll up**  
-R1 -            **scroll down 5 items**  
-L1 -            **scroll up 5 items**  
-R2 -            **scroll down 15 items**  
-L2 -            **scroll up 15 items**  
-R3 -            **jump to bottom of list**  
-L3 -            **jump to top of list**  
+R1 -            **show next list**  
+L1 -            **show previous list**  
+R2 -            **quick scroll down**  
+L2 -            **quick scroll up**  
+R3 -            **jump to next letter**  
+L3 -            **jump to previous letter**  
 SELECT -        **view control map**
 
 ### Basic Usage
@@ -328,7 +329,7 @@ When set to Per-Game Settings, options shown below this one will apply only to t
   * **Enable Cheat Device** - When enabled, Cheat Device will be injected into the game load sequence.  
   To start the selected game from within Cheat Device, press START, select *Start Game*, and choose the first option below *==Disc==*.
   * **Enable VMC** - When enabled, the selected game will save data to a virtual memory card image instead of the memory card in Slot 1 of the PS2.
-  *  **Use Unique VMC** - If the selected game is in a memory card group, enabling this option will force it to use a dedicated VMC instead of the default group one.  
+  *  **Use Unique VMC** - If the selected game is in a memory card group, enabling this option will force it to use a dedicated VMC instead of the default group one. This applies to both internal VMCs and those created by smart memory cards.
     More info on memory card groups can be found [here](https://github.com/sync-on-luma/xebplus-neutrino-loader-plugin/wiki/Memory-Card-Groups).
   * **Enable Boot Logo** - When enabled, the PlayStation 2 logo will be shown on screen when starting a game. This setting can affect compatibility, particularly for games that do not match your console's region.
   * **Enable Debug Colors** - When enabled, a series of colors will flash on screen when starting a game. This can be used to help diagnose games that will not start.
@@ -338,12 +339,15 @@ When set to Per-Game Settings, options shown below this one will apply only to t
   * **Unhook Syscalls** - When enabled, neutrino Syscalls will be removed from memory after starting a game. This fixes compatibility issues with some titles.
   * **Emulate DVD-DL**- When enabled, neutrino will emulate the data structure of a dual-layer DVD. This option is required for DVD9 images that have been modified to fit a DVD5.
   * **Fix Buffer Overrun**- Fixes a compatibility issue present in a very small number of games.
-  * **GSM**- Force the PS2 Graphics Synthesizer to use a specific video mode when running the selected game. The available modes are as follows:
-    * Off - Use the game's default video mode.
+  * **GSM Field Mode**- Force the Graphics Synthesizer to use a specific field scanning mode.
+    * Defualt - Use the game's default video mode.
     * Progressive - Use the progressive scan equivalent of the game's default video mode. This is 480p for NTSC titles and 576p for PAL.
-    * Progressive 2X - The same as Progressive, but adds line doubling for a higher signal resolution.
-    * Progressive Field-Flipped - The same as Progressive, but the video fields are reversed.
-    * Progressive 2X Field-Flipped - The same as Progressive 2X, but the video fields are reversed.
+  * **GSM Frame Mode**- Force the Graphics Synthesizer to use a specific frame height.
+    * Defualt - Use the game's default video mode.
+    * 240p/288p - Use native 240p.
+    * 480p/576p - Use line-doubled 240p in progressive scan.
+  * **GSM Frame Mode**- Select between three different field-flipping types. Chaging this can affect the compatiblity of other GSM settings.
+ 
   * **Refresh Artwork** - Immediately delete and re-copy cached artwork for the current game. This option is not affected by the current settings mode.
 
 Closing the context menu will automatically save the currently selected options.  
@@ -456,6 +460,7 @@ The artwork file in question will either be the background artwork for the next 
 
   * Artwork cannot be refreshed from the context menu while in the favorites list.
   * It is not currently possible to mount VMCs in Slot 2.
+  * Repeatedly adding/removing a game from the favorites list may cause a crash.
   * The plugin may crash when switching to the favorites list for some users. The cause of this issue is currently unknown.
   * The plugin may need to be closed and re-opened for refreshed artwork to be shown.
   * If an artwork cache build / refresh is interrupted, the system may crash the next time the plugin is loaded.  
@@ -463,5 +468,4 @@ If this happens, the behavior will persist until the cache is refreshed manually
   * The *neutrino Launcher* plugin can take up to 30 seconds to load, and may appear to hang if there are a large number of games present.
   * If enabled, the PlayStation 2 boot logo will display incorrectly for games that do not match the console's region.
   * If installed, the PlayStation 2 hard drive will spin up when loading games from MX4SIO or UDPBD.
-  * Repeatedly closing and re-opening the *neutrino Launcher* plugin can cause the system to crash.
   * Scrolling through the list quickly may cause corrupted graphics to be displayed briefly.
