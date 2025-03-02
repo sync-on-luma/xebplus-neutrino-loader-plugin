@@ -332,7 +332,6 @@ When set to Per-Game Settings, options shown below this one will apply only to t
   *  **Use Unique VMC** - If the selected game is in a memory card group, enabling this option will force it to use a dedicated VMC instead of the default group one. This applies to both internal VMCs and those created by smart memory cards.
     More info on memory card groups can be found [here](https://github.com/sync-on-luma/xebplus-neutrino-loader-plugin/wiki/Memory-Card-Groups).
   * **Enable Boot Logo** - When enabled, the PlayStation 2 logo will be shown on screen when starting a game. This setting can affect compatibility, particularly for games that do not match your console's region.
-  * **Enable Debug Colors** - When enabled, a series of colors will flash on screen when starting a game. This can be used to help diagnose games that will not start.
   * **Fast Reads** - When enabled, the data transfer rate for games will be able to exceed that of the PlayStation 2 DVD drive.  
   This will reduce load times if using UDPBD or a hard drive, but can cause compatibility issues with some titles.  
   * **Synchronous Reads** - When enabled, asynchronous (background) loading will not be used. This can affect load times, and fixes compatibility issues with some titles.
@@ -435,7 +434,6 @@ Some things to check if you encounter this issue:
 This behavior usually occurs when data for the selected game cannot be read.
 Some things to try if you encounter this issue:
 * Launch the game again with different compatibility settings. A list of known working configurations can be found [here](https://github.com/sync-on-luma/xebplus-neutrino-loader-plugin/wiki/Compatibility-List).
-* Launch the game with debug colors enabled. If the boot sequence freezes on a specific color, this can be used to precisely determine the issue.
 * Connect your game drive to a computer and verify the integrity of the affected game. This can be done by taking a hash of the *.iso* file and checking it against the database found at http://redump.org. The file should be replaced if it does not match.
 * If using UDPBD, ensure your network connection to the server is fast and stable. This can be tested by running PS2NET through launchELF and pinging the PS2's IP address from your computer. If the connection is solid there will be 0% packet loss and less than 3ms average response time.
 
