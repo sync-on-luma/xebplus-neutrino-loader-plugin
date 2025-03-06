@@ -423,9 +423,9 @@ This error occurs when the game list file for the selected drive type is missing
 ### PS2 reboots instead of starting a game
 This behavior occurs when the *.iso* file for the selected game cannot be found. The console may hang on a black screen for up to 30 seconds before rebooting.  
 Some things to check if you encounter this issue:
-* Ensure your game drive is properly connected to the console. MX4SIO adapters must be in Memory Cart Slot 2, and MMCE devices in Memory Card Slot 1. Neither device type will work if connected through a multitap.
+* Ensure your game drive is properly connected to the console. MX4SIO adapters must be in Memory Card Slot 2, and MMCE devices in Memory Card Slot 1. Neither device type will work if connected through a multitap.
 * Ensure the game you are trying to load is present on your game drive.
-* Ensure your game drive is formatted as eXFAT.  If using an MMCE device, ensure the SD card has been formatted with the device firmware.
+* Ensure your game drive is formatted as eXFAT. If using a hard drive, you must use an MBR partition table.
 * Ensure the plugin is trying to load the correct file. This can be accomplished by rebuilding the game list.
 * If using UDPBD, ensure the server software is running and that both the PS2 and server are connected to the same network and properly configured.
 * If using UDPBD, ensure your network connection to the server is fast and stable. This can be tested by running PS2NET through launchELF and pinging the PS2's IP address from your computer. If the connection is solid there will be 0% packet loss and less than 3ms average response time.
