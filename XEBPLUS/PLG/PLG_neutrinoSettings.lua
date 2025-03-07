@@ -28,7 +28,7 @@ if XEBPlusLanguage == "en-US" then
     nSetLang[26] = "Show Version"
     nSetLang[27] = "Show Media"
     nSetLang[28] = "Disable Background Fading"
-    nSetLang[29] = "Disable the fade effect when loading\nbackgound artwork."
+    nSetLang[29] = "Disable the fade effect when loading\nbackground artwork."
     nSetLang[30] = "Enable neutrino Launcher (UDPBD) plugin.\nRequires XEB+ refresh."
     nSetLang[31] = "Enable UDPBD"
     nSetLang[32] = "Clean Artwork Cache"

@@ -339,13 +339,13 @@ When set to Per-Game Settings, options shown below this one will apply only to t
   * **Emulate DVD-DL**- When enabled, neutrino will emulate the data structure of a dual-layer DVD. This option is required for DVD9 images that have been modified to fit a DVD5.
   * **Fix Buffer Overrun**- Fixes a compatibility issue present in a very small number of games.
   * **GSM Field Mode**- Force the Graphics Synthesizer to use a specific field scanning mode.
-    * Defualt - Use the game's default video mode.
+    * Default - Use the game's default video mode.
     * Progressive - Use the progressive scan equivalent of the game's default video mode. This is 480p for NTSC titles and 576p for PAL.
   * **GSM Frame Mode**- Force the Graphics Synthesizer to use a specific frame height.
-    * Defualt - Use the game's default video mode.
+    * Default - Use the game's default video mode.
     * 240p/288p - Use native 240p.
     * 480p/576p - Use line-doubled 240p in progressive scan.
-  * **GSM Frame Mode**- Select between three different field-flipping types. Chaging this can affect the compatiblity of other GSM settings.
+  * **GSM Frame Mode**- Select between three different field-flipping types. Changing this can affect the compatibility of other GSM settings.
  
   * **Refresh Artwork** - Immediately delete and re-copy cached artwork for the current game. This option is not affected by the current settings mode.
 
@@ -377,7 +377,7 @@ This contains a settings menu whose options apply to the main neutrino Launcher 
    
   * **Enable HDD** - When enabled, *neutrino Launcher (HDD)* will be available on the XEB+ dashboard.
   * **Enable MX4SIO** - When enabled, *neutrino Launcher (MX4SIO)* will be available on the XEB+ dashboard.
-  * **Eanable MMCE** - When enabled, *neutrino Launcher (MMCE)* will be available on the XEB+ dashboard.
+  * **Enable MMCE** - When enabled, *neutrino Launcher (MMCE)* will be available on the XEB+ dashboard.
   * **Enable USB** - When enabled, *neutrino Launcher (USB)* will be available on the XEB+ dashboard.
   * **Enable UDPBD** - When enabled, *neutrino Launcher (UDPBD)* will be available on the XEB+ dashboard.
   * **Enable iLINK** - When enabled, *neutrino Launcher (iLink)* will be available on the XEB+ dashboard.
@@ -425,7 +425,7 @@ This behavior occurs when the *.iso* file for the selected game cannot be found.
 Some things to check if you encounter this issue:
 * Ensure your game drive is properly connected to the console. MX4SIO adapters must be in Memory Card Slot 2, and MMCE devices in Memory Card Slot 1. Neither device type will work if connected through a multitap.
 * Ensure the game you are trying to load is present on your game drive.
-* Ensure your game drive is formatted as eXFAT. If using a hard drive, you must use an MBR partition table.
+* Ensure your game drive is formatted as exFAT. If using a hard drive, you must use an MBR partition table.
 * Ensure the plugin is trying to load the correct file. This can be accomplished by rebuilding the game list.
 * If using UDPBD, ensure the server software is running and that both the PS2 and server are connected to the same network and properly configured.
 * If using UDPBD, ensure your network connection to the server is fast and stable. This can be tested by running PS2NET through launchELF and pinging the PS2's IP address from your computer. If the connection is solid there will be 0% packet loss and less than 3ms average response time.
