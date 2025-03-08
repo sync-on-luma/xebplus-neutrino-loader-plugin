@@ -14,7 +14,7 @@ if XEBPlusLanguage == "en-US" then
     neuLang[12] = "View Controls"
     neuLang[13] = "Loading Artwork"
     neuLang[14] = "Enable Boot Logo"
-    neuLang[15] = "Enable Debug Colors"
+    neuLang[15] = "Initializing Network . . ."
     neuLang[16] = "Fast Reads"
     neuLang[17] = "Synchronous Reads"
     neuLang[18] = "Unhook Syscalls"
@@ -110,7 +110,7 @@ elseif XEBPlusLanguage == "es-419" then
     neuLang[12] = "Ver controles"
     neuLang[13] = "Cargando arte"
     neuLang[14] = "Habilitar el logo de arranque"
-    neuLang[15] = "Habilitar colores de depuración"
+    neuLang[15] = "Inicializando la red"
     neuLang[16] = "Lecturas rápidas"
     neuLang[17] = "Lecturas sincronizadas"
     neuLang[18] = "Desenganchar Syscalls"
@@ -206,7 +206,7 @@ elseif XEBPlusLanguage == "pt-BR" then
     neuLang[12] = "Ver comandos"
     neuLang[13] = "Carregando artwork"
     neuLang[14] = "Ativar logotipo de arranque"
-    neuLang[15] = "Ativar cores de depuração"
+    neuLang[15] = "Initializing Network . . ."
     neuLang[16] = "Leituras rápidas"
     neuLang[17] = "Leituras síncronas"
     neuLang[18] = "Desconectar Syscalls"
@@ -407,11 +407,9 @@ NEUTRINO_MemGroups = {
     "SLES_516.08",
     "SCKA_200.10",
     "SCUS_972.65",
-    "SCES_506.14",
     "PAPX_902.23",
     "SCES_503.61",
     "SCUS_971.24",
-    "SLES_503.61",
     "SCKA_200.60",
     "SCUS_974.65",
     "SCES_532.85",
@@ -603,7 +601,6 @@ NEUTRINO_MemGroups = {
     "SLPM_665.72",
     "SLUS_214.09",
     "XEBP_100.11",
-    "SCES_509.87",
     "SCES_515.89",
     "SLES_515.89",
     "SLUS_207.65",
@@ -992,7 +989,6 @@ NEUTRINO_MemGroups = {
     "SLES_534.44",
     "SLES_535.44",
     "SLES_535.45",
-    "TLES_535.44",
     "SCES_542.03",
     "SCES_542.04",
     "SCES_543.60",
@@ -1027,7 +1023,6 @@ NEUTRINO_MemGroups = {
     "SLES_527.07",
     "SLPM_654.95",
     "SLUS_208.96",
-    "TLES_527.07",
     "SLPM_742.48",
     "SLKA_252.19",
     "SLPM_658.69",
@@ -1369,6 +1364,90 @@ NEUTRINO_MemGroups = {
     "SLKA_150.45",
     "SLPM_626.38"
 };
+
+NEUTRINO_ByteCodes = {
+    "\x01",
+    "\x02",
+    "\x03",
+    "\x04",
+    "\x05",
+    "\x06",
+    "\x07",
+    "\x08",
+    "\x09",
+    "\x0A",
+    "\x0B",
+    "\x0C",
+    "\x0D",
+    "\x0E",
+    "\x0F",
+    "\x10",
+    "\x11",
+    "\x12",
+    "\x13",
+    "\x13",
+    "\x14",
+    "\x15",
+    "\x16",
+    "\x17",
+    "\x18",
+    "\x19",
+    "\x1A",
+    "\x1B",
+    "\x1C",
+    "\x1D",
+    "\x1E",
+    "\x1F",
+    "\x20",
+    "\x21",
+    "\x22",
+    "\x23",
+    "\x24",
+    "\x25",
+    "\x26",
+    "\x27",
+    "\x28",
+    "\x29",
+    "\x2A",
+    "\x2B",
+    "\x2C",
+    "\x2D",
+    "\x2E",
+    "\x2F",
+    "\x30",
+    "\x31",
+    " ",
+    "!",
+    "\"",
+    "#",
+    "$",
+    "%",
+    "'",
+    "(",
+    ")",
+    "*",
+    "+",
+    ",",
+    "-",
+    ".",
+    "/",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    ":",
+    ";",
+    "<",
+    "=",
+    ">",
+    "?"
+}
 
 Font.ftInit()
 fontMid = Font.ftLoad("THM/"..loadedTheme.."/font.ttf")

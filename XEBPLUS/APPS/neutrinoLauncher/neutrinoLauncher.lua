@@ -1041,7 +1041,6 @@ function NEUTRINO_AnimateUp(speed)
 			else
 				NEUTRINO_DrawItem(NEUTRINO_CurrentList[NEUTRINO_iB], 152, NEUTRINO_iB_Y+135+NEUTRINO_PositionUp, true)
 			end
-			--NEUTRINO_ShowDebug(speed)
 			NEUTRINO_ItemPosition=NEUTRINO_ItemPosition+speed
 		end
 
@@ -1837,10 +1836,26 @@ while XEBKeepInSubMenu do
 				NEUTRINO_TempFile = System.openFile("mc0:/BADATA-SYSTEM/history", FREAD)
 				if System.sizeFile(NEUTRINO_TempFile) > 22 then
 					System.copyFile("mc0:/BADATA-SYSTEM/history", "mc0:/BADATA-SYSTEM/history.bak")
+					System.closeFile(NEUTRINO_TempFile)
+					System.removeFile("mc0:/BADATA-SYSTEM/history")
+					NEUTRINO_PlayCount = 1
+				else
+					System.closeFile(NEUTRINO_TempFile)
+					
+					NEUTRINO_TempFile = io.open("mc0:/BADATA-SYSTEM/history", "r")
+					NEUTRINO_PlayCount = NEUTRINO_TempFile:read()
+					io.close(NEUTRINO_TempFile)
+					NEUTRINO_PlayCount = string.sub(NEUTRINO_PlayCount, 17, 17)
+					NEUTRINO_PlayCount = string.byte(NEUTRINO_PlayCount)
+					
+					NEUTRINO_PlayCount = tonumber(NEUTRINO_PlayCount) + 1
+					if NEUTRINO_PlayCount >= 64 then
+						NEUTRINO_PlayCount = 1
+					end
 				end
-				System.closeFile(NEUTRINO_TempFile)
+			else
+				NEUTRINO_PlayCount = 1
 			end
-			
 			if not System.doesDirectoryExist("mc0:/BADATA-SYSTEM") then
 				System.createDirectory("mc0:/BADATA-SYSTEM")
 			end
@@ -1849,6 +1864,8 @@ while XEBKeepInSubMenu do
 			end
 			
 			if NEUTRINO_MemCard then
+				NEUTRINO_PlayCount = NEUTRINO_ByteCodes[NEUTRINO_PlayCount]
+
 				NEUTRINO_TempFile = io.open("mc0:/BADATA-SYSTEM/history", "w")
 				io.output(NEUTRINO_TempFile)
 			end
@@ -1859,11 +1876,11 @@ while XEBKeepInSubMenu do
 				end
 				
 				if NEUTRINO_MemCard then
-					io.write(NEUTRINO_Games[NEUTRINO_SelectedItem].TitleId.."\x00\x00\x00\x00\x00\x01\x01\x00\x00\x21\x00")
+					io.write(NEUTRINO_Games[NEUTRINO_SelectedItem].TitleId.."\x00\x00\x00\x00\x00"..NEUTRINO_PlayCount.."\x01\x00\x00\x21\x00")
 					io.close(NEUTRINO_TempFile)
 				end
 			elseif NEUTRINO_MemCard then
-				io.write(NEUTRINO_CheckGroups(NEUTRINO_Games[NEUTRINO_SelectedItem].TitleId).."\x00\x00\x00\x00\x00\x01\x01\x00\x00\x21\x00")
+				io.write(NEUTRINO_CheckGroups(NEUTRINO_Games[NEUTRINO_SelectedItem].TitleId).."\x00\x00\x00\x00\x00"..NEUTRINO_PlayCount.."\x01\x00\x00\x21\x00")
 				io.close(NEUTRINO_TempFile)
 			end
 			
@@ -1874,7 +1891,7 @@ while XEBKeepInSubMenu do
 
 			NEUTRINO_PrepIRX = ""
 			if string.match(NEUTRINO_Bsd, "(.*)udp(.*)") then
-				NEUTRINO_PrepIRX = "load modules/dev9_ns.irx\r\necho \"Initializing Network . . .\"\r\nsleep 3\r\n"
+				NEUTRINO_PrepIRX = "load modules/dev9_ns.irx\r\necho \""..neuLang[15].."\"\r\nsleep 3\r\n"
 			end
 
 			NEUTRINO_RadShellText = "fontsize 0.6\r\necho \""..neuLang[71]..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".iso\"\r\n"..NEUTRINO_PrepIRX.."sleep 1\r\nrun neutrino.elf -bsd="..NEUTRINO_Bsd..NEUTRINO_Fs.." \"-dvd="..NEUTRINO_PathPrefix..":"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name.."."..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension.."\" -mt="..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media..NEUTRINO_LaunchOptions..NEUTRINO_Vmc.."\r\n"
