@@ -89,6 +89,8 @@ if XEBPlusLanguage == "en-US" then
     neuLang[87] = " 240p/288p"
     neuLang[88] = " 480p/576p"
     neuLang[89] = " None"
+    neuLang[90] = "neutrino Launcher (HDL)"
+    neuLang[91] = "Launch HDL format games from the hard drive"
 
     NEUTRINO_Control1 = "image/controlmap1.png"
     NEUTRINO_Control2 = "image/controlmap2.png"
@@ -185,7 +187,9 @@ elseif XEBPlusLanguage == "es-419" then
     neuLang[87] = " 240p/288p"
     neuLang[88] = " 480p/576p"
     neuLang[89] = " Ninguno"
-    
+    neuLang[90] = "Lanzador neutrino (HDL)"
+    neuLang[91] = "Ejecutar juegos en formato HDL desde el disco duro"
+
     NEUTRINO_Control1 = "image/controlmap1_es.png"
     NEUTRINO_Control2 = "image/controlmap2_es.png"
     NEUTRINO_BoxPos = 405
@@ -281,6 +285,8 @@ elseif XEBPlusLanguage == "pt-BR" then
     neuLang[87] = " 240p/288p"
     neuLang[88] = " 480p/576p"
     neuLang[89] = " Nenhum"
+    neuLang[90] = "neutrino Launcher (HDL)"
+    neuLang[91] = "Inicialize jogos no formato HDL a partir do disco rígido"
 
     NEUTRINO_Control1 = "image/controlmap1_pt.png"
     NEUTRINO_Control2 = "image/controlmap2_pt.png"
@@ -1493,4 +1499,9 @@ if string.match(Settings, "(.*)I(.*)") then
     NEUTRINO_EnableILINK = true
 else
     NEUTRINO_EnableILINK = false
+end
+if string.match(Settings, "(.*)L(.*)") then
+    NEUTRINO_EnableHDL = true
+else
+    NEUTRINO_EnableHDL = false
 end
