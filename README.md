@@ -83,7 +83,7 @@ If you are updating from version 2.3 or earlier, you will need to rebuild all of
 If you are updating from version 1.x, you will need to remove the old version of neutrino Launcher from your XEB+ install before continuing. This includes all neutrino Launcher files in the `APPS`, `PLG`, and `CFG` folders, as well as the `CD` and `DVD` folders on the root of your USB drive.*
 
 1. If you have not already done so, download the Xtreme Elite Boot Plus Xmas 2021 showcase [here](http://web.archive.org/web/20221225042045/http://www.hwc.nat.cu/ps2-vault/hwc-projects/xebplus/).
-2. Extract the `XEBPLUS` folder to the root of your USB drive, and ensure that you can load into the XEB+ dashboard on your PlayStation 2.
+2. Extract the `XEBPLUS` folder to the root of your USB drive, and ensure that you can load into the XEB+ dashboard on your PlayStation 2.  
 Use [7-zip](https://7-zip.org/) to extract the `XEBPLUS` folder to the root of your USB drive. (Windows does not natively support `.rar` with passwords.)  
 The password is at the bottom of `xebplus_xmas_showcase.rar\Distribution License.txt`.  
 Note that if you are using an exFAT formatted USB drive, you will need to use PS2BBL and [this version](https://github.com/israpps/wLaunchELF_ISR) of wLaunchELF. 
@@ -94,7 +94,7 @@ Extract the `XEBPLUS` folder to the root of your USB drive, merging all folders 
 7. Complete setup by following the steps specific to the device you want to load games from.
 
 
-### HDD
+### HDD (exFAT format)
 
 7. Connect your hard drive or SSD to a computer, and format it as an exFAT partition.  
 8. Create folders named `CD` and `DVD` on the root of the hard drive.  
@@ -110,6 +110,38 @@ All disc images must be in *.iso* format.
 
 Repeat steps 9-13 to add or remove games on the hard drive.
 
+### HDL (APA PlayStation 2 format)
+Please note:  
+APA PlayStation 2 format drives cannot be larger than 2.2 TB.  
+Virtual memory cards are not supported for this device.  
+
+7. Connect your PS2's hard drive or SSD to a computer.  
+The drive must have HDLoader format games installed.  
+This can easily be done with [HDL Batch Installer](https://israpps.github.io/HDL-Batch-installer/).  
+8. Download and extract [HDL Dump](https://github.com/ps2homebrew/hdl-dump/releases) into the `List Builder` folder.
+9. Create the list file:  
+a. For windows:  
+Run `HDL-List-Builder-1.ps1` with powershell from the included `List Builder` folder.  
+This will create a text file named `hdl_toc.txt`.  
+Run `HDL-List-Builder-2.py` with python.  
+This will read `hdl_toc.txt` and then create the file `neutrinoHDL.list`.  
+b. For Linux:  
+Open a terminal in the `List Builder` folder.  
+Run this command to list which drive to use in the next step.  
+`lsblk -fp`  
+In the next command change the `?` according the previous command (example: `/dev/sda`).  
+`sudo ./hdl_dump hdl_toc /dev/? > hdl_toc.txt`  
+`python3 ./HDL-List-Builder-2.py`  
+There should now be a file named `neutrinoHDL.list`.  
+10. Copy neutrinoHDL.list to the XEBPLUS USB drive in this location:  
+`XEBPLUS/CFG/neutrinoLauncher/neutrinoHDL.list`
+11. Eject both drives from the computer.  
+Connect the hard drive / SSD to the PlayStation 2 via the network adapter, and plug the USB drive into either of the front USB ports.  
+12. Launch XEB+ on the PS2 then open `neutrino Launcher Settings` and enable `neutrino Launcher (HDL)`  
+An XEB+ reboot/refresh is required for changes made to this setting to take effect.  
+13. Launch XEB+ on the PS2, and use *neutrino Launcher (HDL)* to load games from the hard drive.  
+
+Repeat steps 9-13 to add or remove games on the hard drive.  
 
 ### MX4SIO
 
@@ -381,6 +413,7 @@ This contains a settings menu whose options apply to the main neutrino Launcher 
   * **Enable USB** - When enabled, *neutrino Launcher (USB)* will be available on the XEB+ dashboard.
   * **Enable UDPBD** - When enabled, *neutrino Launcher (UDPBD)* will be available on the XEB+ dashboard.
   * **Enable iLINK** - When enabled, *neutrino Launcher (iLink)* will be available on the XEB+ dashboard.
+  * **Enable HDL** - When enabled, *neutrino Launcher (HDL)* will be available on the XEB+ dashboard.
   * **Disable Disc Art** - When enabled, game specific disc icons will not be shown on the menu. This can decrease lag when browsing the list.
   * **Disable Background Art** - When enabled, game specific backgrounds will not be shown on the menu. This can improve performance when browsing the list.
   * **Disable Status Messages** - When enabled, the text that appears at the bottom of the screen to indicate loading and other behavior will not be shown.
