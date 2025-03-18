@@ -39,6 +39,8 @@ if XEBPlusLanguage == "en-US" then
     nSetLang[37] = "Don't show background artwork in the menu."
     nSetLang[38] = "Enable MMCE"
     nSetLang[39] = "Enable neutrino Launcher (MMCE) plugin.\nRequires XEB+ refresh."
+    nSetLang[40] = "Enable HDL"
+    nSetLang[41] = "Enable neutrino Launcher (HDL) plugin.\nRequires XEB+ refresh."
 elseif XEBPlusLanguage == "es-419" then
     nSetLang[1] = "Configuración del lanzador neutrino"
     nSetLang[2] = "Configurar el menú del lanzador de neutrino"
@@ -79,6 +81,8 @@ elseif XEBPlusLanguage == "es-419" then
     nSetLang[37] = "No mostrar ilustraciones de fondo en el menú."
     nSetLang[38] = "Habilitar MMCE"
     nSetLang[39] = "Habilite el complemento neutrino Launcher (MMCE).\nRequiere actualización XEB+."
+    nSetLang[40] = "Habilitar HDL"
+    nSetLang[41] = "Habilite el complemento neutrino Launcher (HDL).\nRequiere actualización XEB+."
 elseif XEBPlusLanguage == "pt-BR" then
     nSetLang[1] = "Configurações do neutrino Launcher"
     nSetLang[2] = "Configurar menu do neutrino Launcher"
@@ -119,6 +123,8 @@ elseif XEBPlusLanguage == "pt-BR" then
     nSetLang[37] = "Não mostrar background arte no menu."
     nSetLang[38] = "Habilitar MMCE"
     nSetLang[39] = "Ative o plugin neutrino Launcher (MMCE).\nRequer atualização XEB+."
+    nSetLang[40] = "Habilitar HDL"
+    nSetLang[41] = "Ative o plugin neutrino Launcher (HDL).\nRequer atualização XEB+."
 end
 
 PluginData = {};
