@@ -1891,7 +1891,7 @@ while XEBKeepInSubMenu do
 
 			NEUTRINO_PrepIRX = ""
 			if string.match(NEUTRINO_Bsd, "(.*)udp(.*)") then
-				NEUTRINO_PrepIRX = "load modules/dev9_ns.irx\r\necho \""..neuLang[15].."\"\r\nsleep 3\r\n"
+				NEUTRINO_PrepIRX = "echo \""..neuLang[15].."\"\r\nload modules/ps2dev9.irx\r\nload modules/netman.irx\r\nload modules/smap.irx\r\nsleep 3\r\n"
 			end
 
 			NEUTRINO_GameFolder = NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"
