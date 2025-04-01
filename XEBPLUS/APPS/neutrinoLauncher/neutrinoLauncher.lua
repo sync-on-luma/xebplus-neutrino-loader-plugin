@@ -1009,6 +1009,7 @@ NEUTRINO_HoldingUp=99
 NEUTRINO_HoldingUpDash=0
 NEUTRINO_HoldingDown=99
 NEUTRINO_HoldingDownDash=0
+NEUTRINO_HoldingLetter=20
 
 function NEUTRINO_AnimateUp(speed)
 	if NEUTRINO_Scrolling == false then
@@ -1144,6 +1145,31 @@ function NEUTRINO_CheckGroups(titleID)
 		end
 	end
 	return titleID
+end
+
+function NEUTRINO_NextLetter()
+	NEUTRINO_currentLetter = string.sub(NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name, 1, 1)
+	NEUTRINO_newLetter = NEUTRINO_currentLetter
+	i = NEUTRINO_SelectedItem
+	while NEUTRINO_newLetter == NEUTRINO_currentLetter and i < NEUTRINO_CurrentTotal() do
+		i = i + 1
+		NEUTRINO_newLetter = string.sub(NEUTRINO_CurrentList[i].Name, 1, 1)
+	end
+end
+
+function NEUTRINO_PrevLetter()
+	NEUTRINO_currentLetter = string.sub(NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name, 1, 1)
+	NEUTRINO_newLetter = NEUTRINO_currentLetter
+	i = NEUTRINO_SelectedItem
+	while NEUTRINO_newLetter == NEUTRINO_currentLetter and i > 0 do
+		i = i - 1
+		NEUTRINO_newLetter = string.sub(NEUTRINO_CurrentList[i].Name, 1, 1)
+	end
+	NEUTRINO_currentLetter = NEUTRINO_newLetter
+	while NEUTRINO_newLetter == NEUTRINO_currentLetter and i > 0 do
+		i = i - 1
+		NEUTRINO_newLetter = string.sub(NEUTRINO_CurrentList[i].Name, 1, 1)
+	end
 end
 
 function ContextMenu_ReadSettings(Settings)
@@ -1700,6 +1726,11 @@ function NEUTRINO_ContextMenu()
 	Screen.flip()
 end
 
+function NEUTRINO_Bytes(x)
+    local b1=x%256  x=(x-x%256)/256
+    return string.char(b1)
+end
+
 while XEBKeepInSubMenu do
 	pad = Pads.get()
 	if XEBKeepInContextMenu == true then
@@ -1864,7 +1895,7 @@ while XEBKeepInSubMenu do
 			end
 			
 			if NEUTRINO_MemCard then
-				NEUTRINO_PlayCount = NEUTRINO_ByteCodes[NEUTRINO_PlayCount]
+				NEUTRINO_PlayCount = NEUTRINO_Bytes(NEUTRINO_PlayCount) --NEUTRINO_ByteCodes[NEUTRINO_PlayCount]
 
 				NEUTRINO_TempFile = io.open("mc0:/BADATA-SYSTEM/history", "w")
 				io.output(NEUTRINO_TempFile)
@@ -1981,11 +2012,6 @@ while XEBKeepInSubMenu do
 				end
 			end
 			NEUTRINO_HoldingDown=NEUTRINO_HoldingDown+1;
-		
-	--[[	elseif Pads.check(pad, PAD_L1) and not Pads.check(pad, PAD_R1) and not Pads.check(oldpad, PAD_R1) then
-			NEUTRINO_Scroll(-5)
-		elseif Pads.check(pad, PAD_R1) and not Pads.check(pad, PAD_L1) and not Pads.check(oldpad, PAD_L1)then
-			NEUTRINO_Scroll(5)]]
 		elseif Pads.check(pad, PAD_L2) and not Pads.check(pad, PAD_R2) and not Pads.check(oldpad, PAD_R2) then
 			NEUTRINO_Scrolling = true
 			if NEUTRINO_SelectedItem ~= 1 then
@@ -2004,33 +2030,32 @@ while XEBKeepInSubMenu do
 				NEUTRINO_LoadingText(false, neuLang[6])
 				NEUTRINO_LoadIcon(0, 6)
 			end
-		elseif Pads.check(pad, PAD_L3) and NEUTRINO_newLetter ~= NEUTRINO_currentLetter and not Pads.check(oldpad, PAD_L3) then
-			NEUTRINO_currentLetter = string.sub(NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name, 1, 1)
-			NEUTRINO_newLetter = NEUTRINO_currentLetter
-			i = NEUTRINO_SelectedItem
-			while NEUTRINO_newLetter == NEUTRINO_currentLetter and i > 0 do
-				i = i - 1
-				NEUTRINO_newLetter = string.sub(NEUTRINO_CurrentList[i].Name, 1, 1)
+		elseif Pads.check(pad, PAD_L3) and NEUTRINO_newLetter ~= NEUTRINO_currentLetter then --and 
+			NEUTRINO_Scrolling = true
+			if not Pads.check(oldpad, PAD_L3) then
+				NEUTRINO_PrevLetter()
+			else
+				if NEUTRINO_HoldingLetter == 0 then
+					NEUTRINO_PrevLetter()
+					NEUTRINO_HoldingLetter = 15
+				end
+				NEUTRINO_HoldingLetter = NEUTRINO_HoldingLetter -1
 			end
-			NEUTRINO_currentLetter = NEUTRINO_newLetter
-			while NEUTRINO_newLetter == NEUTRINO_currentLetter and i > 0 do
-				i = i - 1
-				NEUTRINO_newLetter = string.sub(NEUTRINO_CurrentList[i].Name, 1, 1)
-			end
-			NEUTRINO_LoadingText(false, neuLang[6])
 			NEUTRINO_SelectedItem = i + 1
-			NEUTRINO_LoadIcon(-6, 5)
-		elseif Pads.check(pad, PAD_R3) and NEUTRINO_newLetter ~= NEUTRINO_currentLetter and not Pads.check(oldpad, PAD_R3) then
-			NEUTRINO_currentLetter = string.sub(NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name, 1, 1)
-			NEUTRINO_newLetter = NEUTRINO_currentLetter
-			i = NEUTRINO_SelectedItem
-			while NEUTRINO_newLetter == NEUTRINO_currentLetter and i < NEUTRINO_CurrentTotal() do
-				i = i + 1
-				NEUTRINO_newLetter = string.sub(NEUTRINO_CurrentList[i].Name, 1, 1)
+			NEUTRINO_newLetter = "0"
+		elseif Pads.check(pad, PAD_R3) and NEUTRINO_newLetter ~= NEUTRINO_currentLetter then --and 
+			NEUTRINO_Scrolling = true
+			if not Pads.check(oldpad, PAD_R3) then
+				NEUTRINO_NextLetter()
+			else
+				if NEUTRINO_HoldingLetter == 0 then
+					NEUTRINO_NextLetter()
+					NEUTRINO_HoldingLetter = 15
+				end
+				NEUTRINO_HoldingLetter = NEUTRINO_HoldingLetter -1
 			end
-			NEUTRINO_LoadingText(false, neuLang[6])
 			NEUTRINO_SelectedItem = i
-			NEUTRINO_LoadIcon(-6, 5)
+			NEUTRINO_newLetter = "0"
 		elseif Pads.check(pad, PAD_SQUARE) and not Pads.check(oldpad, PAD_SQUARE) then
 			if themeInUse[-90] == 0 or NEUTRINO_BgAlpha == 255 then
 				XEBKeepInContextMenu = true
@@ -2040,9 +2065,9 @@ while XEBKeepInSubMenu do
 			NEUTRINO_UpdateFavorites()
 		else
 			if NEUTRINO_Scrolling == true then
-				NEUTRINO_Scrolling = false
 				NEUTRINO_LoadingText(false, neuLang[6])
 				NEUTRINO_LoadIcon(-6, 6)
+				NEUTRINO_Scrolling = false
 			end
 		end
 		end

@@ -410,7 +410,7 @@ while XEBKeepInContextMenu do
         elseif ContextMenu_SelectedItem == 15 then
             if System.doesFileExist("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/lastart.cfg") then
                 System.removeFile("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/lastart.cfg")
-                ContextMenu[13].Name = nSetLang[13]
+                ContextMenu[15].Name = nSetLang[12]
             end
         elseif ContextMenu_SelectedItem == 16 then
             ContextMenu_CleanCache()
