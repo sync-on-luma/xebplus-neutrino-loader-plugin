@@ -1868,7 +1868,6 @@ while XEBKeepInSubMenu do
 				if System.sizeFile(NEUTRINO_TempFile) > 22 then
 					System.copyFile("mc0:/BADATA-SYSTEM/history", "mc0:/BADATA-SYSTEM/history.bak")
 					System.closeFile(NEUTRINO_TempFile)
-					System.removeFile("mc0:/BADATA-SYSTEM/history")
 					NEUTRINO_PlayCount = 1
 				else
 					System.closeFile(NEUTRINO_TempFile)
@@ -1884,6 +1883,7 @@ while XEBKeepInSubMenu do
 						NEUTRINO_PlayCount = 1
 					end
 				end
+				System.removeFile("mc0:/BADATA-SYSTEM/history")
 			else
 				NEUTRINO_PlayCount = 1
 			end
@@ -1922,7 +1922,8 @@ while XEBKeepInSubMenu do
 
 			NEUTRINO_PrepIRX = ""
 			if string.match(NEUTRINO_Bsd, "(.*)udp(.*)") then
-				NEUTRINO_PrepIRX = "echo \""..neuLang[15].."\"\r\nload modules/ps2dev9.irx\r\nload modules/netman.irx\r\nload modules/smap.irx\r\nsleep 3\r\n"
+				--NEUTRINO_PrepIRX = "echo \""..neuLang[15].."\"\r\nload modules/ps2dev9.irx\r\nload modules/netman.irx\r\nload modules/smap.irx\r\nsleep 3\r\n"
+				NEUTRINO_PrepIRX = "load modules/dev9_ns.irx\r\necho \""..neuLang[15].."\"\r\nsleep 3\r\n"
 			end
 
 			NEUTRINO_GameFolder = NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Folder.."/"
