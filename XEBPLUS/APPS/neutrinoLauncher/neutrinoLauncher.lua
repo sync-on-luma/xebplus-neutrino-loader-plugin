@@ -1872,13 +1872,13 @@ while XEBKeepInSubMenu do
 				else
 					System.closeFile(NEUTRINO_TempFile)
 					
-					NEUTRINO_TempFile = io.open("mc0:/BADATA-SYSTEM/history", "r")
-					NEUTRINO_PlayCount = NEUTRINO_TempFile:read()
+					NEUTRINO_TempFile = io.open("mc0:/BADATA-SYSTEM/history", "rb")
+					NEUTRINO_TempFile:seek("set", 16)
+					NEUTRINO_PlayCount = NEUTRINO_TempFile:read(1)
 					io.close(NEUTRINO_TempFile)
-					NEUTRINO_PlayCount = string.sub(NEUTRINO_PlayCount, 17, 17)
 					NEUTRINO_PlayCount = string.byte(NEUTRINO_PlayCount)
 					
-					NEUTRINO_PlayCount = tonumber(NEUTRINO_PlayCount) + 1
+					NEUTRINO_PlayCount = NEUTRINO_PlayCount + 1
 					if NEUTRINO_PlayCount >= 64 then
 						NEUTRINO_PlayCount = 1
 					end
