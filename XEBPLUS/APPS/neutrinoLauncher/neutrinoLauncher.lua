@@ -151,6 +151,18 @@ function NEUTRINO_DrawItemFrame(NEUTRINO_TempGame, NEUTRINO_TempX, NEUTRINO_Temp
 	Font.ftPrint(fontBig, NEUTRINO_TempX+69, plusYValue+NEUTRINO_TempY+16, 0, 512, 64, NEUTRINO_TempName, NEUTRINO_ColorGetAnimationAlpha(NEUTRINO_TempTheFrame,NEUTRINO_TempTheColorA,NEUTRINO_TempTheColorB))
 end
 
+function NEUTRINO_DrawHelp()
+	pad = Pads.get()
+	NEUTRINO_DrawUnderlay(false)
+	Graphics.drawImageExtended(themeInUse[-92], 352, plusYValue+240, 0, 0, 640, 480, 704, 480, 0, 255)
+	Screen.waitVblankStart()
+	Screen.flip()
+	if Pads.check(pad, PAD_CANCEL) and not Pads.check(oldpad, PAD_CANCEL) or Pads.check(pad, PAD_SELECT) and not Pads.check(oldpad, PAD_SELECT) then
+		NEUTRINO_ShowHelp = false
+	end
+	oldpad = pad;
+end
+
 function NEUTRINO_DrawBKG()
 	if backgroundFilter then
 		Graphics.drawImageExtended(themeInUse[-1], 352, plusYValue+240, 0, 0, backgroundValueX, backgroundValueY, 704, 480, 0, 255)
@@ -261,15 +273,7 @@ function NEUTRINO_DrawMenu(Animate)
 		end
 
 		while NEUTRINO_ShowHelp == true do
-			pad = Pads.get()
-			NEUTRINO_DrawUnderlay(false)
-			Graphics.drawImageExtended(themeInUse[-92], 352, plusYValue+240, 0, 0, 640, 480, 704, 480, 0, 255)
-			Screen.waitVblankStart()
-			Screen.flip()
-			if Pads.check(pad, PAD_CANCEL) and not Pads.check(oldpad, PAD_CANCEL) or Pads.check(pad, PAD_SELECT) and not Pads.check(oldpad, PAD_SELECT) then
-				NEUTRINO_ShowHelp = false
-			end
-			oldpad = pad;
+			NEUTRINO_DrawHelp()
 		end
 
 	end
@@ -1753,19 +1757,22 @@ while XEBKeepInSubMenu do
 		if NEUTRINO_CurrentList == NEUTRINO_Games then
 			Font.ftPrint(fontBig, 152, plusYValue+222, 0, 512, 64, xebLang[35], baseColorFull)
 			Font.ftPrint(fontSmall, 153, plusYValue+243, 0, 512, 64, neuLang[35]..NEUTRINO_ListFile..neuLang[59], baseColorFull)
-		elseif NEUTRINO_CurrentList == NEUTRINO_Favorites then
-			Font.ftPrint(fontBig, 152, plusYValue+222, 0, 512, 64, xebLang[35], baseColorFull)
-			Font.ftPrint(fontSmall, 153, plusYValue+243, 0, 512, 64, neuLang[47], baseColorFull)
+		else
+			if NEUTRINO_CurrentList == NEUTRINO_Favorites then
+				Font.ftPrint(fontBig, 152, plusYValue+222, 0, 512, 64, xebLang[35], baseColorFull)
+				Font.ftPrint(fontSmall, 153, plusYValue+243, 0, 512, 64, neuLang[47], baseColorFull)
+			elseif NEUTRINO_CurrentList == NEUTRINO_Recents then
+				Font.ftPrint(fontBig, 152, plusYValue+222, 0, 512, 64, xebLang[35], baseColorFull)
+				Font.ftPrint(fontSmall, 153, plusYValue+243, 0, 512, 64, neuLang[70], baseColorFull)
+			end
 			Graphics.drawImage(themeInUse[-95], 500, plusYValue+400)
-			Graphics.drawImage(themeInUse[-96], 506, plusYValue+400)
-			Font.ftPrint(fontSmall, 543, plusYValue+405, 0, 400, 64, neuLang[69], baseColorFull)
-		elseif NEUTRINO_CurrentList == NEUTRINO_Recents then
-			Font.ftPrint(fontBig, 152, plusYValue+222, 0, 512, 64, xebLang[35], baseColorFull)
-			Font.ftPrint(fontSmall, 153, plusYValue+243, 0, 512, 64, neuLang[70], baseColorFull)
-			Graphics.drawImage(themeInUse[-95], 500, plusYValue+400)
-			Graphics.drawImage(themeInUse[-96], 506, plusYValue+400)
-			Font.ftPrint(fontSmall, 543, plusYValue+405, 0, 400, 64, neuLang[10], baseColorFull)
+			Graphics.drawImage(themeInUse[-93], 506, plusYValue+400)
+			Font.ftPrint(fontSmall, 543, plusYValue+405, 0, 400, 64, neuLang[12], baseColorFull)
+			while NEUTRINO_ShowHelp == true do
+				NEUTRINO_DrawHelp()
+			end
 		end
+			
 	else
 		if NEUTRINO_ShowHelp == false then
 		if Pads.check(pad, PAD_ACCEPT) and not Pads.check(oldpad, PAD_ACCEPT) then
