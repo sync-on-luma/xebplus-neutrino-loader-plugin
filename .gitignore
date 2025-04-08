@@ -38,4 +38,7 @@ luac.out
 *.x86_64
 *.hex
 
-/List Builder/__pycache__
+__pycache__
+.vscode
+XEBPLUS/boot.lua
+XEBPLUS/THM
