@@ -374,7 +374,6 @@ end
 themeInUse[-93] = Graphics.loadImage(xebLua_AppWorkingPath.."image/select.png")
 themeInUse[-94] = Graphics.loadImage(xebLua_AppWorkingPath.."image/box.png")
 themeInUse[-95] = Graphics.loadImage(xebLua_AppWorkingPath.."image/button.png")
-themeInUse[-96] = Graphics.loadImage(xebLua_AppWorkingPath.."image/triangle.png")
 
 function NEUTRINO_ColorGetAnimationAlpha(NEUTRINO_TempFrame,NEUTRINO_TempColorA,NEUTRINO_TempColorB)
 	NEUTRINO_TempColorAA=Color.getA(NEUTRINO_TempColorA);
