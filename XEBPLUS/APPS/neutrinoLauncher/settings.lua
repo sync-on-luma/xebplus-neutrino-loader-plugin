@@ -41,8 +41,8 @@ ContextMenu[16].Description = nSetLang[33]
 
 if System.doesFileExist("CFG/neutrinoLauncher/menu.cfg") then
     ContextMenu_TempFile = io.open("CFG/neutrinoLauncher/menu.cfg", "r")
-    Settings = (ContextMenu_TempFile:read())
-    io.close(ContextMenu_TempFile)
+    Settings = ContextMenu_TempFile:read()
+    ContextMenu_TempFile:close()
 else
     Settings = ""
 end
@@ -165,6 +165,7 @@ function ContextMenu_ReadList(ListFile)
                 ContextMenu_Games[ContextMenu_GamesTotal].TitleId = string.sub(line, 1, 11)
             end
         end
+        ContextMenu_TempFile:close()
     end
 end
 
@@ -455,9 +456,8 @@ if ContextMenu_NewSettings == "" then
     System.removeFile(System.currentDirectory().."CFG/neutrinoLauncher/menu.cfg")
 else
     ContextMenu_TempFile = io.open("CFG/neutrinoLauncher/menu.cfg", "w")
-    io.output(ContextMenu_TempFile)
-    io.write(ContextMenu_NewSettings)
-    io.close(ContextMenu_TempFile)
+    ContextMenu_TempFile:write(ContextMenu_NewSettings)
+    ContextMenu_TempFile:close()
 end
 for move = 1, 10 do
     pad = Pads.get()

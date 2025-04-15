@@ -16,8 +16,8 @@ end
 
 if System.doesFileExist("CFG/neutrinoLauncher/menu.cfg") then
     ContextMenu_TempFile = io.open("CFG/neutrinoLauncher/menu.cfg", "r")
-    NEUTRINO_Settings = (ContextMenu_TempFile:read())
-    io.close(ContextMenu_TempFile)
+    NEUTRINO_Settings = ContextMenu_TempFile:read()
+    ContextMenu_TempFile:close()
 else
     NEUTRINO_Settings = ""
 end
@@ -337,22 +337,21 @@ if not System.doesDirectoryExist(NEUTRINO_DataFolder) then
 end
 if not System.doesFileExist(NEUTRINO_DataFolder.."lastgame.cfg") then
 	NEUTRINO_TempFile = io.open(NEUTRINO_DataFolder.."lastgame.cfg", "w")
-	io.output(NEUTRINO_TempFile)
-	io.write(1)
-	io.close(NEUTRINO_TempFile)
+	NEUTRINO_TempFile:write(1)
+	NEUTRINO_TempFile:close()
 end
 if System.doesFileExist(NEUTRINO_DataFolder.."recent.csv") then
 	NEUTRINO_TempFile = io.open(NEUTRINO_DataFolder.."recent.csv", "r")
 	NEUTRINO_Recent = NEUTRINO_TempFile:read()
-	io.close(NEUTRINO_TempFile)
+	NEUTRINO_TempFile:close()
 else
 	NEUTRINO_Recent = ""
 	NEUTRINO_SelectedItem = 1
 end
 if System.doesFileExist("CFG/neutrinoLauncher/favorites.csv") then
 	NEUTRINO_TempFile = io.open("CFG/neutrinoLauncher/favorites.csv", "r")
-	NEUTRINO_FavoritesList = (NEUTRINO_TempFile:read())
-	io.close(NEUTRINO_TempFile)
+	NEUTRINO_FavoritesList = NEUTRINO_TempFile:read()
+	NEUTRINO_TempFile:close()
 else
 	NEUTRINO_FavoritesList = ""
 end
@@ -534,9 +533,8 @@ function NEUTRINO_CacheArt(Index)
 					if old_disc == nil then
 						NEUTRINO_DrawCacheStatus(Index)
 						NEUTRINO_TempFile = io.open("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/nodisc.csv", "a")
-						io.output(NEUTRINO_TempFile)
-						io.write(NEUTRINO_Games[Index].TitleId..",")
-						io.close(NEUTRINO_TempFile)
+						NEUTRINO_TempFile:write(NEUTRINO_Games[Index].TitleId, ",")
+						NEUTRINO_TempFile:close()
 						NEUTRINO_Games[Index].Icon = "default"
 					end
 				end
@@ -559,9 +557,8 @@ function NEUTRINO_CacheArt(Index)
 					if old_bg == nil then
 						NEUTRINO_DrawCacheStatus(Index)
 						NEUTRINO_TempFile = io.open("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/nobg.csv", "a")
-						io.output(NEUTRINO_TempFile)
-						io.write(NEUTRINO_Games[Index].TitleId..",")
-						io.close(NEUTRINO_TempFile)
+						NEUTRINO_TempFile:write(NEUTRINO_Games[Index].TitleId, ",")
+						NEUTRINO_TempFile:close()
 						NEUTRINO_Games[Index].BackGround = "default"
 					end
 				end
@@ -671,6 +668,7 @@ if NEUTRINO_TempFile then
 			NEUTRINO_NewHash = line
 		end
 	end
+	NEUTRINO_TempFile:close()
 end
 
 function NEUTRINO_GetRecents()
@@ -710,18 +708,16 @@ end
 
 function NEUTRINO_CreateHash()
 	NEUTRINO_TempFile = io.open(NEUTRINO_DataFolder.."hash", "w")
-	io.output(NEUTRINO_TempFile)
-	io.write(NEUTRINO_NewHash)
-	io.close(NEUTRINO_TempFile)
+	NEUTRINO_TempFile:write(NEUTRINO_NewHash)
+	NEUTRINO_TempFile:close()
 end
 function NEUTRINO_CreateArt()
 	NEUTRINO_DiscFolder = System.listDirectory("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/DISC/")
 	NEUTRINO_BgFolder = System.listDirectory("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/BG/")
 	NEUTRINO_ArtTotal = #NEUTRINO_DiscFolder + #NEUTRINO_BgFolder
 	NEUTRINO_TempFile = io.open("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/lastart.cfg", "w")
-	io.output(NEUTRINO_TempFile)
-	io.write(NEUTRINO_ArtTotal)
-	io.close(NEUTRINO_TempFile)
+	NEUTRINO_TempFile:write(NEUTRINO_ArtTotal)
+	NEUTRINO_TempFile:close()
 end
 
 function NEUTRINO_CurrentTotal()
@@ -774,15 +770,15 @@ end
 function NEUTRINO_ReadNoArt()
 	if System.doesFileExist("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/nobg.csv") then
 		NEUTRINO_TempFile = io.open("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/nobg.csv")
-		NEUTRINO_NoBg = (NEUTRINO_TempFile:read())
-		io.close(NEUTRINO_TempFile)
+		NEUTRINO_NoBg = NEUTRINO_TempFile:read()
+		NEUTRINO_TempFile:close()
 	else
 		NEUTRINO_NoBg = ""
 	end
 	if System.doesFileExist("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/nodisc.csv") then
 		NEUTRINO_TempFile = io.open("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/nodisc.csv")
-		NEUTRINO_NoDisc = (NEUTRINO_TempFile:read())
-		io.close(NEUTRINO_TempFile)
+		NEUTRINO_NoDisc = NEUTRINO_TempFile:read()
+		NEUTRINO_TempFile:close()
 	else
 		NEUTRINO_NoDisc = ""
 	end
@@ -801,17 +797,17 @@ if not NEUTRINO_IsThereAnError then
 	if System.doesFileExist(NEUTRINO_DataFolder.."hash") then
 		NEUTRINO_TempFile = io.open(NEUTRINO_DataFolder.."hash", "r")
 		NEUTRINO_OldHash = NEUTRINO_TempFile:read()
-		io.close(NEUTRINO_TempFile)
+		NEUTRINO_TempFile:close()
 		NEUTRINO_LoadingText(false, neuLang[46])
 		if NEUTRINO_NewHash == NEUTRINO_OldHash then
 			NEUTRINO_TempFile = io.open(NEUTRINO_DataFolder.."lastgame.cfg", "r")
 			NEUTRINO_SelectedItem = tonumber(NEUTRINO_TempFile:read())
-			io.close(NEUTRINO_TempFile)
+			NEUTRINO_TempFile:close()
 			NEUTRINO_LoadingText(false, neuLang[46])
 			if System.doesFileExist("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/lastart.cfg") then
 				NEUTRINO_TempFile = io.open("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/lastart.cfg", "r")
 				tempTotal = tonumber(NEUTRINO_TempFile:read())
-				io.close(NEUTRINO_TempFile)
+				NEUTRINO_TempFile:close()
 				if NEUTRINO_ArtTotal == tempTotal then
 					NEUTRINO_CachedStatus = true
 				else
@@ -908,15 +904,15 @@ function NEUTRINO_UpdateFavorites()
 	if System.doesFileExist("CFG/neutrinoLauncher/favorites.csv") then
 		NEUTRINO_TempFile = io.open("CFG/neutrinoLauncher/favorites.csv", "r")
 		if NEUTRINO_TempFile:seek("end") == 0 then
-			io.close(NEUTRINO_TempFile)
+			NEUTRINO_TempFile:close()
 			System.removeFile("mass:/XEBPLUS/CFG/neutrinoLauncher/favorites.csv")
 		end
 	end
 	
 	if System.doesFileExist("CFG/neutrinoLauncher/favorites.csv") then
 		NEUTRINO_TempFile = io.open("CFG/neutrinoLauncher/favorites.csv", "r")
-		NEUTRINO_FavoritesList = (NEUTRINO_TempFile:read())
-		io.close(NEUTRINO_TempFile)
+		NEUTRINO_FavoritesList = NEUTRINO_TempFile:read()
+		NEUTRINO_TempFile:close()
 	else
 		NEUTRINO_FavoritesList = ""
 	end
@@ -935,9 +931,8 @@ function NEUTRINO_UpdateFavorites()
 			System.removeFile("mass:/XEBPLUS/CFG/neutrinoLauncher/favorites.csv")
 		else
 			NEUTRINO_TempFile = io.open("CFG/neutrinoLauncher/favorites.csv", "w")
-			io.output(NEUTRINO_TempFile)
-			io.write(NEUTRINO_NewFavorites)
-			io.close(NEUTRINO_TempFile)
+			NEUTRINO_TempFile:write(NEUTRINO_NewFavorites)
+			NEUTRINO_TempFile:close()
 		end
 		NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Favorite = false
 		NEUTRINO_LinkedList[NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Link].Link = 0
@@ -965,9 +960,8 @@ function NEUTRINO_UpdateFavorites()
 	else
 		NEUTRINO_LoadingText(false, neuLang[8])
 		NEUTRINO_TempFile = io.open("CFG/neutrinoLauncher/favorites.csv", "a")
-		io.output(NEUTRINO_TempFile)
-		io.write(string.gsub(NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name, ",", "#c")..",")
-		io.close(NEUTRINO_TempFile)
+		NEUTRINO_TempFile:write(string.gsub(NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name, ",", "#c"), ",")
+		NEUTRINO_TempFile:close()
 		
 		NEUTRINO_NewFavorite = {};
 		NEUTRINO_NewFavorite.Name = NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name
@@ -1109,13 +1103,12 @@ end
 
 function NEUTRINO_SaveLast()
 	NEUTRINO_TempFile = io.open(NEUTRINO_DataFolder.."lastgame.cfg", "w")
-	io.output(NEUTRINO_TempFile)
 	if NEUTRINO_CurrentList == NEUTRINO_Games then
-		io.write(NEUTRINO_SelectedItem)
+		NEUTRINO_TempFile:write(NEUTRINO_SelectedItem)
 	else
-		io.write(NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Link)
+		NEUTRINO_TempFile:write(NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Link)
 	end
-	io.close(NEUTRINO_TempFile)
+	NEUTRINO_TempFile:close()
 end
 
 function NEUTRINO_UpdateRecents()
@@ -1134,9 +1127,8 @@ function NEUTRINO_UpdateRecents()
 	end
 
 	NEUTRINO_TempFile = io.open(NEUTRINO_DataFolder.."recent.csv", "w")
-	io.output(NEUTRINO_TempFile)
-	io.write(string.gsub(NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name, ",", "#c")..","..NEUTRINO_NewRecent)
-	io.close(NEUTRINO_TempFile)
+	NEUTRINO_TempFile:write(string.gsub(NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name, ",", "#c"), ",", NEUTRINO_NewRecent)
+	NEUTRINO_TempFile:close()
 end
 
 function NEUTRINO_CheckGroups(titleID)
@@ -1354,15 +1346,15 @@ function NEUTRINO_ContextMenu()
 		
 		if System.doesFileExist(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg") then
 			NEUTRINO_TempFile = io.open(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg", "r")
-			ContextMenu_LocalSettings = (NEUTRINO_TempFile:read())
-			io.close(NEUTRINO_TempFile)
+			ContextMenu_LocalSettings = NEUTRINO_TempFile:read()
+			NEUTRINO_TempFile:close()
 		else
 			ContextMenu_LocalSettings = 1
 		end
 		if System.doesFileExist("CFG/neutrinoLauncher/neutrinoLaunchOptions.cfg") then
 			NEUTRINO_TempFile = io.open("CFG/neutrinoLauncher/neutrinoLaunchOptions.cfg", "r")
-			ContextMenu_GlobalSettings = (NEUTRINO_TempFile:read())
-			io.close(NEUTRINO_TempFile)
+			ContextMenu_GlobalSettings = NEUTRINO_TempFile:read()
+			NEUTRINO_TempFile:close()
 		else
 			ContextMenu_GlobalSettings = ""
 		end
@@ -1580,9 +1572,8 @@ function NEUTRINO_ContextMenu()
 							System.removeFile("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/nodisc.csv")
 						else
 							NEUTRINO_TempFile = io.open("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/nodisc.csv", "w")
-							io.output(NEUTRINO_TempFile)
-							io.write(NEUTRINO_NewDiscs)
-							io.close(NEUTRINO_TempFile)
+							NEUTRINO_TempFile:write(NEUTRINO_NewDiscs)
+							NEUTRINO_TempFile:close()
 						end
 					end
 					if RemoveBg == true then
@@ -1590,9 +1581,8 @@ function NEUTRINO_ContextMenu()
 							System.removeFile("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/nobg.csv")
 						else
 							NEUTRINO_TempFile = io.open("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/nobg.csv", "w")
-							io.output(NEUTRINO_TempFile)
-							io.write(NEUTRINO_NewBgs)
-							io.close(NEUTRINO_TempFile)
+							NEUTRINO_TempFile:write(NEUTRINO_NewBgs)
+							NEUTRINO_TempFile:close()
 						end
 					end
 					NEUTRINO_CachedStatus = false 
@@ -1601,9 +1591,8 @@ function NEUTRINO_ContextMenu()
 					ContextMenu_ReloadArt = true
 					NEUTRINO_ArtTotal = #NEUTRINO_DiscFolder + #NEUTRINO_BgFolder
 					NEUTRINO_TempFile = io.open("mass:/XEBPLUS/CFG/neutrinoLauncher/.cache/lastart.cfg", "w")
-					io.output(NEUTRINO_TempFile) 
-					io.write(NEUTRINO_ArtTotal)
-					io.close(NEUTRINO_TempFile)
+					NEUTRINO_TempFile:write(NEUTRINO_ArtTotal)
+					NEUTRINO_TempFile:close()
 				end
 			end
 			if ContextMenu_Gy == "" and ContextMenu_Gz ~= "" then
@@ -1647,9 +1636,8 @@ function NEUTRINO_ContextMenu()
 					System.removeFile(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg")
 				else
 					NEUTRINO_TempFile = io.open(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg", "w")
-					io.output(NEUTRINO_TempFile)
-					io.write(ContextMenu_NewSettings)
-					io.close(NEUTRINO_TempFile)
+					NEUTRINO_TempFile:write(ContextMenu_NewSettings)
+					NEUTRINO_TempFile:close()
 				end
 			end
 		elseif ContextMenu_Global == true then
@@ -1659,9 +1647,8 @@ function NEUTRINO_ContextMenu()
 					System.removeFile("CFG/neutrinoLauncher/neutrinoLaunchOptions.cfg")
 				else
 					NEUTRINO_TempFile = io.open("CFG/neutrinoLauncher/neutrinoLaunchOptions.cfg", "w")
-					io.output(NEUTRINO_TempFile)
-					io.write(ContextMenu_NewSettings)
-					io.close(NEUTRINO_TempFile)
+					NEUTRINO_TempFile:write(ContextMenu_NewSettings)
+					NEUTRINO_TempFile:close()
 				end
 			end
 			if ContextMenu_LocalSettings ~= 0 then
@@ -1851,12 +1838,12 @@ while XEBKeepInSubMenu do
 
 			if System.doesFileExist(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg") then
 				NEUTRINO_TempFile = io.open(NEUTRINO_DataFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".cfg", "r")
-				NEUTRINO_LaunchOptions = (NEUTRINO_TempFile:read())
-				io.close(NEUTRINO_TempFile)
+				NEUTRINO_LaunchOptions = NEUTRINO_TempFile:read()
+				NEUTRINO_TempFile:close()
 			elseif System.doesFileExist("CFG/neutrinoLauncher/neutrinoLaunchOptions.cfg") then
 				NEUTRINO_TempFile = io.open("CFG/neutrinoLauncher/neutrinoLaunchOptions.cfg", "r")
-				NEUTRINO_LaunchOptions = (NEUTRINO_TempFile:read())
-				io.close(NEUTRINO_TempFile)
+				NEUTRINO_LaunchOptions = NEUTRINO_TempFile:read()
+				NEUTRINO_TempFile:close()
 			else
 				NEUTRINO_LaunchOptions = ""
 				NEUTRINO_LoadingText(false, neuLang[40])
@@ -1881,7 +1868,7 @@ while XEBKeepInSubMenu do
 					NEUTRINO_TempFile = io.open("mc0:/BADATA-SYSTEM/history", "rb")
 					NEUTRINO_TempFile:seek("set", 16)
 					NEUTRINO_PlayCount = NEUTRINO_TempFile:read(1)
-					io.close(NEUTRINO_TempFile)
+					NEUTRINO_TempFile:close()
 					NEUTRINO_PlayCount = string.byte(NEUTRINO_PlayCount)
 					
 					NEUTRINO_PlayCount = NEUTRINO_PlayCount + 1
@@ -1902,9 +1889,10 @@ while XEBKeepInSubMenu do
 			
 			if NEUTRINO_MemCard then
 				NEUTRINO_PlayCount = NEUTRINO_Bytes(NEUTRINO_PlayCount) --NEUTRINO_ByteCodes[NEUTRINO_PlayCount]
-
+				if not System.doesFileExist("mc0:/BADATA-SYSTEM/icon.sys") then
+					System.copyFile("mass:/XEBPLUS/APPS/neutrinoLauncher/image/icon.sys", "mc0:/BADATA-SYSTEM/icon.sys")
+				end
 				NEUTRINO_TempFile = io.open("mc0:/BADATA-SYSTEM/history", "w")
-				io.output(NEUTRINO_TempFile)
 			end
 			if string.match(NEUTRINO_LaunchOptions, "(.*)unique(.*)") then
 				NEUTRINO_LaunchOptions = string.sub(NEUTRINO_LaunchOptions, 9, string.len(NEUTRINO_LaunchOptions))
@@ -1913,12 +1901,12 @@ while XEBKeepInSubMenu do
 				end
 				
 				if NEUTRINO_MemCard then
-					io.write(NEUTRINO_Games[NEUTRINO_SelectedItem].TitleId.."\x00\x00\x00\x00\x00"..NEUTRINO_PlayCount.."\x01\x00\x00\x21\x00")
-					io.close(NEUTRINO_TempFile)
+					NEUTRINO_TempFile:write(NEUTRINO_Games[NEUTRINO_SelectedItem].TitleId, "\x00\x00\x00\x00\x00", NEUTRINO_PlayCount, "\x01\x00\x00\x21\x00")
+					NEUTRINO_TempFile:close()
 				end
 			elseif NEUTRINO_MemCard then
-				io.write(NEUTRINO_CheckGroups(NEUTRINO_Games[NEUTRINO_SelectedItem].TitleId).."\x00\x00\x00\x00\x00"..NEUTRINO_PlayCount.."\x01\x00\x00\x21\x00")
-				io.close(NEUTRINO_TempFile)
+				NEUTRINO_TempFile:write(NEUTRINO_CheckGroups(NEUTRINO_Games[NEUTRINO_SelectedItem].TitleId), "\x00\x00\x00\x00\x00", NEUTRINO_PlayCount, "\x01\x00\x00\x21\x00")
+				NEUTRINO_TempFile:close()
 			end
 			
 			if string.match(NEUTRINO_LaunchOptions, "(.*)cheat(.*)") then
@@ -1936,12 +1924,10 @@ while XEBKeepInSubMenu do
 				NEUTRINO_GameFolder = ""
 			end
 
-			NEUTRINO_RadShellText = "fontsize 0.6\r\necho \""..neuLang[71]..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name..".iso\"\r\n"..NEUTRINO_PrepIRX.."sleep 1\r\nrun neutrino.elf -bsd="..NEUTRINO_Bsd..NEUTRINO_Fs.." \"-dvd="..NEUTRINO_PathPrefix..":"..NEUTRINO_GameFolder..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name.."."..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension.."\" -mt="..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media..NEUTRINO_LaunchOptions..NEUTRINO_Vmc.."\r\n"
-
 			System.removeFile(xebLua_AppWorkingPath.."radshellmod.ios")
-			NEUTRINO_RadShellFile = System.openFile(xebLua_AppWorkingPath.."radshellmod.ios", FCREATE)
-			System.writeFile(NEUTRINO_RadShellFile, NEUTRINO_RadShellText, string.len(NEUTRINO_RadShellText))
-			System.closeFile(NEUTRINO_RadShellFile)
+			NEUTRINO_RadShellFile = io.open("mass:/XEBPLUS/APPS/neutrinoLauncher/radshellmod.ios", "w")
+			NEUTRINO_RadShellFile:write("fontsize 0.6\r\necho \"", neuLang[71], NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name, ".iso\"\r\n", NEUTRINO_PrepIRX, "sleep 1\r\nrun neutrino.elf -bsd=", NEUTRINO_Bsd, NEUTRINO_Fs, " \"-dvd=", NEUTRINO_PathPrefix, ":", NEUTRINO_GameFolder, NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name, ".", NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension, "\" -mt=", NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media, NEUTRINO_LaunchOptions, NEUTRINO_Vmc, "\r\n")
+			NEUTRINO_RadShellFile:close()
 			NEUTRINO_SaveLast()
 			NEUTRINO_UpdateRecents()
 			if NEUTRINO_Cheats == true then

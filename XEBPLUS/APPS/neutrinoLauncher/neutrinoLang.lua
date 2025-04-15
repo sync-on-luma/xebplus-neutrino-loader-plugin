@@ -1381,8 +1381,8 @@ Font.ftSetCharSize(fontSmall, 750, 750)
 
 if System.doesFileExist("CFG/neutrinoLauncher/menu.cfg") then
     NEUTRINO_TempFile = io.open("CFG/neutrinoLauncher/menu.cfg", "r")
-    Settings = (NEUTRINO_TempFile:read())
-    io.close(NEUTRINO_TempFile)
+    Settings = NEUTRINO_TempFile:read()
+    NEUTRINO_TempFile:close()
 else
     Settings = ""
 end
