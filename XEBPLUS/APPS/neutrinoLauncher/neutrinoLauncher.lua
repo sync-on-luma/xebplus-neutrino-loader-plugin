@@ -1846,7 +1846,7 @@ while XEBKeepInSubMenu do
 				NEUTRINO_TempFile:close()
 			else
 				NEUTRINO_LaunchOptions = ""
-				NEUTRINO_LoadingText(false, neuLang[40])
+			--	NEUTRINO_LoadingText(false, neuLang[40])
 			end
 
 			if string.match(NEUTRINO_LaunchOptions, "(.*)vmc(.*)") then
