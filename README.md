@@ -78,7 +78,7 @@ If your PC does not have an Ethernet port available, a USB Ethernet adapter will
 ## Setup
 
 *Notes:  
-This setup guide assumes you are using the inluded List Builder desktop application. A web-based version can also be used and is avalible [here](https://flvinny.github.io/neutrinoListBuilderWeb/).  
+This setup guide assumes you are using the included List Builder desktop application. A web-based version can also be used and is avalible [here](https://flvinny.github.io/neutrinoListBuilderWeb/).  
 This setup process is for version plugin 2.7 and later.  
 If you are updating from version 2.5 or earlier, you may need to remove the `XEBPLUS/CFG/neutrinoLuancher` folder on your USB drive.  
 If you are updating from version 2.3 or earlier, you will need to rebuild all of your game lists.  
