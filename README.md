@@ -77,7 +77,9 @@ If your PC does not have an Ethernet port available, a USB Ethernet adapter will
 
 ## Setup
 
-*Note: This setup process is for version 2.7 of this plugin.  
+*Notes:  
+This setup guide assumes you are using the inluded List Builder desktop application. A web-based version can also be used and is avalible [here](https://flvinny.github.io/neutrinoListBuilderWeb/).  
+This setup process is for version plugin 2.7 and later.  
 If you are updating from version 2.5 or earlier, you may need to remove the `XEBPLUS/CFG/neutrinoLuancher` folder on your USB drive.  
 If you are updating from version 2.3 or earlier, you will need to rebuild all of your game lists.  
 If you are updating from version 1.x, you will need to remove the old version of neutrino Launcher from your XEB+ install before continuing. This includes all neutrino Launcher files in the `APPS`, `PLG`, and `CFG` folders, as well as the `CD` and `DVD` folders on the root of your USB drive.*
