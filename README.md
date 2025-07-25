@@ -16,6 +16,7 @@ It allows XEB+ to load PlayStation 2 games from HDD, MX4SIO, USB, and UDPBD via 
   * Set neutrino compatibility flags and other options on a global or per-game basis.
   * Change video modes via GSM.
   * Virtual Memory Cards.
+  * Automatic save file grouping for cross compatible titles.
   * Supports Memcard Pro 2 and SD2PSX.
   * Cheat support.
   * Favorites list.
