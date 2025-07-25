@@ -131,7 +131,7 @@ PluginData = {};
 PluginData.Type = "LuaScript";
 PluginData.Category = 6;
 PluginData.Name = nSetLang[1];
-PluginData.Description = nSetLang[2];
+PluginData.Description = "v2.9 by sync-on-luma(Y)\n"..nSetLang[2];
 PluginData.Safe = true;
 PluginData.ValueA = "APPS/neutrinoLauncher/settings.lua";
 PluginData.ValueB = "NONE";
@@ -139,9 +139,13 @@ PluginData.ValueC = "NONE";
 if theXEBPlusVersion == "XEBPLUS-2022-09" then -- If using the XEB+ Xmas showcase, an external icon will be loaded
 	PluginData.Icon = 70; -- Preventive, in case the game files' are missing
 	if System.doesFileExist(System.currentDirectory().."THM/"..loadedTheme.."/ic_set_neutrino_cfg.png") then
-			AddIcon=#themeInUse+1
-			themeInUse[AddIcon] = Graphics.loadImage(System.currentDirectory().."THM/"..loadedTheme.."/ic_set_neutrino_cfg.png")
-			PluginData.Icon = AddIcon;
+		AddneutrinosethdlIcon=#themeInUse+1
+		themeInUse[AddneutrinosethdlIcon] = Graphics.loadImage(System.currentDirectory().."THM/"..loadedTheme.."/ic_set_neutrino_cfg.png")
+		PluginData.Icon = AddneutrinosethdlIcon;
+    elseif System.doesFileExist(System.currentDirectory().."THM/"..loadedTheme.."/ic_set_neutrinocfg.png") then
+		AddneutrinosethdlIcon=#themeInUse+1
+		themeInUse[AddneutrinosethdlIcon] = Graphics.loadImage(System.currentDirectory().."THM/"..loadedTheme.."/ic_set_neutrinocfg.png")
+		PluginData.Icon = AddneutrinosethdlIcon;
 	elseif System.doesFileExist(System.currentDirectory().."APPS/neutrinoLauncher/image/ic_set_neutrino_cfg.png") then
 		AddneutrinosethdlIcon=#themeInUse+1
 		themeInUse[AddneutrinosethdlIcon] = Graphics.loadImage(System.currentDirectory().."APPS/neutrinoLauncher/image/ic_set_neutrino_cfg.png")
