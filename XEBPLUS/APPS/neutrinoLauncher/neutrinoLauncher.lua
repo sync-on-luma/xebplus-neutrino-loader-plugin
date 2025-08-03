@@ -501,6 +501,8 @@ function NEUTRINO_DrawCacheStatus(Index)
 	thmDrawBKGOL()
 	DrawSubMenu(actualCat,actualOption,false)
 	Font.ftPrint(fontBig, 420, plusYValue+256, 11, 512, 64, neuLang[3]..NEUTRINO_CachedCount..neuLang[4].."\n"..math.floor(((Index-1+DrawCount)*100)/NEUTRINO_GamesTotal)..neuLang[60], Color.new(255,255,255,128))
+	Graphics.drawRect(360, plusYValue+320, 600, 5, Color.new(255,255,255,24))
+	Graphics.drawRect(360, plusYValue+320, ((Index-1+DrawCount)*600)/NEUTRINO_GamesTotal, 5, Color.new(255,255,255,128))
 	Screen.waitVblankStart()
 	Screen.flip()
 	DrawCount = DrawCount + 0.125
@@ -1800,7 +1802,7 @@ while XEBKeepInSubMenu do
 					NEUTRINO_ItemPosition=NEUTRINO_ItemPosition+1
 				end
 				spinDisc()
-
+				thmDrawBKGOL()
 				Graphics.drawRect(352, 240, 704, 480, Color.new(0,0,0,NEUTRINO_WaveByeBye*10))
 				NEUTRINO_DrawItem(NEUTRINO_CurrentList[NEUTRINO_SelectedItem], 152, 206, false)
 				Screen.waitVblankStart()

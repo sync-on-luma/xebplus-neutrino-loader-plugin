@@ -1377,7 +1377,13 @@ NEUTRINO_MemGroups = {
     "XEBP_100.71",
     "SLPM_625.25",
     "SLKA_150.45",
-    "SLPM_626.38"
+    "SLPM_626.38",
+    "XEBP_100.72",
+    "SCPS-150.25",
+    "SCPS-192.06", 
+    "SCPS-193.08",
+    "SCPS-550.35",
+    "PAPX-903.30"
 };
 
 Font.ftInit()
