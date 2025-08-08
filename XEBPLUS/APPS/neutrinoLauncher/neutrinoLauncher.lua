@@ -1664,7 +1664,7 @@ function NEUTRINO_ContextMenu()
 			NEUTRINO_LoadingText(false, neuLang[34])
 			if ContextMenu_NewSettings ~= ContextMenu_GlobalSettings then
 				if ContextMenu_NewSettings == "" then
-					System.removeFile("CFG/neutrinoLauncher/neutrinoLaunchOptions.cfg")
+					System.removeFile("mass:/XEBPLUS/CFG/neutrinoLauncher/neutrinoLaunchOptions.cfg")
 				else
 					NEUTRINO_TempFile = io.open("CFG/neutrinoLauncher/neutrinoLaunchOptions.cfg", "w")
 					NEUTRINO_TempFile:write(ContextMenu_NewSettings)
