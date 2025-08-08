@@ -1935,7 +1935,7 @@ while XEBKeepInSubMenu do
 			end
 
 			NEUTRINO_PrepIRX = ""
-			if string.match(NEUTRINO_Bsd, "(.*)udp(.*)") then
+			if NEUTRINO_InitNetwork == 1 and string.match(NEUTRINO_Bsd, "(.*)udp(.*)") then
 				NEUTRINO_PrepIRX = "echo \""..neuLang[15].."\"\r\nload modules/ps2dev9.irx\r\nload modules/netman.irx\r\nload modules/smap.irx\r\nsleep 3\r\n"
 			end
 
