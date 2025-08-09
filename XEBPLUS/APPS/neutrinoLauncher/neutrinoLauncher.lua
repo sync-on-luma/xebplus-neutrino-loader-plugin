@@ -1664,7 +1664,7 @@ function NEUTRINO_ContextMenu()
 			NEUTRINO_LoadingText(false, neuLang[34])
 			if ContextMenu_NewSettings ~= ContextMenu_GlobalSettings then
 				if ContextMenu_NewSettings == "" then
-					System.removeFile("CFG/neutrinoLauncher/neutrinoLaunchOptions.cfg")
+					System.removeFile("mass:/XEBPLUS/CFG/neutrinoLauncher/neutrinoLaunchOptions.cfg")
 				else
 					NEUTRINO_TempFile = io.open("CFG/neutrinoLauncher/neutrinoLaunchOptions.cfg", "w")
 					NEUTRINO_TempFile:write(ContextMenu_NewSettings)
@@ -1935,7 +1935,7 @@ while XEBKeepInSubMenu do
 			end
 
 			NEUTRINO_PrepIRX = ""
-			if string.match(NEUTRINO_Bsd, "(.*)udp(.*)") then
+			if NEUTRINO_InitNetwork == 1 and string.match(NEUTRINO_Bsd, "(.*)udp(.*)") then
 				NEUTRINO_PrepIRX = "echo \""..neuLang[15].."\"\r\nload modules/ps2dev9.irx\r\nload modules/netman.irx\r\nload modules/smap.irx\r\nsleep 3\r\n"
 			end
 
@@ -1946,7 +1946,7 @@ while XEBKeepInSubMenu do
 
 			System.removeFile(xebLua_AppWorkingPath.."radshellmod.ios")
 			NEUTRINO_RadShellFile = io.open("mass:/XEBPLUS/APPS/neutrinoLauncher/radshellmod.ios", "w")
-			NEUTRINO_RadShellFile:write("fontsize 0.6\r\necho \"", neuLang[71], NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name, ".iso\"\r\n", NEUTRINO_PrepIRX, "sleep 1\r\nrun neutrino.elf -bsd=", NEUTRINO_Bsd, NEUTRINO_Fs, " \"-dvd=", NEUTRINO_PathPrefix, ":", NEUTRINO_GameFolder, NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name, ".", NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension, "\" -mt=", NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Media, NEUTRINO_LaunchOptions, NEUTRINO_Vmc, "\r\n")
+			NEUTRINO_RadShellFile:write("fontsize 0.6\r\necho \"", neuLang[71], NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name, ".iso\"\r\n", NEUTRINO_PrepIRX, "sleep 1\r\nrun neutrino.elf -bsd=", NEUTRINO_Bsd, NEUTRINO_Fs, " \"-dvd=", NEUTRINO_PathPrefix, ":", NEUTRINO_GameFolder, NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Name, ".", NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Extension, "\"", NEUTRINO_LaunchOptions, NEUTRINO_Vmc, "\r\n")
 			NEUTRINO_RadShellFile:close()
 			NEUTRINO_SaveLast()
 			NEUTRINO_UpdateRecents()
