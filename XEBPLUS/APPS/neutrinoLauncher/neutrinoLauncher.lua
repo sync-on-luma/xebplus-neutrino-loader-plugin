@@ -1870,7 +1870,7 @@ while XEBKeepInSubMenu do
 			end
 
 			if string.match(NEUTRINO_LaunchOptions, "(.*)vmc(.*)") then
-				NEUTRINO_LaunchOptions = string.sub(NEUTRINO_LaunchOptions, 5, string.len(NEUTRINO_LaunchOptions))
+				NEUTRINO_LaunchOptions = string.sub(NEUTRINO_LaunchOptions, 6, string.len(NEUTRINO_LaunchOptions))
 				if NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc ~= "0000000000000000000000" and NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc ~= nil then
 					NEUTRINO_Vmc = " -mc0="..NEUTRINO_PathPrefix..":"..NEUTRINO_CurrentList[NEUTRINO_SelectedItem].Vmc
 				end
