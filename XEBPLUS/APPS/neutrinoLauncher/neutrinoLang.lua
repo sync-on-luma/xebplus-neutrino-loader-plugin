@@ -360,7 +360,7 @@ NEUTRINO_MemGroups = {
     "SLPM_659.76",
     "SLPM_859.76",
     "SLUS_213.34",
-    "SLUS_213.35",
+    "SLUS_213.45",
     "XEBP_000.11",
     "SLPM_650.02",
     "SLPM_650.03",
