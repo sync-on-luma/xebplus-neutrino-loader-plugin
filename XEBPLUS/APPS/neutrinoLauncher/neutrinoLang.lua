@@ -1421,7 +1421,7 @@ NEUTRINO_MemGroups = {
     "SLUS_212.00",
     "SCKA_200.47",
     "SLPS_254.08",
-    "SLES_538.19", 
+    "SLES_538.19"
 };
 
 Font.ftInit()
