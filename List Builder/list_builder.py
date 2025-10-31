@@ -97,7 +97,7 @@ def process_iso(folder, game_path, xeb_path, game_list, create_vmc):
 
 def error_message():
     print('Error: Missing argument(s).')
-    print('Usage: list_builder.py <drive type>[-h -u -m -i] <path/to/games> <path/to/XEBPLUS/installation> <create VMCs>[-vmc]')
+    print('Usage: list_builder.py <drive type>[-h -u -m -c -i] <path/to/games> <path/to/XEBPLUS/installation> <create VMCs>[-vmc]')
     print('')
     print('Examples:')
     print('list_builder.py -h E:\\PS2 D:\\')
