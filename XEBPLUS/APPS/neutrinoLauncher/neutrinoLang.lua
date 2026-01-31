@@ -93,6 +93,10 @@ if XEBPlusLanguage == "en-US" then
     neuLang[91] = "Launch HDL format games from the hard drive"
     neuLang[92] = "Enable Debug Colors"
     neuLang[93] = "Flash a series of colors on launch.\nThis can help diagnose titles that will\nnot start."
+    neuLang[94] = "Enable in game Networking"
+    neuLang[95] = "Used for games with Online/LAN support"
+    neuLang[96] = "Enable in game HDD access"
+    neuLang[97] = "Used for games with HDD support"
 
     NEUTRINO_Control1 = "image/controlmap1.png"
     NEUTRINO_Control2 = "image/controlmap2.png"
@@ -193,6 +197,10 @@ elseif XEBPlusLanguage == "es-419" then
     neuLang[91] = "Ejecutar juegos en formato HDL desde el disco duro"
     neuLang[92] = "Habilitar colores de depuración"
     neuLang[93] = "Muestra una serie de colores al iniciarse.\nEsto puede ayudar a diagnosticar títulos\nque no inicien."
+    neuLang[94] = "Habilitar la red dentro del juego"
+    neuLang[95] = "Utiliza para juegos en línea/LAN"
+    neuLang[96] = "Habilite el disco duro"
+    neuLang[97] = "Se utiliza para juegos compatibles\ncon disco duro."
 
     NEUTRINO_Control1 = "image/controlmap1_es.png"
     NEUTRINO_Control2 = "image/controlmap2_es.png"
@@ -293,6 +301,10 @@ elseif XEBPlusLanguage == "pt-BR" then
     neuLang[91] = "Inicialize jogos no formato HDL a partir do disco rígido"
     neuLang[92] = "Ativar cores de depuração"
     neuLang[93] = "Mostra uma série de cores no lançamento.\nIsto pode ajudar a diagnosticar títulos\nque não iniciam."
+    neuLang[94] = "Ativar rede no jogo"
+    neuLang[95] = "Usado para jogos com suporte Online/LAN"
+    neuLang[96] = "Ative o disco rígido"
+    neuLang[97] = "Usado para jogos com suporte\na disco rígido."
 
     NEUTRINO_Control1 = "image/controlmap1_pt.png"
     NEUTRINO_Control2 = "image/controlmap2_pt.png"
